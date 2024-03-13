@@ -1,0 +1,18 @@
+'use-client'
+
+import { OrbitControls } from '@react-three/drei'
+import DirectionalLight from '../Lights/DirectionalLight'
+
+export default function Experience() {
+
+    return <>
+
+        <OrbitControls makeDefault />
+        <color attach="background" args={[ '#bdedfc']} />
+        <DirectionalLight />
+        <mesh>
+            <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+            <meshStandardMaterial attach="material" color="hotpink" />
+        </mesh>
+    </>
+}
