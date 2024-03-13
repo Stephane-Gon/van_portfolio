@@ -1,4 +1,4 @@
-'use-client'
+'use client'
 
 import { Canvas } from "@react-three/fiber"
 import Experience from "../Experience"
@@ -15,7 +15,7 @@ const Scene = () => {
       } }
     >
       <Experience />
-    </Canvas>
+    </Canvas>     
   )
 }
 
