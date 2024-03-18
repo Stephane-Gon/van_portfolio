@@ -14,8 +14,15 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        smothDark: "#131313",
+        smothDark200: "#1f1f1f",
+        smothDark500: "#191919",
+        smothWhite: "#f5f5f5",
+      },
     },
   },
   plugins: [],
 };
+
 export default config;

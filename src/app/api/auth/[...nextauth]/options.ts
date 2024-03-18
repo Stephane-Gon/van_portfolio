@@ -18,10 +18,15 @@ const options: NextAuthOptions = {
   session: {
     strategy: "jwt"
   },
-  secret: process.env.NEXT_PUBLIC_PROVIDER_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   debug: process.env.NEXT_PUBLIC_NODE_ENV == 'development',
   pages: {
     signIn: '/login',
+  },
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      return '/dashboard'
+    },
   }
 }
 

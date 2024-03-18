@@ -1,4 +1,7 @@
+import ProvidersWrapper from "../providers/ProvidersWrapper";
+import Header from "@/design-system/organism/Header";
 import "../globals.css"
+
 
 export const metadata = {
   metadataBase: "http://localhost:3000",
@@ -13,10 +16,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" >
-      <body className="bg-background text-foreground">
-        <main className="min-h-screen flex flex-col items-center">
-          {children}
-        </main>
+      <body className="bg-smothDark text-foreground">
+        <ProvidersWrapper>
+          <main className="min-h-screen flex flex-col items-center">
+            <Header />
+            <div>
+              {children}
+            </div>
+          </main>
+        </ProvidersWrapper>
       </body>
     </html>
   );
