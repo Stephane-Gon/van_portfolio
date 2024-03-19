@@ -13,7 +13,7 @@ export default () => {
   const { data, status } = useSession()
 
   const _renderLogOutBtn = () => { 
-    if (status !== "authenticated") {
+    if (status === "authenticated") {
       return (
         <Button 
           id="logout-btn"
@@ -25,9 +25,9 @@ export default () => {
   }
 
   return (
-    <header className="w-full p-3 bg-smothWhite">
+    <header className="w-full p-3">
       <div className="flex items-center justify-between">
-        <span onClick={() => router.push('/')} className="cursor-pointer p-1 font-bold" >
+        <span onClick={() => router.push('/')} className="cursor-pointer p-1 font-bold text-smothWhite" >
           {/* TODO - Alterar por um logo decente */}
           VAN LOGO
         </span>
