@@ -15,7 +15,7 @@ export default function ReservedLayout({
 }) {
   return (
     <ProvidersWrapper>
-      <main className="min-h-screen flex flex-col items-center">
+      <main className="min-h-screen flex flex-col items-center bg-smothDark bg-darkBackground bg-fixed bg-cover">
         <Header />
         <div className="w-full">
           {children}

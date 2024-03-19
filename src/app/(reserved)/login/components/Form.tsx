@@ -28,9 +28,6 @@ const Form = () => {
     }
   })
 
-  // TODO - Tentar passar um spinner enquanto o redirect é feito
-  // TODO - Ou ver se dá para fazer isto com a callback signin do nextAuth
-  // TODO - Tentar arranjar um spinner que dé para usar as 3 primary colors que tenho
   const onSubmit: SubmitHandler<FormValues> = async data => {
     await signIn('credentials', {
       redirect: false,
@@ -61,6 +58,7 @@ const Form = () => {
         <InputText 
           label="Email"
           placeholder="Type your email"
+          disabled={isSubmitting}
           id="email"
           register={{
             ...register('email',
@@ -81,6 +79,7 @@ const Form = () => {
           placeholder="Type your password"
           id="password"
           type="password"
+          disabled={isSubmitting}
           register={{...register('password', { required: { value: true, message: 'This field is required!'} })}}
           valid={errors.password ? false : true}
           helpText={errors.password?.message ?? ''}
