@@ -1,7 +1,7 @@
+import { Spinner } from "..";
 
 interface ButtonProps {
   disabled?: boolean;
-  mainColor?: string;
   label: JSX.Element | string | null;
   variant?: 'outline' | 'ghost';
   onClick?: () => void;
@@ -17,7 +17,7 @@ interface ButtonProps {
 const ButtonRoot = ({
   disabled = false,
   type = 'button',
-  mainColor,
+  loading = false,
   variant,
   onClick,
   label,
@@ -26,21 +26,28 @@ const ButtonRoot = ({
   ...props
 }: ButtonProps) => {
 
-  // TODO - Definir uma cor primária e outra secundária que combine bem com este dark, tipo um roza ou um azul
-  // TODO - Depois com essas cores criar um BG atras deste btn para dár efeito de border neon;
+  const _renderSpinner = () => { 
+    return loading && <Spinner />;
+  }
+
+  const disabledStyle = disabled ? 'opacity-40 cursor-auto pointer-events-none' : '';
+  const loadingStyle = loading ? 'cursor-auto pointer-events-none' : '';
+
   return (
-    <button
-      id={id}
-      name={name}
-      type={type}
-      color={mainColor}
-      disabled={disabled}
-      onClick={!disabled ? onClick : undefined}
-      {...props}
-      className="py-1.5 px-9 bg-gradient-to-b from-smothDark from-20% to-smothDark200 text-smothWhite rounded-sm border-none font-semibold"
-    >
-      {label}
-    </button>
+    <span className={`bg-gradient-to-r from-primaryPink via-primaryGreen to-primaryBlue transition-all flex items-center justify-center rounded-sm myBtn relative p-border hover:scale-105 ${disabledStyle} ${loadingStyle}`}>
+      <button
+        id={id}
+        name={name}
+        type={type}
+        disabled={disabled || loading}
+        onClick={!disabled ? onClick : undefined}
+        {...props}
+        className="py-1 px-9 bg-smothDark text-smothWhite rounded-sm border-none font-semibold w-full flex items-center justify-center gap-1"
+      >
+        {_renderSpinner()}
+        {label}
+      </button>
+    </span>
   );
 };
 
