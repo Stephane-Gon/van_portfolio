@@ -49,3 +49,37 @@ p, h1, h2, h3, h4, h5, h6 {
 #root, #__next {
   isolation: isolate;
 }
+
+@layer components {
+  .myBtn:before {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(-47deg, #a3e7fc 0%, #8AEA92 50%, #ea9e8d 100% );
+    transform: translate3d(1px, 1px, 0) scale(0.95);
+    filter: blur(6px);
+    opacity: var(0.8);
+    transition: opacity 0.3s;
+    border-radius: inherit;
+  }
+
+  .myBtn:hover:before {
+    opacity: 0;
+  }
+
+  .myBtn:after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: inherit;
+    border-radius: inherit;
+  }
+}

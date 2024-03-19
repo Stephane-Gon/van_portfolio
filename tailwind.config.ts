@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import defaultTheme from 'tailwindcss/defaultTheme'
 
 const config: Config = {
   content: [
@@ -19,7 +20,17 @@ const config: Config = {
         smothDark200: "#1f1f1f",
         smothDark500: "#191919",
         smothWhite: "#f5f5f5",
+        primaryBlue: "#A3E7FC",
+        primaryGreen: "#8AEA92",
+        primaryPink: "#EA9E8D",
+        dangerRed: "#FF5A5F",
       },
+      spacing: {
+        border: '3px',
+      },
+      fontFamily: {
+        josefin: ['"Josefin Sans"', ...defaultTheme.fontFamily.sans]
+      }
     },
   },
   plugins: [],
