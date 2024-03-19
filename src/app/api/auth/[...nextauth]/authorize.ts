@@ -21,5 +21,6 @@ export const authorize = async (credentials: AuthorizeProps) => {
   return {
     id: "1",
     email: process.env.NEXT_PUBLIC_LOGIN_EMAIL,
+    name: 'Stéphane',
   }
 }

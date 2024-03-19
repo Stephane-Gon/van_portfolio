@@ -23,15 +23,7 @@ const options: NextAuthOptions = {
   pages: {
     signIn: '/login',
   },
-  callbacks: {
-    async redirect({ url, baseUrl }) {
-      return '/dashboard'
-    },
-  }
 }
-
-//TODO - Definir uma page fallback para as rotas privadas
-//TODO - Criar o login form
 
 export {
   options
