@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { useSession, signOut } from "next-auth/react"
+import { Van } from "@/design-system/icons"
 
 import { Button } from "@/design-system/atoms"
 
@@ -25,11 +26,10 @@ export default () => {
   }
 
   return (
-    <header className="w-full p-3 h-[70px] border-b-4 border-primaryPink">
-      <div className="flex items-center justify-between">
-        <span onClick={() => router.push('/')} className="cursor-pointer p-1 font-bold text-smothWhite" >
-          {/* TODO - Alterar por um logo decente */}
-          VAN LOGO
+    <header className="w-full h-[70px] border-b-4 border-primaryPink">
+      <div className="flex items-center justify-between px-5 py-3 h-full">
+        <span onClick={() => router.push('/')} className="cursor-pointer font-bold text-smothWhite" >
+          <Van width="90px" height="90px" fill='#EA9E8D' />
         </span>
 
         <span className="p-1">
