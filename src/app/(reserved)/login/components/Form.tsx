@@ -1,10 +1,11 @@
 "use client"
 
+import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 import { InputText } from "@/design-system/molecules"
-import { Button } from "@/design-system/atoms"
+import { Button, Spinner } from "@/design-system/atoms"
 
 interface FormValues {
   email: string
@@ -13,6 +14,8 @@ interface FormValues {
 
 const Form = () => {
   const router = useRouter()
+  const [loading, setLoading] = useState<boolean>(false)
+
   const {
     register,
     handleSubmit,
@@ -42,6 +45,7 @@ const Form = () => {
           setError('password', { type: 'manual', message: result.error })
         }
       } else {
+        setLoading(true)
         router.push('/dashboard')
       }
     })
@@ -49,6 +53,14 @@ const Form = () => {
       console.log(`Error Occured: ${err}`)
     })
     
+  }
+
+  if(loading) {
+    return (
+      <div className="w-4/5 lg:w-1/3 flex flex-col items-center justify-center gap-10">
+        <Spinner className='h-32 w-32 mt-36' />
+      </div>
+    )
   }
 
   return (
