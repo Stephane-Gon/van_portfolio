@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import defaultTheme from 'tailwindcss/defaultTheme'
+import containerPlugin from "@tailwindcss/container-queries";
 
 // TODO - Ver qual é a melhor forma de adicionar temas ao tailwind
 const config: Config = {
@@ -30,10 +31,16 @@ const config: Config = {
       },
       fontFamily: {
         josefin: ['"Josefin Sans"', ...defaultTheme.fontFamily.sans]
+      },
+      containers: {
+        "4xs": "4rem",
+        "2xs": "18rem"
       }
     },
   },
-  plugins: [],
+  plugins: [
+    containerPlugin
+  ],
 };
 
 export default config;
