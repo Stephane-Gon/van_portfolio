@@ -34,6 +34,7 @@ const config: Config = {
       },
       containers: {
         "4xs": "4rem",
+        "3xs": "14rem",
         "2xs": "18rem"
       }
     },

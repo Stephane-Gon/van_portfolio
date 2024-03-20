@@ -18,13 +18,13 @@ const Sidebar = () => {
           <span className='bg-[#A3E7FC40] p-1 rounded-md'>
             {link.icon}
           </span>
-          <p className='hidden @4xs/sidebar:inline text-primaryBlue text-xl transition-all'>{link.label}</p>
+          <p className='hidden @3xs/sidebar:inline text-primaryBlue text-xl transition-all leading-none'>{link.label}</p>
         </Link>
       )
     })
   }
 
-  // TODO - Resolver o flicker dos logos ao dár toggle da sidebar
+  // TODO - os logos no toggle da sidebar ainda tem um comportamento estranho
   return (
     <aside
       className={` 
@@ -36,7 +36,7 @@ const Sidebar = () => {
         <ChevronRight className={`${!isLockedNarrow && 'rotate-180'}`} onClick={() => setIsLockedNarrow(!isLockedNarrow)} /> 
       </span>
       <div
-        className='w-full h-full py-4 pl-4 pr-1 @4xs/sidebar:pr-4'
+        className='w-full h-full py-4 pl-4 pr-1 @3xs/sidebar:pr-4'
         onMouseEnter={() => {
           if(isLockedNarrow) setIsNarrow(false)
         }}
@@ -48,7 +48,7 @@ const Sidebar = () => {
           <span className='bg-[#A3E7FC40] p-1 rounded-md'>
             <Dashboard  stroke="white" width="1.5rem" height="1.5rem" />
           </span>
-          <p className='text-smothWhite font-bold font-josefin text-xl hidden @4xs/sidebar:inline'>DASHBOARD</p>
+          <p className='text-smothWhite font-bold font-josefin text-xl hidden @3xs/sidebar:inline'>DASHBOARD</p>
         </Link>
 
         <section className='flex flex-col items-start gap-5 py-10'>
