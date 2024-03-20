@@ -8,8 +8,9 @@ const Dashboard = async () => {
   console.log("🚀 ~ Page ~ error:", error)
   console.log("🚀 ~ Page ~ tools:", tools)
 
+  // TODO - Depois posso remover esta height
   return (
-    <ul>
+    <ul className="h-[110%]">
       {tools?.map((tool: any) => (
         <li key={`tool-${tool.id}`}>{tool.name}</li>
       ))}

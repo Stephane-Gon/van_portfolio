@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 import defaultTheme from 'tailwindcss/defaultTheme'
 
+// TODO - Ver qual é a melhor forma de adicionar temas ao tailwind
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",

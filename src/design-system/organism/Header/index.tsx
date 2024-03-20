@@ -10,7 +10,7 @@ interface HeaderProps {
 
 export default () => {
   const router = useRouter()
-  const { data, status } = useSession()
+  const { status } = useSession()
 
   const _renderLogOutBtn = () => { 
     if (status === "authenticated") {
@@ -25,7 +25,7 @@ export default () => {
   }
 
   return (
-    <header className="w-full p-3">
+    <header className="w-full p-3 h-[55px]">
       <div className="flex items-center justify-between">
         <span onClick={() => router.push('/')} className="cursor-pointer p-1 font-bold text-smothWhite" >
           {/* TODO - Alterar por um logo decente */}
