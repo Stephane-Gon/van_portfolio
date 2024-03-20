@@ -25,7 +25,7 @@ export default () => {
   }
 
   return (
-    <header className="w-full p-3 h-[55px]">
+    <header className="w-full p-3 h-[70px] border-b-4 border-primaryPink">
       <div className="flex items-center justify-between">
         <span onClick={() => router.push('/')} className="cursor-pointer p-1 font-bold text-smothWhite" >
           {/* TODO - Alterar por um logo decente */}
