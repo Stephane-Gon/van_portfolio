@@ -1,4 +1,4 @@
-import { Tools, Code } from '@/design-system/icons'
+import { Tools, Code, Jobs, Texts } from '@/design-system/icons'
 
 export type LinkT = {
   id: number;
@@ -7,6 +7,7 @@ export type LinkT = {
   icon: JSX.Element;
 }
 
+// Passar só o elemento, sem estanciar
 export const Links: LinkT[] = [
   {
     id: 1,
@@ -19,5 +20,17 @@ export const Links: LinkT[] = [
     href: '/projects',
     label: 'Projects',
     icon: <Code fill='#A3E7FC' width="1.2rem" height="1.2rem" />
+  },
+  {
+    id: 3,
+    href: '/works',
+    label: 'Works',
+    icon: <Jobs stroke='#A3E7FC' width="1.2rem" height="1.2rem" />
+  },
+  { // TODO - ver se a cor deste icon está certa
+    id: 4,
+    href: '/about',
+    label: 'About Me',
+    icon: <Texts fill='#A3E7FC' width="1.2rem" height="1.2rem" />
   },
 ]

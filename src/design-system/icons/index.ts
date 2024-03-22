@@ -5,6 +5,8 @@ import Van from './Van';
 import Tools from './Tools';
 import Dashboard from './Dashboard';
 import Code from './Code';
+import Jobs from './Jobs';
+import Texts from './Texts';
 
 export {
   // Exports
@@ -13,5 +15,7 @@ export {
   Van,
   Tools,
   Dashboard,
-  Code
+  Code,
+  Jobs,
+  Texts
 };

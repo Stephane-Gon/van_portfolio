@@ -1,30 +1,40 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 // Icons
 import { ChevronRight, Tools, Dashboard } from '@/design-system/icons'
 // Utils
 import { Links, LinkT } from './utils/Links'
 
+// TODO - Criar um mobileMenu com está lógica
 const Sidebar = () => {
+  const pathname = usePathname()
   const [isNarrow, setIsNarrow] = useState<boolean>(true)
   const [isLockedNarrow, setIsLockedNarrow] = useState<boolean>(true)
+  const [activeLink, setActiveLink] = useState<number>(0)
+
+  useEffect(() => {
+    const hasActive = Links.find((link: LinkT) => pathname.includes(link.href));
+    if(hasActive) {
+      setActiveLink(hasActive.id)
+    } else setActiveLink(0);
+  }, [pathname]);
 
   const _renderMainLinks = () => {
     return Links.map((link: LinkT) => {
       return (
-        <Link href={link.href} key={`sidebar-main-link-id-${link.id}`} className='pr-2 flex items-center justify-start gap-2'>
-          <span className='bg-[#A3E7FC40] p-1 rounded-md'>
+        <Link href={link.href} key={`sidebar-main-link-id-${link.id}`} className='pr-2 flex items-center justify-start gap-2 group'>
+          <span className={`bg-[#A3E7FC40] p-1.5 ${activeLink === link.id ? 'rounded-md' : 'rounded-full'} group-hover:rounded-md transition-all`}>
             {link.icon}
           </span>
-          <p className='hidden @3xs/sidebar:inline text-primaryBlue text-xl transition-all leading-none'>{link.label}</p>
+          <p className={`hidden @3xs/sidebar:inline text-xl transition-all leading-none ${activeLink === link.id ? 'text-primaryGreen' : 'text-primaryBlue'}`}>{link.label}</p>
         </Link>
       )
     })
   }
 
-  // TODO - os logos no toggle da sidebar ainda tem um comportamento estranho
   return (
     <aside
       className={` 
