@@ -16,7 +16,6 @@ void main () {
   float smoke = texture(uPerlinTexture, smokeUv).r;
 
   // Remap
-  // STUDY - assim os valores a baixo de 0.4 são 0, desta forma ceratas partes do fumo não aparecem
   smoke = smoothstep(0.3, 1.0, smoke);
 
   // Edges

@@ -20,6 +20,8 @@ const config: Config = {
       primaryGreen: "#8AEA92",
       primaryPink: "#EA9E8D",
       dangerRed: "#FF5A5F",
+      glassDark: "rgba(1, 1, 1, 0.25)",
+      glassBorder: "rgba(20, 19, 19, 0.3)"
     },
     extend: {
       backgroundImage: {
@@ -36,6 +38,9 @@ const config: Config = {
         "4xs": "4rem",
         "3xs": "14rem",
         "2xs": "18rem"
+      },
+      boxShadow: {
+        glass: '0 4px 30px rgba(0, 0, 0, 0.1)',
       }
     },
   },

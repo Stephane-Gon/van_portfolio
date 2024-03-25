@@ -7,6 +7,8 @@ import Dashboard from './Dashboard';
 import Code from './Code';
 import Jobs from './Jobs';
 import Texts from './Texts';
+import List from './List';
+import Add from './Add';
 
 export {
   // Exports
@@ -17,5 +19,7 @@ export {
   Dashboard,
   Code,
   Jobs,
-  Texts
+  Texts,
+  List,
+  Add,
 };

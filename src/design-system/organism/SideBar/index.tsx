@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+// Components
+import SidebarLink from './components/Link'
 // Icons
-import { ChevronRight, Tools, Dashboard } from '@/design-system/icons'
+import { ChevronRight, Dashboard } from '@/design-system/icons'
 // Utils
 import { Links, LinkT } from './utils/Links'
 
@@ -23,30 +25,22 @@ const Sidebar = () => {
   }, [pathname]);
 
   const _renderMainLinks = () => {
-    return Links.map((link: LinkT) => {
-      return (
-        <Link href={link.href} key={`sidebar-main-link-id-${link.id}`} className='pr-2 flex items-center justify-start gap-2 group'>
-          <span className={`bg-[#A3E7FC40] p-1.5 ${activeLink === link.id ? 'rounded-md' : 'rounded-full'} group-hover:rounded-md transition-all`}>
-            {link.icon}
-          </span>
-          <p className={`hidden @3xs/sidebar:inline text-xl transition-all leading-none ${activeLink === link.id ? 'text-primaryGreen' : 'text-primaryBlue'}`}>{link.label}</p>
-        </Link>
-      )
-    })
+    return Links.map((link: LinkT) => <SidebarLink link={link} activeLink={activeLink} />)
   }
 
   return (
     <aside
       className={` 
-        @container/sidebar h-[calc(100vh-70px)] relative border-r-4  border-primaryGreen 
-        ${(isLockedNarrow && isNarrow) ? 'w-16' : 'w-72'} duration-300
-        before:absolute before:-top-1 before:left-0 before:w-full before:h-1 before:bg-primaryGreen
-      `}>
+        @container/sidebar h-[calc(100vh-70px)] relative ${(isLockedNarrow && isNarrow) ? 'w-20' : 'w-72'} 
+        duration-300 bg-glassDark shadow-glass  border border-glassBorder 
+      `}
+    >
+
       <span className='absolute -right-3.5 -top-3.5 bg-primaryGreen rounded-full cursor-pointer hover:scale-105 transition-transform duration-100 ease-linear  '>
         <ChevronRight className={`${!isLockedNarrow && 'rotate-180'}`} onClick={() => setIsLockedNarrow(!isLockedNarrow)} /> 
       </span>
       <div
-        className='w-full h-full py-4 pl-4 pr-1 @3xs/sidebar:pr-4'
+        className='w-full h-full p-4'
         onMouseEnter={() => {
           if(isLockedNarrow) setIsNarrow(false)
         }}
@@ -61,7 +55,7 @@ const Sidebar = () => {
           <p className='text-smothWhite font-bold font-josefin text-xl hidden @3xs/sidebar:inline'>DASHBOARD</p>
         </Link>
 
-        <section className='flex flex-col items-start gap-5 py-10'>
+        <section className='flex flex-col items-start gap-8 py-10'>
           { _renderMainLinks() }
         </section>
 

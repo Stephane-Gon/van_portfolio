@@ -1,13 +1,13 @@
 'use client'
 
-import { OrbitControls } from '@react-three/drei'
+// import { OrbitControls } from '@react-three/drei'
 import DirectionalLight from '../Lights/DirectionalLight'
 
 export default function Experience() {
 
     return <>
 
-        <OrbitControls makeDefault />
+        {/* <OrbitControls makeDefault /> */}
         <color attach="background" args={[ '#bdedfc']} />
         <DirectionalLight />
         <mesh>
