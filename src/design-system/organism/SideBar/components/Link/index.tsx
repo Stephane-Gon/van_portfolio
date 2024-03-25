@@ -11,7 +11,6 @@ type SidebarLinkProps = {
 
 const SidebarLink = ({ link, activeLink }: SidebarLinkProps) => {
 
-
   return (
     <Link href={link.href} key={`sidebar-main-link-id-${link.id}`} className='pr-2 flex items-center justify-start gap-2 group'>
       <span className={`bg-[#A3E7FC40] p-1.5 ${activeLink === link.id ? 'rounded-md' : 'rounded-full'} group-hover:rounded-md transition-all`}>

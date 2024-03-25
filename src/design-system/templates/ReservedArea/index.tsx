@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { useSession } from 'next-auth/react';
-import { Header, Sidebar } from "@/design-system/organism";
+import { Header, Sidebar, MobileMenu } from "@/design-system/organism";
 
 
 const ReservedArea = ({ children }: { children: React.ReactNode}) => {
@@ -9,6 +9,11 @@ const ReservedArea = ({ children }: { children: React.ReactNode}) => {
 
   const _renderSidebar = () => { 
     return (status === "authenticated") && <Sidebar />
+  }
+
+  // TODO - Aqui tbm tenho que ver se o user clicou no menu icon, usar zustand para isso
+  const _renderMobileMenu = () => { 
+    return (status === "authenticated") && <MobileMenu />
   }
 
   // TODO - Em vez de remover a scrollbar, tentar adicionar um style
@@ -21,6 +26,7 @@ const ReservedArea = ({ children }: { children: React.ReactNode}) => {
           {children}
         </div>
       </div>
+      { _renderMobileMenu() }
     </main>
   )
 }
