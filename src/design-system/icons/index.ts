@@ -7,8 +7,9 @@ import Dashboard from './Dashboard';
 import Code from './Code';
 import Jobs from './Jobs';
 import Texts from './Texts';
-import List from './List';
-import Add from './Add';
+import Github from './Github';
+import Linkedin from './Linkedin';
+import Menu  from './Menu';
 
 export {
   // Exports
@@ -20,6 +21,7 @@ export {
   Code,
   Jobs,
   Texts,
-  List,
-  Add,
+  Github,
+  Linkedin,
+  Menu
 };
