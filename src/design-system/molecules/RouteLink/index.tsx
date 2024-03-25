@@ -2,14 +2,15 @@
 
 import Link from 'next/link'
 // Utils
-import { LinkT } from '../../utils/Links'
+import { LinkT } from '@/utils/app'
 
-type SidebarLinkProps = { 
+type RouteLinkProps = { 
   link: LinkT;
   activeLink: number;
+  isMobile?: boolean;
 }
 
-const SidebarLink = ({ link, activeLink }: SidebarLinkProps) => {
+const RouteLink = ({ link, activeLink, isMobile = false }: RouteLinkProps) => {
 
   return (
     <Link href={link.href} key={`sidebar-main-link-id-${link.id}`} className='pr-2 flex items-center justify-start gap-2 group'>
@@ -20,9 +21,9 @@ const SidebarLink = ({ link, activeLink }: SidebarLinkProps) => {
             <link.Icon {...link.styles} stroke={activeLink === link.id ? '#8AEA92' : '#A3E7FC'}/>
         }
       </span>
-      <p className={`hidden @3xs/sidebar:inline text-xl transition-all leading-none ${activeLink === link.id ? 'text-primaryGreen' : 'text-primaryBlue'}`}>{link.label}</p>
+      <p className={`${ isMobile ? 'inline' : 'hidden @3xs/sidebar:inline'} text-xl transition-all leading-none ${activeLink === link.id ? 'text-primaryGreen' : 'text-primaryBlue'}`}>{link.label}</p>
     </Link>
   )
 }
 
-export default SidebarLink
+export default RouteLink

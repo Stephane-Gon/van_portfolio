@@ -1,31 +1,24 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { usePathname } from 'next/navigation'
+import { useState } from 'react'
 import Link from 'next/link'
+// Hooks
+import { useAppStore } from '@/store/useApp'
 // Components
-import SidebarLink from './components/Link'
+import RouteLink from '@/design-system/molecules/RouteLink'
 // Icons
 import { ChevronRight, Dashboard, Linkedin, Github } from '@/design-system/icons'
 // Utils
-import { Links, LinkT } from './utils/Links'
+import { Links, LinkT } from '@/utils/app'
 
-// TODO - Criar um mobileMenu com está lógica
 const Sidebar = () => {
-  const pathname = usePathname()
+  const activeLink = useAppStore(state => state.activeLink)
   const [isNarrow, setIsNarrow] = useState<boolean>(true)
   const [isLockedNarrow, setIsLockedNarrow] = useState<boolean>(true)
-  const [activeLink, setActiveLink] = useState<number>(0)
 
-  useEffect(() => {
-    const hasActive = Links.find((link: LinkT) => pathname.includes(link.href));
-    if(hasActive) {
-      setActiveLink(hasActive.id)
-    } else setActiveLink(0);
-  }, [pathname]);
 
   const _renderMainLinks = () => {
-    return Links.map((link: LinkT) => <SidebarLink link={link} activeLink={activeLink} />)
+    return Links.map((link: LinkT) => <RouteLink link={link} activeLink={activeLink} />)
   }
 
   return (

@@ -1,19 +1,33 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSession } from 'next-auth/react';
+import { usePathname } from 'next/navigation'
+// Components
 import { Header, Sidebar, MobileMenu } from "@/design-system/organism";
-
+// Hooks
+import { useAppStore } from "@/store/useApp";
+// Utils
+import { Links, LinkT } from '@/utils/app'
 
 const ReservedArea = ({ children }: { children: React.ReactNode}) => {
+  const pathname = usePathname()
   const { status } = useSession()
+  const showMobileMenu = useAppStore(state => state.showMobileMenu)
+  const setActiveLink = useAppStore(state => state.setActiveLink)
+
+  useEffect(() => {
+    const hasActive = Links.find((link: LinkT) => pathname.includes(link.href));
+    if(hasActive) {
+      setActiveLink(hasActive.id)
+    } else setActiveLink(0);
+  }, [pathname]);
 
   const _renderSidebar = () => { 
     return (status === "authenticated") && <Sidebar />
   }
 
-  // TODO - Aqui tbm tenho que ver se o user clicou no menu icon, usar zustand para isso
   const _renderMobileMenu = () => { 
-    return (status === "authenticated") && <MobileMenu />
+    return (status === "authenticated" && showMobileMenu) && <MobileMenu />
   }
 
   // TODO - Em vez de remover a scrollbar, tentar adicionar um style
