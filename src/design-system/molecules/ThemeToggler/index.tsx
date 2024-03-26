@@ -1,18 +1,21 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { gsap, Power1 } from "gsap";
-import type { Themes } from '@/utils/app';
+import { Themes } from '@/utils/app';
 
 type ThemeTogglerProps = {
-  toggleTheme: (theme: Themes) => void
+  toggleTheme: (theme: Themes) => void;
 }
 
-const ThemeToggler = ({toggleTheme}: ThemeTogglerProps) => {
+const ThemeToggler = ({ toggleTheme }: ThemeTogglerProps) => {
+  const day = useRef<HTMLDivElement>(null)
+  const night = useRef<HTMLDivElement>(null)
+
   gsap.set("#sun, #cloud, #moon", {x: 25});
   gsap.set(".star", {x: 40, y: -5})
 
-  const handleDayClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => { 
+  const handleDayClick = () => { 
     gsap.to("#sun", 1, {x: -160, opacity: 0, ease: Power1.easeInOut});
     gsap.to("#cloud", .5, {opacity: 0, ease: Power1.easeInOut});
     gsap.to("#moon", 1, {x: -160, rotate: -360, transformOrigin: "center", opacity: 1, ease: Power1.easeInOut});
@@ -20,15 +23,15 @@ const ThemeToggler = ({toggleTheme}: ThemeTogglerProps) => {
     gsap.to("#night", 1, {background: "#224f6d", borderColor: "#cad4d8", ease: Power1.easeInOut});
     gsap.to("#background", 1, {background: "#0d1f2b", ease: Power1.easeInOut});
     
-    e.currentTarget.style.pointerEvents = "none";
+    if(day && day.current) day.current.style.pointerEvents = "none";
 
     setTimeout(() =>  {
-      document.getElementById("night")!.style.pointerEvents = "all"
+      if(night && night.current) night.current.style.pointerEvents = "all"
     }, 1000)
-    toggleTheme('dark')
+    toggleTheme(Themes.dark)
   }
   
-  const handleNightClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => { 
+  const handleNightClick = () => { 
     gsap.to("#sun", 1, {x: 25, opacity: 1, ease: Power1.easeInOut});
     gsap.to("#cloud", 1, {opacity: 1, ease: Power1.easeInOut});
     gsap.to("#moon", 1, {opacity: 0, x: 35, rotate: 360, transformOrigin: "center", ease: Power1.easeInOut});
@@ -36,25 +39,37 @@ const ThemeToggler = ({toggleTheme}: ThemeTogglerProps) => {
     gsap.to("#night", 1, {background: "#9cd6ef", borderColor: "#65c0e7", ease: Power1.easeInOut});
     gsap.to("#background", 1, {background: "#d3edf8", ease: Power1.easeInOut});
     
-    e.currentTarget.style.pointerEvents = "none";
+    if(night && night.current) night.current.style.pointerEvents = "none"
 
     setTimeout(() =>  {
-      document.getElementById("day")!.style.pointerEvents = "all"
+      if(day && day.current) day.current.style.pointerEvents = "all";
     }, 1000)
-    toggleTheme('light')
+    toggleTheme(Themes.light)
   }
+
+  useEffect(() => { 
+    const currentTheme = localStorage.getItem('theme')
+
+    if(currentTheme === Themes.dark) {
+      handleDayClick()
+    } else if(currentTheme === Themes.light) { 
+      handleNightClick()
+    }
+  }, [])
 
 
   return (
     <div className=' m-0 flex items-center justify-center overflow-hidden'>
       <div 
         id="day" 
-        onClick={(e) => handleDayClick(e)}
+        ref={day}
+        onClick={() => handleDayClick()}
         className='w-[60px] h-[30px] absolute z-1 cursor-pointer rounded-[100px] bg-[#9cd6ef] border-[2px] border-[#65c0e7]'
       ></div>
       <div 
         id="night"
-        onClick={(e) => handleNightClick(e)}
+        ref={night}
+        onClick={() => handleNightClick()}
         className='w-[60px] h-[30px] absolute z-1 cursor-pointer rounded-[100px] bg-[#9cd6ef] border-[2px] border-[#65c0e7] pointer-events-none'  
       ></div>
 

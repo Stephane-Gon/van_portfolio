@@ -42,7 +42,7 @@ const ButtonRoot = ({
         disabled={disabled || loading}
         onClick={!disabled ? onClick : undefined}
         {...props}
-        className="py-1 px-9 bg-smothDark text-smothWhite rounded-sm border-none font-semibold w-full flex items-center justify-center gap-1"
+        className="py-1 px-9 bg-primary text-secondary rounded-sm border-none font-semibold w-full flex items-center justify-center gap-1"
       >
         {_renderSpinner()}
         {label}

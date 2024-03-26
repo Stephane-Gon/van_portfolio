@@ -32,7 +32,7 @@ const ReservedArea = ({ children }: { children: React.ReactNode}) => {
 
   // TODO - Em vez de remover a scrollbar, tentar adicionar um style
   return (
-    <main className="min-h-screen flex flex-col items-center bg-smothDark bg-darkBackground bg-fixed bg-cover">
+    <main className="min-h-screen flex flex-col items-center bg-primary bg-background  bg-fixed bg-cover">
       <Header />
       <div className="w-full flex">
         { _renderSidebar() }

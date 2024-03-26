@@ -25,7 +25,7 @@ const Sidebar = () => {
     <aside
       className={` 
         @container/sidebar hidden h-[calc(100vh-70px)] relative ${(isLockedNarrow && isNarrow) ? 'w-20' : 'w-72'} 
-        duration-300 bg-glassDark shadow-glass  border border-glassBorder xl:block
+        duration-300 bg-glassSidebar/20 shadow-glass  border border-glassBorder/30 xl:block
       `}
     >
 
@@ -46,7 +46,7 @@ const Sidebar = () => {
             <span className='bg-[#A3E7FC40] p-1 rounded-md'>
               <Dashboard  stroke="white" width="1.5rem" height="1.5rem" />
             </span>
-            <p className='text-smothWhite font-bold font-josefin text-xl hidden @3xs/sidebar:inline'>DASHBOARD</p>
+            <p className='text-secondary font-bold font-josefin text-xl hidden @3xs/sidebar:inline'>DASHBOARD</p>
           </Link>
 
           <div className='flex flex-col items-start gap-8 py-10'>

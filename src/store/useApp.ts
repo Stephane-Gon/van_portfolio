@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
-import type { Themes } from '@/utils/app';
+import { Themes } from '@/utils/app';
 
 interface AppState {
   showMobileMenu: boolean;
@@ -14,14 +14,20 @@ interface AppState {
 export const useAppStore = create<AppState>()(subscribeWithSelector((set) => ({
   showMobileMenu: false,
   activeLink: 0,
-  theme: 'dark',
+  theme: Themes.dark,
   setActiveLink: (activeLink) => set({ activeLink }),
   toggleMobileMenu: () => set((state) => ({ showMobileMenu: !state.showMobileMenu })),
   toggleTheme: (theme) => set(() => {
-    // TODO - Aqui tbm tenho que adicionar a class no body
-    // TODO - Depois criar um useEffect que corre quando o projeto inicia que vai buscar o tema do localStorage
-    // TODO - E depois adicionar a class no body e altera o toggler
     localStorage.setItem('theme', theme)
+
+    const themesArray = Object.keys(Themes) as Array<keyof typeof Themes>
+    themesArray.forEach((key: any) => {
+      if(key !== theme) {
+        document.body.classList.remove(key)
+      }
+    })
+
+    document.body.classList.add(theme);
     return { theme: theme }
   }),
 })))
