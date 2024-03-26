@@ -16,8 +16,8 @@ const VanLogo = ({
   const router = useRouter()
 
   return (
-    <span onClick={() => router.push('/')} className="cursor-pointer font-bold text-smothWhite" >
-      <Van width={width} height={height} fill='#EA9E8D' />
+    <span onClick={() => router.push('/')} className="cursor-pointer font-bold text-text" >
+      <Van width={width} height={height} className='fill-secondary' />
     </span>
   )
 

@@ -29,7 +29,7 @@ const Sidebar = () => {
       `}
     >
 
-      <span className='absolute -right-3.5 -top-3.5 bg-primaryGreen rounded-full cursor-pointer hover:scale-105 transition-transform duration-100 ease-linear  '>
+      <span className='absolute -right-3.5 -top-3.5 bg-tertiary rounded-full cursor-pointer hover:scale-105 transition-transform duration-100 ease-linear  '>
         <ChevronRight className={`${!isLockedNarrow && 'rotate-180'}`} onClick={() => setIsLockedNarrow(!isLockedNarrow)} /> 
       </span>
       <div
@@ -43,10 +43,10 @@ const Sidebar = () => {
       >
         <section>
           <Link className='flex items-end justify-start gap-1' href="/dashboard">
-            <span className='bg-[#A3E7FC40] p-1 rounded-md'>
-              <Dashboard  stroke="white" width="1.5rem" height="1.5rem" />
+            <span className='bg-text/50 p-1 rounded-md'>
+              <Dashboard stroke='white' width="1.5rem" height="1.5rem" />
             </span>
-            <p className='text-secondary font-bold font-josefin text-xl hidden @3xs/sidebar:inline'>DASHBOARD</p>
+            <p className='text-text font-bold font-josefin text-xl hidden @3xs/sidebar:inline'>DASHBOARD</p>
           </Link>
 
           <div className='flex flex-col items-start gap-8 py-10'>
@@ -59,14 +59,14 @@ const Sidebar = () => {
             onClick={() => window.open('https://www.linkedin.com/in/stephane-ribeiro-3293b624b/', '_blank', 'noopener,noreferrer')} 
             width="1.7rem" 
             height="1.7rem" 
-            fill='#A3E7FC'
+            className='fill-primary'
             cursor="pointer" 
           />
           <Github 
             onClick={() => window.open('https://github.com/Stephane-Gon', '_blank', 'noopener,noreferrer')} 
             width="1.7rem" 
             height="1.7rem" 
-            fill='#A3E7FC' 
+            className='fill-primary'
             cursor="pointer"         
           />
         </section>

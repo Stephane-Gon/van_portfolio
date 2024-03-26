@@ -11,13 +11,12 @@ const config: Config = {
   ],
   darkMode: 'selector',
   theme: {
-    // TODO - Aqui definir um esquema de prioridades para as 3 core que faltam
     colors: {
+      accent: "rgba(var(--accent))",
+      text: "rgba(var(--text))",
       primary: "rgba(var(--primary))",
       secondary: "rgba(var(--secondary))",
-      primaryBlue: "#A3E7FC",
-      primaryGreen: "#8AEA92",
-      primaryPink: "#EA9E8D",
+      tertiary: "rgba(var(--tertiary))",
       dangerRed: "#FF5A5F",
       glassSidebar: "rgba(var(--glassSidebar))",
       glassBorder: "rgba(var(--glassBorder))",

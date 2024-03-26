@@ -26,7 +26,7 @@ export default () => {
   }
 
   return (
-    <header className="w-full h-[70px] border-b-4 border-primaryPink">
+    <header className="w-full h-[70px] border-b-4 border-secondary">
       <div className="flex items-center justify-between px-5 py-3 h-full">
         <span className="block xl:hidden">
           <Menu width="1.5rem" height="1.5rem" fill="#EA9E8D" cursor="pointer" onClick={() => toggleMobileMenu()} />

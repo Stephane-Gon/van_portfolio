@@ -34,7 +34,7 @@ const ButtonRoot = ({
   const loadingStyle = loading ? 'cursor-auto pointer-events-none' : '';
 
   return (
-    <span className={`bg-gradient-to-r from-primaryPink via-primaryGreen to-primaryBlue transition-all flex items-center justify-center rounded-sm myBtn relative p-border hover:scale-105 ${disabledStyle} ${loadingStyle}`}>
+    <span className={`bg-gradient-to-r from-secondary via-tertiary to-primary transition-all flex items-center justify-center rounded-sm myBtn relative p-border hover:scale-105 ${disabledStyle} ${loadingStyle}`}>
       <button
         id={id}
         name={name}
@@ -42,7 +42,7 @@ const ButtonRoot = ({
         disabled={disabled || loading}
         onClick={!disabled ? onClick : undefined}
         {...props}
-        className="py-1 px-9 bg-primary text-secondary rounded-sm border-none font-semibold w-full flex items-center justify-center gap-1"
+        className="py-1 px-9 bg-accent text-text rounded-sm border-none font-semibold w-full flex items-center justify-center gap-1"
       >
         {_renderSpinner()}
         {label}

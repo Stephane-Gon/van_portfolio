@@ -65,7 +65,7 @@ const Form = () => {
 
   return (
     <div className="w-4/5 lg:w-1/3 flex flex-col items-center justify-center gap-10">
-      <h2 className="text-smothWhite text-2xl font-josefin">Login Form</h2>
+      <h2 className="text-texte text-2xl font-josefin">Login Form</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-5 w-full flex flex-col gap-10">
         <InputText 
           label="Email"

@@ -17,16 +17,16 @@ const MobileMenu = () => {
   }
 
   return (
-    <div className='absolute top-[70px] left-0 right-0 bottom-0 flex flex-col bg-smothDark p-4 xl:hidden'>
+    <div className='absolute top-[70px] left-0 right-0 bottom-0 flex flex-col bg-accent p-4 xl:hidden'>
       <span className="w-full flex items-center justify-center"> 
         <VanLogo width="150px" height="150px" />
       </span>
       <div className='flex flex-col items-start px-5 pt-10'>
         <Link className='flex items-end justify-start gap-1' href="/dashboard">
-          <span className='bg-[#A3E7FC40] p-1 rounded-md'>
-            <Dashboard  stroke="white" width="2rem" height="2rem" />
+          <span className='bg-text/50 p-1 rounded-md'>
+            <Dashboard stroke="white" width="2rem" height="2rem" />
           </span>
-          <p className='text-smothWhite font-bold font-josefin text-2xl'>DASHBOARD</p>
+          <p className='text-text font-bold font-josefin text-2xl'>DASHBOARD</p>
         </Link>
 
         <div className='flex flex-col items-start gap-8 py-10 pl-5'>
@@ -40,15 +40,15 @@ const MobileMenu = () => {
           onClick={() => window.open('https://www.linkedin.com/in/stephane-ribeiro-3293b624b/', '_blank', 'noopener,noreferrer')} 
           width="2rem" 
           height="2rem" 
-          fill='#A3E7FC'
           cursor="pointer" 
+          className='fill-primary'
         />
         <Github 
           onClick={() => window.open('https://github.com/Stephane-Gon', '_blank', 'noopener,noreferrer')} 
           width="2rem" 
           height="2rem" 
-          fill='#A3E7FC' 
-          cursor="pointer"         
+          cursor="pointer"   
+          className='fill-primary'
         />
       </section>
     </div>
