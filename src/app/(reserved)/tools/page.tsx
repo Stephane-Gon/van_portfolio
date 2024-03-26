@@ -9,6 +9,8 @@ const Tools = async () => {
   console.log("🚀 ~ Page ~ tools:", tools)
 
   // TODO - Começar a adicionar uma componente de listagem das tools
+
+  // TODO - Tbm adicionar linter e commit message pachage com husky
   return (
     <ul>
       {tools?.map((tool: any) => (
