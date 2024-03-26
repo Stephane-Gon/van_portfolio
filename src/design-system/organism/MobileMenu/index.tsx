@@ -1,20 +1,36 @@
 "use client"
 
 import Link from 'next/link'
+import { useSession, signOut } from "next-auth/react"
 // Components
 import { VanLogo, RouteLink } from "@/design-system/molecules"
 import { Dashboard, Linkedin, Github } from '@/design-system/icons'
+import { Button } from "@/design-system/atoms"
 // Utils
 import { Links, LinkT } from '@/utils/app'
 // Hooks
 import { useAppStore } from '@/store/useApp'
 
 const MobileMenu = () => {
+  const { status } = useSession()
   const activeLink = useAppStore(state => state.activeLink)
 
   const _renderMainLinks = () => {
     return Links.map((link: LinkT) => <RouteLink link={link} activeLink={activeLink} isMobile />)
   }
+
+  const _renderLogOutBtn = () => { 
+    if (status === "authenticated") {
+      return (
+        <Button 
+          id="logout-btn"
+          onClick={() => signOut()}
+          label="Log Out"
+        />
+      )
+    }
+  }
+
 
   return (
     <div className='absolute top-[70px] left-0 right-0 bottom-0 flex flex-col bg-accent p-4 xl:hidden'>
@@ -34,6 +50,10 @@ const MobileMenu = () => {
         </div>
 
       </div>
+
+      <span className='w-full 2sm:w-1/2 lg:w-2/12 self-center'>
+        {_renderLogOutBtn()}
+      </span>
 
       <section className='flex items-start justify-center gap-4 mt-auto mb-5'>
         <Linkedin 

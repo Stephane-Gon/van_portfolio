@@ -22,6 +22,7 @@ const config: Config = {
       glassBorder: "rgba(var(--glassBorder))",
     },
     screens: {
+      "2sm": "450px",
       'sm': '640px',
       'md': '768px',
       'lg': '1024px',

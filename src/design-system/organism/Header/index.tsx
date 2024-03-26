@@ -37,7 +37,9 @@ export default () => {
 
         <span className="p-1 flex items-center gap-2">
           <ThemeToggler toggleTheme={toggleTheme} />
-          {_renderLogOutBtn()}
+          <span className="hidden xl:block">
+            {_renderLogOutBtn()}
+          </span>
         </span>
       </div>
     </header>
