@@ -3,7 +3,7 @@
 import { useSession, signOut } from "next-auth/react"
 // Icons & Components
 import { Menu } from "@/design-system/icons"
-import { VanLogo } from "@/design-system/molecules"
+import { VanLogo, ThemeToggler } from "@/design-system/molecules"
 import { Button } from "@/design-system/atoms"
 // Hokks
 import { useAppStore } from "@/store/useApp"
@@ -11,6 +11,7 @@ import { useAppStore } from "@/store/useApp"
 export default () => {
   const { status } = useSession()
   const toggleMobileMenu = useAppStore(state => state.toggleMobileMenu)
+  const toggleTheme = useAppStore(state => state.toggleTheme)
 
   const _renderLogOutBtn = () => { 
     if (status === "authenticated") {
@@ -34,7 +35,8 @@ export default () => {
           <VanLogo />
         </span>
 
-        <span className="p-1">
+        <span className="p-1 flex items-center gap-2">
+          <ThemeToggler toggleTheme={toggleTheme} />
           {_renderLogOutBtn()}
         </span>
       </div>

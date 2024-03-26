@@ -1,6 +1,8 @@
 import { Tools, Code, Jobs, Texts } from '@/design-system/icons'
 import { SVGProps } from 'react';
 
+export type Themes = 'light' | 'dark'
+
 export type LinkT = {
   id: number;
   href: string;
