@@ -4,12 +4,15 @@
     "es6": true,
     "browser": true
   },
-  /* parserOptions: {
-    project: "./tsconfig.json"
-  }, */
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "parser": "@typescript-eslint/parser",
   "rules": {
     "no-duplicate-imports": ["warn"],
+    "camelcase": ["warn"],
+    "capitalized-comments": ["warn"],
+    "indent": [2, 4],
     "no-var": ["warn"],
     "@typescript-eslint/ban-ts-comment": ["off"],
     "@typescript-eslint/no-var-requires": ["off"],
