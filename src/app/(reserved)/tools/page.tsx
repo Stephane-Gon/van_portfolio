@@ -1,6 +1,8 @@
 import { supabaseAdmin } from '@/lib/supabase';
 import { getServerSession } from 'next-auth';
 
+// Asd
+
 const Tools = async () => {
   const { data: tools, error } = await supabaseAdmin.from('tools').select();
   const session = await getServerSession();
