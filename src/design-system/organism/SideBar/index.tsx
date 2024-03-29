@@ -3,13 +3,14 @@
 import { useState } from 'react';
 import Link from 'next/link';
 // Hooks
-import { useAppStore } from '@/store/useApp';
+import { useAppStore } from '@/features/app/store';
 // Components
 import RouteLink from '@/design-system/molecules/RouteLink';
 // Icons
 import { ChevronRight, Dashboard, Linkedin, Github } from '@/design-system/icons';
 // Utils
-import { Links, LinkT } from '@/utils/app';
+import { LinkT } from '@/features/app/types';
+import { Links } from '@/features/app/utils';
 
 const Sidebar = () => {
   const activeLink = useAppStore(state => state.activeLink);

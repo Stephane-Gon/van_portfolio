@@ -19,7 +19,7 @@ yarn dev
 - Normal build:
 
 ```bash
-yarn dev
+yarn build
 ```
 
 - Build with bundler analyzer:

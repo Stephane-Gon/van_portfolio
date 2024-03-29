@@ -1,18 +1,5 @@
-import { Tools, Code, Jobs, Texts } from '@/design-system/icons'
-import { SVGProps } from 'react';
-
-export enum Themes {
-  light = 'light',
-  dark = 'dark'
-}
-
-export type LinkT = {
-  id: number;
-  href: string;
-  label: string;
-  Icon: (props: React.SVGProps<SVGSVGElement>) => React.JSX.Element;
-  styles: SVGProps<SVGSVGElement>;
-}
+import { Tools, Code, Jobs, Texts } from '@/design-system/icons';
+import type { LinkT } from '@/features/app/types';
 
 export const Links: LinkT[] = [
   {
@@ -23,7 +10,7 @@ export const Links: LinkT[] = [
     styles: {
       fill: '#A3E7FC',
       width: '1.2rem',
-      height: '1.2rem'
+      height: '1.2rem',
     },
   },
   {
@@ -34,7 +21,7 @@ export const Links: LinkT[] = [
     styles: {
       fill: '#A3E7FC',
       width: '1.2rem',
-      height: '1.2rem'
+      height: '1.2rem',
     },
   },
   {
@@ -45,7 +32,7 @@ export const Links: LinkT[] = [
     styles: {
       stroke: '#A3E7FC',
       width: '1.2rem',
-      height: '1.2rem'
+      height: '1.2rem',
     },
   },
   {
@@ -56,7 +43,7 @@ export const Links: LinkT[] = [
     styles: {
       fill: '#A3E7FC',
       width: '1.2rem',
-      height: '1.2rem'
-    }
+      height: '1.2rem',
+    },
   },
-]
+];

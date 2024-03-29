@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import { gsap, Power1 } from 'gsap';
-import { Themes } from '@/utils/app';
+import { Themes } from '@/features/app/types';
 
 type ThemeTogglerProps = {
   toggleTheme: (theme: Themes) => void;

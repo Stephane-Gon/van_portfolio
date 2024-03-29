@@ -5,9 +5,10 @@ import { usePathname } from 'next/navigation';
 // Components
 import { Header, Sidebar, MobileMenu } from '@/design-system/organism';
 // Hooks
-import { useAppStore } from '@/store/useApp';
+import { useAppStore } from '@/features/app/store';
 // Utils
-import { Links, LinkT } from '@/utils/app';
+import { LinkT } from '@/features/app/types';
+import { Links } from '@/features/app/utils';
 
 const ReservedArea = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();

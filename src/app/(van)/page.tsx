@@ -1,12 +1,9 @@
-'use client'
+'use client';
 
-import Scene from "@/three/components/Scene";
+import Scene from '@/features/three/components/Scene';
 
 const Home = () => {
-
-  return (
-    <Scene />
-  );
-}
+  return <Scene />;
+};
 
 export default Home;

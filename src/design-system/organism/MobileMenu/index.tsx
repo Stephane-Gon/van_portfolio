@@ -7,9 +7,10 @@ import { useSession } from 'next-auth/react';
 import { VanLogo, RouteLink } from '@/design-system/molecules';
 import { Dashboard, Linkedin, Github } from '@/design-system/icons';
 // Utils
-import { Links, LinkT } from '@/utils/app';
+import { LinkT } from '@/features/app/types';
+import { Links } from '@/features/app/utils';
 // Hooks
-import { useAppStore } from '@/store/useApp';
+import { useAppStore } from '@/features/app/store';
 
 const Button = dynamic(() => import('@/design-system/atoms/Button'));
 

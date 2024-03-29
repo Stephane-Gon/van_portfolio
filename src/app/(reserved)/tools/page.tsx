@@ -1,15 +1,15 @@
 import { supabaseAdmin } from '@/lib/supabase';
-import { getServerSession } from 'next-auth';
+
+import List from '@/features/tools/components/List';
 
 const Tools = async () => {
-  const { data: tools, error } = await supabaseAdmin.from('tools').select();
-  const session = await getServerSession();
-  console.log('🚀 ~ Dashboard ~ session:', session);
-  console.log('🚀 ~ Page ~ error:', error);
-  console.log('🚀 ~ Page ~ tools:', tools);
+  const { data: tools } = await supabaseAdmin.from('tools').select();
 
-  // TODO - Começar a adicionar uma componente de listagem das tools
-  return <ul>{tools?.map((tool: any) => <li key={`tool-${tool.id}`}>{tool.name}</li>)}</ul>;
+  return (
+    <div>
+      <List tools={tools} />
+    </div>
+  );
 };
 
 export default Tools;

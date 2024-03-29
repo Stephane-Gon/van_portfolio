@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import { Menu } from '@/design-system/icons';
 import { VanLogo, ThemeToggler } from '@/design-system/molecules';
 // Hooks
-import { useAppStore } from '@/store/useApp';
+import { useAppStore } from '@/features/app/store';
 
 const Button = dynamic(() => import('@/design-system/atoms/Button'));
 
