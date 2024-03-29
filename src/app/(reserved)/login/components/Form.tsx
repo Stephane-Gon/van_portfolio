@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
 import { InputText } from '@/design-system/molecules';
 import { Button, Spinner } from '@/design-system/atoms';
 
@@ -29,7 +28,7 @@ const Form = () => {
   });
 
   const onSubmit: SubmitHandler<FormValues> = async data => {
-    // TODO - Este sign in pode ser um dynamic import
+    const { signIn } = await import('next-auth/react');
     await signIn('credentials', {
       redirect: false,
       email: data.email,
@@ -62,7 +61,7 @@ const Form = () => {
 
   return (
     <div className='flex w-4/5 flex-col items-center justify-center gap-10 lg:w-1/3'>
-      <h2 className='text-texte font-josefin text-2xl'>Login Form</h2>
+      <h2 className='font-josefin text-2xl text-text'>Login Form</h2>
       <form onSubmit={handleSubmit(onSubmit)} className='mt-5 flex w-full flex-col gap-10'>
         <InputText
           label='Email'
