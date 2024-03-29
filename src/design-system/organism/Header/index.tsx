@@ -1,12 +1,14 @@
 'use client';
 
-import { useSession, signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import dynamic from 'next/dynamic';
 // Icons & Components
 import { Menu } from '@/design-system/icons';
 import { VanLogo, ThemeToggler } from '@/design-system/molecules';
-import { Button } from '@/design-system/atoms';
-// Hokks
+// Hooks
 import { useAppStore } from '@/store/useApp';
+
+const Button = dynamic(() => import('@/design-system/atoms/Button'));
 
 const Header = () => {
   const { status } = useSession();
@@ -15,7 +17,13 @@ const Header = () => {
 
   const _renderLogOutBtn = () => {
     if (status === 'authenticated') {
-      return <Button id='logout-btn' onClick={() => signOut()} label='Log Out' />;
+      return (
+        <Button
+          id='sidebar-logout-btn'
+          onClick={async () => await import('next-auth/react').then(({ signOut }) => signOut())}
+          label='Log Out'
+        />
+      );
     }
   };
 

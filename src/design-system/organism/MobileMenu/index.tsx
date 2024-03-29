@@ -1,15 +1,17 @@
 'use client';
 
 import Link from 'next/link';
-import { useSession, signOut } from 'next-auth/react';
+import dynamic from 'next/dynamic';
+import { useSession } from 'next-auth/react';
 // Components
 import { VanLogo, RouteLink } from '@/design-system/molecules';
 import { Dashboard, Linkedin, Github } from '@/design-system/icons';
-import { Button } from '@/design-system/atoms';
 // Utils
 import { Links, LinkT } from '@/utils/app';
 // Hooks
 import { useAppStore } from '@/store/useApp';
+
+const Button = dynamic(() => import('@/design-system/atoms/Button'));
 
 const MobileMenu = () => {
   const { status } = useSession();
@@ -23,7 +25,13 @@ const MobileMenu = () => {
 
   const _renderLogOutBtn = () => {
     if (status === 'authenticated') {
-      return <Button id='logout-btn' onClick={() => signOut()} label='Log Out' />;
+      return (
+        <Button
+          id='logout-btn'
+          onClick={async () => await import('next-auth/react').then(({ signOut }) => signOut())}
+          label='Log Out'
+        />
+      );
     }
   };
 
