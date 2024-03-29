@@ -8,14 +8,9 @@ type ThemeTogglerProps = {
   toggleTheme: (theme: Themes) => void;
 };
 
-// TODO - Gsap e next estão a dár o erro do querySelectorALl
-
 const ThemeToggler = ({ toggleTheme }: ThemeTogglerProps) => {
   const day = useRef<HTMLDivElement>(null);
   const night = useRef<HTMLDivElement>(null);
-
-  gsap.set('#sun, #cloud, #moon', { x: 25 });
-  gsap.set('.star', { x: 40, y: -5 });
 
   const handleDayClick = () => {
     gsap.to('#sun', 1, { x: -160, opacity: 0, ease: Power1.easeInOut });
@@ -48,6 +43,9 @@ const ThemeToggler = ({ toggleTheme }: ThemeTogglerProps) => {
   };
 
   useEffect(() => {
+    gsap.set('#sun, #cloud, #moon', { x: 25 });
+    gsap.set('.star', { x: 40, y: -5 });
+
     const currentTheme = localStorage.getItem('theme');
 
     if (currentTheme === Themes.dark) {

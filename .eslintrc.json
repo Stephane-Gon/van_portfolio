@@ -5,9 +5,7 @@
     "browser": true,
     "node": true
   },
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  },
+  "ignorePatterns": [],
   "parser": "@typescript-eslint/parser",
   "rules": {
     "no-duplicate-imports": ["warn"],

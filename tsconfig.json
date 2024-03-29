@@ -29,8 +29,7 @@
     ".next/types/**/*.ts",
     "next.config.mjs",
     "lint-staged.config.mjs",
-    "commitlint.config.mjs",
-    "postcss.config.js"
+    "commitlint.config.mjs"
   ],
   "exclude": ["node_modules"]
 }

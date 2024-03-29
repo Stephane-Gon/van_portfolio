@@ -73,8 +73,8 @@ const Form = () => {
             ...register('email', {
               required: { value: true, message: 'This field is required!' },
               pattern: {
-                //eslint-disable-next-line
                 value:
+                  //eslint-disable-next-line
                   /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
                 message: 'This is not a valid field!',
               },
