@@ -1,8 +1,9 @@
 {
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier", "next/core-web-vitals"],
   "env": {
     "es6": true,
-    "browser": true
+    "browser": true,
+    "node": true
   },
   "parserOptions": {
     "project": "./tsconfig.json"
@@ -10,9 +11,8 @@
   "parser": "@typescript-eslint/parser",
   "rules": {
     "no-duplicate-imports": ["warn"],
-    "camelcase": ["warn"],
+    "camelcase": ["off"],
     "capitalized-comments": ["warn"],
-    "indent": [2, 4],
     "no-var": ["warn"],
     "@typescript-eslint/ban-ts-comment": ["off"],
     "@typescript-eslint/no-var-requires": ["off"],

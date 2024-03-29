@@ -1,48 +1,46 @@
-'use client'
-import React, { useEffect } from 'react'
+'use client';
+import React, { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation';
 // Components
-import { Header, Sidebar, MobileMenu } from "@/design-system/organism";
+import { Header, Sidebar, MobileMenu } from '@/design-system/organism';
 // Hooks
-import { useAppStore } from "@/store/useApp";
+import { useAppStore } from '@/store/useApp';
 // Utils
-import { Links, LinkT } from '@/utils/app'
+import { Links, LinkT } from '@/utils/app';
 
-const ReservedArea = ({ children }: { children: React.ReactNode}) => {
-  const pathname = usePathname()
-  const { status } = useSession()
-  const showMobileMenu = useAppStore(state => state.showMobileMenu)
-  const setActiveLink = useAppStore(state => state.setActiveLink)
+const ReservedArea = ({ children }: { children: React.ReactNode }) => {
+  const pathname = usePathname();
+  const { status } = useSession();
+  const showMobileMenu = useAppStore(state => state.showMobileMenu);
+  const setActiveLink = useAppStore(state => state.setActiveLink);
 
   useEffect(() => {
     const hasActive = Links.find((link: LinkT) => pathname.includes(link.href));
-    if(hasActive) {
-      setActiveLink(hasActive.id)
+    if (hasActive) {
+      setActiveLink(hasActive.id);
     } else setActiveLink(0);
-  }, [pathname]);
+  }, [pathname, setActiveLink]);
 
-  const _renderSidebar = () => { 
-    return (status === "authenticated") && <Sidebar />
-  }
+  const _renderSidebar = () => {
+    return status === 'authenticated' && <Sidebar />;
+  };
 
-  const _renderMobileMenu = () => { 
-    return (status === "authenticated" && showMobileMenu) && <MobileMenu />
-  }
+  const _renderMobileMenu = () => {
+    return status === 'authenticated' && showMobileMenu && <MobileMenu />;
+  };
 
   // TODO - Em vez de remover a scrollbar, tentar adicionar um style
   return (
-    <main className="min-h-screen flex flex-col items-center bg-accent bg-background  bg-fixed bg-cover">
+    <main className='flex min-h-screen flex-col items-center bg-accent bg-background  bg-cover bg-fixed'>
       <Header />
-      <div className="w-full flex">
-        { _renderSidebar() }
-        <div className="w-full overflow-y-auto p-12 no-scrollbar">
-          {children}
-        </div>
+      <div className='flex w-full'>
+        {_renderSidebar()}
+        <div className='no-scrollbar w-full overflow-y-auto p-12'>{children}</div>
       </div>
-      { _renderMobileMenu() }
+      {_renderMobileMenu()}
     </main>
-  )
-}
+  );
+};
 
-export default ReservedArea
+export default ReservedArea;

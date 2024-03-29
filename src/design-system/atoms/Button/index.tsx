@@ -1,9 +1,8 @@
-import { Spinner } from "..";
+import { Spinner } from '..';
 
 interface ButtonProps {
   disabled?: boolean;
   label: JSX.Element | string | null;
-  variant?: 'outline' | 'ghost';
   onClick?: () => void;
   type?: 'button' | 'submit' | 'reset';
   loading?: boolean;
@@ -18,23 +17,22 @@ const ButtonRoot = ({
   disabled = false,
   type = 'button',
   loading = false,
-  variant,
   onClick,
   label,
   id,
   name,
   ...props
 }: ButtonProps) => {
-
-  const _renderSpinner = () => { 
+  const _renderSpinner = () => {
     return loading && <Spinner />;
-  }
+  };
 
   const disabledStyle = disabled ? 'opacity-40 cursor-auto pointer-events-none' : '';
   const loadingStyle = loading ? 'cursor-auto pointer-events-none' : '';
 
   return (
-    <span className={`bg-gradient-to-r from-secondary via-tertiary to-primary transition-all flex items-center justify-center rounded-sm myBtn relative p-border hover:scale-105 ${disabledStyle} ${loadingStyle}`}>
+    <span
+      className={`myBtn relative flex items-center justify-center rounded-sm bg-gradient-to-r from-secondary via-tertiary to-primary p-border transition-all hover:scale-105 ${disabledStyle} ${loadingStyle}`}>
       <button
         id={id}
         name={name}
@@ -42,8 +40,7 @@ const ButtonRoot = ({
         disabled={disabled || loading}
         onClick={!disabled ? onClick : undefined}
         {...props}
-        className="py-1 px-9 bg-accent text-text rounded-sm border-none font-semibold w-full flex items-center justify-center gap-1"
-      >
+        className='flex w-full items-center justify-center gap-1 rounded-sm border-none bg-accent px-9 py-1 font-semibold text-text'>
         {_renderSpinner()}
         {label}
       </button>
