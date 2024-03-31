@@ -41,3 +41,11 @@ ANALYZE=true yarn build
 - revert;
 - style;
 - test;
+
+### Supabase:
+
+- To generate the table type:
+
+```bash
+yarn supabase gen types typescript --project-id $NEXT_PUBLIC_PROJECT_ID --shema public
+```

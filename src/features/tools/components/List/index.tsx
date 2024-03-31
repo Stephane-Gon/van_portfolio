@@ -1,11 +1,13 @@
-type ListProps = {
-  tools: any[] | null;
-};
+import { supabaseAdmin } from '@/lib/supabase';
 
-const List = ({ tools }: ListProps) => {
+import type { ToolT } from '../../types';
+
+const List = async () => {
+  const toolsData = await supabaseAdmin.from('tools').select();
+  const tools: ToolT[] | null = toolsData.data;
+
   console.log(tools);
   // TODO - Criar um skeleton loader, e uma mensagem de erro caso não tenha tools
-  // TODO - Criar os types das tools e na config do typescript proibir any
 
   return <div>List</div>;
 };
