@@ -2,16 +2,20 @@ import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import { Themes } from '@/features/app/types';
 
-interface AppState {
+type AppState = {
   showMobileMenu: boolean;
   activeLink: number;
   theme: Themes;
+};
+
+type AppActions = {
   setActiveLink: (activeLink: number) => void;
   toggleMobileMenu: () => void;
   toggleTheme: (theme: Themes) => void;
-}
+};
+type AppStore = AppState & AppActions;
 
-export const useAppStore = create<AppState>()(
+export const useAppStore = create<AppStore>()(
   subscribeWithSelector(set => ({
     showMobileMenu: false,
     activeLink: 0,
