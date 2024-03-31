@@ -31,7 +31,6 @@ const ReservedArea = ({ children }: { children: React.ReactNode }) => {
     return status === 'authenticated' && showMobileMenu && <MobileMenu />;
   };
 
-  // TODO - Em vez de remover a scrollbar, tentar adicionar um style
   return (
     <main className='flex min-h-screen flex-col items-center bg-accent bg-background  bg-cover bg-fixed'>
       <Header />
