@@ -9,7 +9,8 @@ import Jobs from './Jobs';
 import Texts from './Texts';
 import Github from './Github';
 import Linkedin from './Linkedin';
-import Menu  from './Menu';
+import Menu from './Menu';
+import Add from './Add';
 
 export {
   // Exports
@@ -23,5 +24,6 @@ export {
   Texts,
   Github,
   Linkedin,
-  Menu
+  Menu,
+  Add,
 };

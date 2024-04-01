@@ -8,6 +8,8 @@ interface ButtonProps {
   loading?: boolean;
   id?: string;
   name?: string;
+  iconLeft?: boolean;
+  icon?: JSX.Element;
 }
 
 /**
@@ -17,10 +19,12 @@ const ButtonRoot = ({
   disabled = false,
   type = 'button',
   loading = false,
+  iconLeft = false,
   onClick,
   label,
   id,
   name,
+  icon,
   ...props
 }: ButtonProps) => {
   const _renderSpinner = () => {
@@ -32,7 +36,7 @@ const ButtonRoot = ({
 
   return (
     <span
-      className={`myBtn relative flex items-center justify-center rounded-sm bg-gradient-to-r from-secondary via-tertiary to-primary p-border transition-all hover:scale-105 ${disabledStyle} ${loadingStyle}`}>
+      className={`myBtn relative flex items-center justify-center gap-2 rounded-sm bg-gradient-to-r from-secondary via-tertiary to-primary p-border transition-all hover:scale-105 ${disabledStyle} ${loadingStyle}`}>
       <button
         id={id}
         name={name}
@@ -42,7 +46,9 @@ const ButtonRoot = ({
         {...props}
         className='flex w-full items-center justify-center gap-1 rounded-sm border-none bg-accent px-9 py-1 font-semibold text-text'>
         {_renderSpinner()}
+        {iconLeft && icon}
         {label}
+        {!iconLeft && icon}
       </button>
     </span>
   );

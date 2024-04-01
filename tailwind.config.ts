@@ -31,7 +31,7 @@ const config: Config = {
     extend: {
       backgroundImage: {
         background: `var(--bgImage)`,
-        neumorph: 'linear-gradient(145deg, #111111, #141414)',
+        neumorph: 'var(--neumorphismBg)',
       },
       scale: {
         '70': '0.70',
@@ -53,7 +53,7 @@ const config: Config = {
       },
       boxShadow: {
         glass: '0 4px 30px rgba(0, 0, 0, 0.1)',
-        neumorph: '22px 22px 44px #101010, -22px -22px 44px #161616;',
+        neumorph: 'var(--neumorphismShadow)',
       },
     },
   },
