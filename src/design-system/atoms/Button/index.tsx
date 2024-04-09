@@ -1,4 +1,4 @@
-import { Spinner } from '..';
+import { Spinner, Gradient } from '..';
 
 interface ButtonProps {
   disabled?: boolean;
@@ -35,8 +35,8 @@ const ButtonRoot = ({
   const loadingStyle = loading ? 'cursor-auto pointer-events-none' : '';
 
   return (
-    <span
-      className={`myBtn relative flex items-center justify-center gap-2 rounded-sm bg-gradient-to-r from-secondary via-tertiary to-primary p-border transition-all hover:scale-105 ${disabledStyle} ${loadingStyle}`}>
+    <Gradient
+      extraClasses={`myBtn relative flex items-center justify-center gap-2 rounded-sm p-border transition-all hover:scale-105 ${disabledStyle} ${loadingStyle}`}>
       <button
         id={id}
         name={name}
@@ -50,7 +50,7 @@ const ButtonRoot = ({
         {label}
         {!iconLeft && icon}
       </button>
-    </span>
+    </Gradient>
   );
 };
 

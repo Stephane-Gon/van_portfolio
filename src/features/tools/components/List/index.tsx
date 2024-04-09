@@ -1,4 +1,5 @@
 import { supabaseAdmin } from '@/lib/supabase';
+import ToolCard from '../Card';
 
 import type { ToolT } from '../../types';
 
@@ -24,7 +25,11 @@ const List = async () => {
     return _handleErrorMessage('No tools available!', 'Add a new tool by pressing the button.');
   }
 
-  return <div className='grid'></div>;
+  const _renderCards = () => {
+    return tools?.map((tool: ToolT) => <ToolCard key={`tool-card-id-${tool.id}`} tool={tool} />);
+  };
+
+  return <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>{_renderCards()}</div>;
 };
 
 export default List;

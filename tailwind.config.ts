@@ -19,6 +19,7 @@ const config: Config = {
       dangerRed: '#FF5A5F',
       glassSidebar: 'rgba(var(--glassSidebar))',
       glassBorder: 'rgba(var(--glassBorder))',
+      cardsBg: 'rgba(var(--cardsBg))',
     },
     screens: {
       '2sm': '450px',
@@ -54,6 +55,8 @@ const config: Config = {
       boxShadow: {
         glass: '0 4px 30px rgba(0, 0, 0, 0.1)',
         neumorph: 'var(--neumorphismShadow)',
+        strongInner: 'inset 3px 3px 10px 1px rgba(0, 0, 0, 0.5)',
+        strongerInner: 'inset 3px 3px 10px 3px rgba(0, 0, 0, 0.5)',
       },
     },
   },
