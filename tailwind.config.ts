@@ -57,6 +57,7 @@ const config: Config = {
         neumorph: 'var(--neumorphismShadow)',
         strongInner: 'inset 3px 3px 10px 1px rgba(0, 0, 0, 0.5)',
         strongerInner: 'inset 3px 3px 10px 3px rgba(0, 0, 0, 0.5)',
+        levelbar: '1px 3px 4px rgba(0, 0, 0, 0.2)',
       },
     },
   },

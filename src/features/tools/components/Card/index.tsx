@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import type { ToolT } from '../../types';
 import { Gradient } from '@/design-system/atoms';
+import { LevelBar } from '@/design-system/molecules';
 
 interface ToolCardProps {
   tool: ToolT;
@@ -17,7 +18,10 @@ const ToolCard = ({ tool }: ToolCardProps) => {
         </Gradient>
         <h3 className='text-[1.35rem] font-semibold text-accent'>{tool.name}</h3>
       </div>
-      {/* TODO - adicionar uma expecie de slider das diferentes skills */}
+      <div className='mt-3 px-4'>
+        <h3 className='text-accent'>Tool Level:</h3>
+        <LevelBar level={tool.level} />
+      </div>
     </article>
   );
 };

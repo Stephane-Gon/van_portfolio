@@ -6,7 +6,6 @@ import type { ToolT } from '../../types';
 const List = async () => {
   const toolsData = await supabaseAdmin.from('tools').select();
   const tools: ToolT[] | null = toolsData.data;
-  // TODO - Criar um skeleton loader
 
   const _handleErrorMessage = (title: string, text?: string) => {
     return (
