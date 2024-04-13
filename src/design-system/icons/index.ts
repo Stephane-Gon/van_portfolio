@@ -11,6 +11,8 @@ import Github from './Github';
 import Linkedin from './Linkedin';
 import Menu from './Menu';
 import Add from './Add';
+import Upload from './Upload';
+import Close from './Close';
 
 export {
   // Exports
@@ -26,4 +28,6 @@ export {
   Linkedin,
   Menu,
   Add,
+  Upload,
+  Close,
 };
