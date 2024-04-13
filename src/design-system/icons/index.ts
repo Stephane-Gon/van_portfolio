@@ -13,6 +13,9 @@ import Menu from './Menu';
 import Add from './Add';
 import Upload from './Upload';
 import Close from './Close';
+import Check from './Check';
+import ChevronUp from './ChevronUp';
+import ChevronDown from './ChevronDown';
 
 export {
   // Exports
@@ -30,4 +33,7 @@ export {
   Add,
   Upload,
   Close,
+  Check,
+  ChevronUp,
+  ChevronDown,
 };
