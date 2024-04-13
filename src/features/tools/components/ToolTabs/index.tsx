@@ -7,8 +7,16 @@ import { useToolsStore } from '../../store/useTools';
 const ToolTabs = () => {
   const tab = useToolsStore(state => state.tab);
   const setTab = useToolsStore(state => state.setTab);
+  const selectedTool = useToolsStore(state => state.selectedTool);
 
-  return <Tabs activeTab={tab} setActiveTab={setTab} />;
+  return (
+    <Tabs
+      activeTab={tab}
+      setActiveTab={setTab}
+      hasSelectedItem={Boolean(selectedTool)}
+      localStorageItem='selectedTool'
+    />
+  );
 };
 
 export default ToolTabs;
