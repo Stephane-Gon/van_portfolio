@@ -36,7 +36,7 @@ const ReservedArea = ({ children }: { children: React.ReactNode }) => {
       <Header />
       <div className='flex w-full'>
         {_renderSidebar()}
-        <div className='no-scrollbar w-full overflow-y-auto p-8'>{children}</div>
+        <div className='no-scrollbar w-full overflow-y-auto p-2 md:p-8'>{children}</div>
       </div>
       {_renderMobileMenu()}
     </main>

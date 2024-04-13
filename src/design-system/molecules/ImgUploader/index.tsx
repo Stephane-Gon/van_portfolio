@@ -71,7 +71,7 @@ const ImgUploader = ({
   };
 
   return (
-    <div className='flex w-full flex-wrap gap-x-4'>
+    <div className='flex w-full flex-wrap justify-center gap-2 md:justify-start'>
       {_renderDefaultAvatar()}
       {_renderUserPhoto()}
       {_renderPreview()}
@@ -79,7 +79,7 @@ const ImgUploader = ({
         <h3 className='text-lg text-text'>
           {label} {required && '*'}
         </h3>
-        <div className='flex flex-wrap items-center gap-x-3'>
+        <div className='flex flex-wrap items-center gap-x-4'>
           <input
             id={id}
             className='border-transparent hidden'
@@ -88,20 +88,22 @@ const ImgUploader = ({
             onChange={e => handleChange(e)}
             ref={uploader}
           />
-          <Button label={buttonLabel} onClick={() => handleButtonClick()} iconLeft={true} icon={<Upload />} />
-          {filePath && (
-            <p className='flex-[3] text-text'>
-              {typeof filePath === 'string' && filePath.length > FILE_DISPLAY_NAME_MAX_LENGTH
-                ? `${filePath.slice(0, FILE_DISPLAY_NAME_MAX_LENGTH)}...${filePath.slice(-4)}   `
-                : `${filePath}   `}
-              <button
-                onClick={() => handleRemove()}
-                className='text-inherit font-ine outline-inherit cursor-pointer border-none bg-none p-0'>
-                {' '}
-                <Close cursor='pointer' />{' '}
-              </button>
-            </p>
-          )}
+          <div className='w-full flex-col items-center gap-2 '>
+            <Button label={buttonLabel} onClick={() => handleButtonClick()} iconLeft={true} icon={<Upload />} />
+            {filePath && (
+              <p className='flex-[3] truncate text-text'>
+                {typeof filePath === 'string' && filePath.length > FILE_DISPLAY_NAME_MAX_LENGTH
+                  ? `${filePath.slice(0, FILE_DISPLAY_NAME_MAX_LENGTH)}...${filePath.slice(-4)}   `
+                  : `${filePath}   `}
+                <button
+                  onClick={() => handleRemove()}
+                  className='text-inherit font-ine outline-inherit cursor-pointer border-none bg-none p-0'>
+                  {' '}
+                  <Close cursor='pointer' />{' '}
+                </button>
+              </p>
+            )}
+          </div>
         </div>
         {_renderErrorText()}
       </div>
