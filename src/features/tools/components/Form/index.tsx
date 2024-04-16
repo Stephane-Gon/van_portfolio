@@ -1,12 +1,13 @@
 'use client';
 
 import React from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import Select from 'react-select';
+import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { Gradient, Button } from '@/design-system/atoms';
-import { useToolsStore } from '../../store/useTools';
-import { InputText, ImgUploader, Textarea } from '@/design-system/molecules';
-import type { ToolT, ToolsForm } from '../../types';
+import { useToolsStore } from '@/features/tools/store/useTools';
+import { InputText, ImgUploader, Textarea, SelectInput } from '@/design-system/molecules';
+import type { ToolT, ToolsForm } from '@/features/tools/types';
+import { LevelOptions, SkillTypesOptions } from '@/constants/options';
+import type { SkillTypes, SelectOption } from '@/constants';
 
 interface ToolFormProps {
   tool?: ToolT;
@@ -14,26 +15,30 @@ interface ToolFormProps {
 
 const ToolForm = ({ tool }: ToolFormProps) => {
   const selectedTool = useToolsStore(state => state.selectedTool);
-
   console.log('🚀 ~ ToolForm ~ tool:', tool);
-  console.log('🚀 ~ Detail ~ selectedTool:', selectedTool);
 
   const {
     register,
     handleSubmit,
+    control,
+    watch,
     // T setError,
     formState: { errors, isSubmitting },
   } = useForm<ToolsForm>({
-    defaultValues: {
+    values: {
       name: selectedTool?.name ?? '',
-      description: '',
-      types: [],
-      level: 0,
-      icon_url: '',
+      description: selectedTool?.description ?? '',
+      types: selectedTool?.types ?? [],
+      level: selectedTool?.level ?? 0,
+      icon_url: selectedTool?.icon_url ?? '',
     },
   });
 
+  console.log(watch());
+
   const onSubmit: SubmitHandler<ToolsForm> = async data => {
+    // TODO - Testar este fluxo
+    //* O erro de required na textarea só aparece quando tbm dá erro no name input
     console.log(data);
   };
 
@@ -49,19 +54,22 @@ const ToolForm = ({ tool }: ToolFormProps) => {
           <form
             onSubmit={handleSubmit(onSubmit)}
             className='mt-5 flex w-full flex-col items-end gap-6 lg:mt-0 lg:w-[70%]'>
-            {/* // TODO
-              Falta testar com o react-hook-form e adicionar a lógica de dár upload de imagens com o supabase;
-              Basicamente ao dár upload o react-hook-form deve ser atualizado e quando dér submit faço primeiro
-              o upload da imagem e depois o submit do form
-            */}
-            <ImgUploader
-              register={{ ...register('icon_url') }}
-              image={selectedTool?.icon_url}
-              label='Add the tool icon'
-              required
-              id='tool-icon-input'
-              onChange={e => console.log(e)}
+            <Controller
+              name='icon_url'
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <ImgUploader
+                  image={value}
+                  label='Add the tool icon'
+                  required
+                  id='tool-icon-input'
+                  name='icon_url'
+                  onChange={value => onChange(value)}
+                />
+              )}
+              rules={{ required: true }}
             />
+
             <InputText
               label='Name'
               placeholder='Type the tool name'
@@ -74,56 +82,56 @@ const ToolForm = ({ tool }: ToolFormProps) => {
             />
             <Textarea
               label='Description'
-              register={{
-                ...register('description', {
-                  minLength: { value: 20, message: 'The field must be larger than 20 chars!' },
-                }),
-              }}
+              control={control}
               placeholder='Type the tool description'
               id='description'
+              name='description'
               disabled={isSubmitting}
               valid={errors.name ? false : true}
               helpText={errors.name?.message ?? ''}
             />
-            <div className='flex w-full items-center gap-4'>
-              <Select
-                id='level'
-                placeholder='Select the level'
-                options={[
-                  { label: '0', value: 0 },
-                  { label: '1', value: 1 },
-                  { label: '2', value: 2 },
-                  { label: '3', value: 3 },
-                  { label: '4', value: 4 },
-                  { label: '5', value: 5 },
-                  { label: '6', value: 6 },
-                  { label: '7', value: 7 },
-                  { label: '8', value: 8 },
-                  { label: '9', value: 9 },
-                  { label: '10', value: 10 },
-                ]}
-                onChange={e => console.log(e)}
-                className='w-1/3'
+            <div className='flex w-full flex-wrap items-center gap-4 lg:flex-nowrap'>
+              <Controller
+                name='level'
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <SelectInput
+                    label='Level'
+                    id='level'
+                    value={LevelOptions.find(opt => opt.label === value.toString())}
+                    onChange={val => onChange(val?.value)}
+                    options={LevelOptions}
+                    placeholder='Select the level'
+                    required
+                    valid={errors.level ? false : true}
+                    helpText={errors.level?.message ?? ''}
+                  />
+                )}
+                rules={{ required: true }}
               />
 
-              <Select
-                id='types'
+              <Controller
                 name='types'
-                options={[
-                  { label: 'Frontend', value: 'frontend' },
-                  { label: 'Backend', value: 'backend' },
-                  { label: 'CI / CD', value: 'ci_cd' },
-                  { label: 'Design', value: 'design' },
-                  { label: 'Testing', value: 'testing' },
-                ]}
-                isMulti
-                placeholder='Select the types'
-                onChange={e => console.log(e)}
-                className='w-2/3'
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <SelectInput
+                    label='Types'
+                    id='types'
+                    value={SkillTypesOptions.filter(opt => value.includes(opt.value as SkillTypes))}
+                    onChange={val => onChange(val?.map((v: SelectOption) => v.value))}
+                    options={SkillTypesOptions}
+                    placeholder='Select one or more types'
+                    required
+                    valid={errors.types ? false : true}
+                    isMulti
+                    helpText={errors.types?.message ?? ''}
+                  />
+                )}
+                rules={{ required: true }}
               />
             </div>
 
-            <Button label='Submit' />
+            <Button label='Submit' type='submit' />
           </form>
         </div>
       </div>

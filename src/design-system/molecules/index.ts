@@ -6,5 +6,6 @@ import TagsSlider from './TagsSlider';
 import LevelBar from './LevelBar';
 import ImgUploader from './ImgUploader';
 import Textarea from './TextArea';
+import SelectInput from './Select';
 
-export { InputText, VanLogo, ThemeToggler, RouteLink, TagsSlider, LevelBar, ImgUploader, Textarea };
+export { InputText, VanLogo, ThemeToggler, RouteLink, TagsSlider, LevelBar, ImgUploader, Textarea, SelectInput };

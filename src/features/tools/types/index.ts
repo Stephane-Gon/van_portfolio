@@ -11,7 +11,7 @@ export type ToolT = {
   level: ToolLevel;
 };
 
-type ToolLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+export type ToolLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 type ToolsState = {
   tab: TOGGLE_TABS;
@@ -28,7 +28,7 @@ export type ToolsForm = {
   description: string;
   types: SkillTypes[];
   level: ToolLevel;
-  icon_url: string;
+  icon_url: string | File;
 };
 
 export type ToolsStore = ToolsState & ToolsActions;
