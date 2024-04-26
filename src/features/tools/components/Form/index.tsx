@@ -1,70 +1,27 @@
 'use client';
 
-import { FormEvent, useRef, useEffect } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { useFormState } from 'react-dom';
-import { useForm, Controller } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
+// Components
 import { Gradient, Button } from '@/design-system/atoms';
-import { useToolsStore } from '@/features/tools/store/useTools';
 import { InputText, ImgUploader, Textarea, SelectInput } from '@/design-system/molecules';
+// Store
+import { useToolsStore } from '@/features/tools/store/useTools';
+import useToolsForm from '../../hooks/useToolsForm';
+// Types & Constants
 import type { ToolT } from '@/features/tools/types';
 import { LevelOptions, SkillTypesOptions } from '@/constants/options';
 import type { SkillTypes, SelectOption } from '@/constants';
-import { onSubmitForm } from '../../actions/editForm';
-import { schema } from './schema';
-import { populateActionErrors, populateFormData } from '@/utils';
 
 interface ToolFormProps {
   tool?: ToolT;
 }
 
-// TODO - Mostrar o erro Principal num sitio melhor, talvez do lado esquerdo do add btn;
-// TODO - Adicionar um isLoading;
-
+// TODO - Tratar da lógica dos hard refetchs
 const ToolForm = ({ tool }: ToolFormProps) => {
   console.log('🚀 ~ ToolForm ~ tool:', tool);
-  const formRef = useRef<HTMLFormElement>(null);
-  const [formState, formAction] = useFormState(onSubmitForm, {
-    message: '',
-    status: 0,
-    issues: [],
-  });
+  const { formAction, formSubmitAction, errors, isSubmitting, control, register } = useToolsForm();
 
   const selectedTool = useToolsStore(state => state.selectedTool);
-  const setTab = useToolsStore(state => state.setTab);
-
-  const {
-    register,
-    control,
-    handleSubmit,
-    watch,
-    setError,
-    formState: { errors, isSubmitting },
-  } = useForm<z.output<typeof schema>>({
-    resolver: zodResolver(schema),
-    values: {
-      name: selectedTool?.name ?? '',
-      description: selectedTool?.description ?? '',
-      types: selectedTool?.types ?? [],
-      level: Number(selectedTool?.level) ?? 0,
-      icon_url: selectedTool?.icon_url ?? '',
-    },
-  });
-
-  useEffect(() => {
-    if (formState.status === 400 && formState.issues) {
-      populateActionErrors<z.output<typeof schema>>(formState.issues, setError);
-    } else if (formState.status === 200) {
-      setTab('list');
-    }
-  }, [formState, setError, errors, setTab]);
-
-  const formSubmitAction = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = populateFormData(watch(), { id: selectedTool?.id });
-    handleSubmit(() => formAction(formData))(e);
-  };
 
   return (
     <Gradient extraClasses='p-1 rounded-sm'>
@@ -76,7 +33,6 @@ const ToolForm = ({ tool }: ToolFormProps) => {
             <h1 className='text-[22px] text-text'>tool:</h1>
           </div>
           <form
-            ref={formRef}
             action={formAction}
             onSubmit={evt => formSubmitAction(evt)}
             className='mt-5 flex w-full flex-col items-end gap-6 lg:mt-0 lg:w-[70%]'>
@@ -158,10 +114,6 @@ const ToolForm = ({ tool }: ToolFormProps) => {
                 rules={{ required: { value: true, message: 'This field is required!' } }}
               />
             </div>
-
-            {/* // TODO - Passar isto para um sitio melhor */}
-            {formState?.message !== '' && <div className='text-text'>{formState.message}</div>}
-
             <Button label='Submit' type='submit' />
           </form>
         </div>

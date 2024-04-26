@@ -6,7 +6,9 @@ export const useToolsStore = create<ToolsStore>()(
   subscribeWithSelector(set => ({
     tab: 'list',
     selectedTool: null,
+    formMainError: '',
     setSelectedTool: tool => set({ selectedTool: tool }),
     setTab: tab => set({ tab }),
+    setFormMainError: error => set({ formMainError: error }),
   })),
 );

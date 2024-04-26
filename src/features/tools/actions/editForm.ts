@@ -1,6 +1,6 @@
 'use server';
 import { supabaseAdmin } from '@/lib/supabase';
-import { schema } from '../components/Form/schema';
+import { editFormSchema } from '../schemas/editFormSchema';
 import { invalidFormData, storeSupabaseImage } from '@/utils';
 import { ActionReturnType } from '@/constants';
 
@@ -9,7 +9,7 @@ export const onSubmitForm = async (prevState: ActionReturnType, formData: FormDa
   rawFormData.types = rawFormData.types.toString().split(',') as any;
   rawFormData.level = Number(rawFormData.level) as any;
 
-  const { data, success, error: zodError } = schema.safeParse(rawFormData);
+  const { data, success, error: zodError } = editFormSchema.safeParse(rawFormData);
   if (!success) {
     return invalidFormData(zodError.issues, rawFormData);
   }

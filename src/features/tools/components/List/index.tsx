@@ -1,8 +1,8 @@
 import { supabaseAdmin } from '@/lib/supabase';
 import ToolCard from '../Card';
-
 import type { ToolT } from '../../types';
 
+// TODO - Verificar se posso passar isto para uma action: https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations
 const List = async () => {
   const toolsData = await supabaseAdmin.from('tools').select();
   const tools: ToolT[] | null = toolsData.data;
