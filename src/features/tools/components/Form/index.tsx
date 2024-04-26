@@ -1,45 +1,69 @@
 'use client';
 
-import React from 'react';
-import { SubmitHandler, useForm, Controller } from 'react-hook-form';
+import { FormEvent, useRef, useEffect } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { useFormState } from 'react-dom';
+import { useForm, Controller } from 'react-hook-form';
 import { Gradient, Button } from '@/design-system/atoms';
 import { useToolsStore } from '@/features/tools/store/useTools';
 import { InputText, ImgUploader, Textarea, SelectInput } from '@/design-system/molecules';
-import type { ToolT, ToolsForm } from '@/features/tools/types';
+import type { ToolT } from '@/features/tools/types';
 import { LevelOptions, SkillTypesOptions } from '@/constants/options';
 import type { SkillTypes, SelectOption } from '@/constants';
+import { onSubmitForm } from '../../actions/editForm';
+import { schema } from './schema';
+import { populateActionErrors, populateFormData } from '@/utils';
 
 interface ToolFormProps {
   tool?: ToolT;
 }
 
+// TODO - Mostrar o erro Principal num sitio melhor, talvez do lado esquerdo do add btn;
+// TODO - Adicionar um isLoading;
+
 const ToolForm = ({ tool }: ToolFormProps) => {
-  const selectedTool = useToolsStore(state => state.selectedTool);
   console.log('🚀 ~ ToolForm ~ tool:', tool);
+  const formRef = useRef<HTMLFormElement>(null);
+  const [formState, formAction] = useFormState(onSubmitForm, {
+    message: '',
+    status: 0,
+    issues: [],
+  });
+
+  const selectedTool = useToolsStore(state => state.selectedTool);
+  const setTab = useToolsStore(state => state.setTab);
 
   const {
     register,
-    handleSubmit,
     control,
+    handleSubmit,
     watch,
-    // T setError,
+    setError,
     formState: { errors, isSubmitting },
-  } = useForm<ToolsForm>({
+  } = useForm<z.output<typeof schema>>({
+    resolver: zodResolver(schema),
     values: {
       name: selectedTool?.name ?? '',
       description: selectedTool?.description ?? '',
       types: selectedTool?.types ?? [],
-      level: selectedTool?.level ?? 0,
+      level: Number(selectedTool?.level) ?? 0,
       icon_url: selectedTool?.icon_url ?? '',
     },
   });
 
-  console.log(watch());
+  useEffect(() => {
+    if (formState.status === 400 && formState.issues) {
+      populateActionErrors<z.output<typeof schema>>(formState.issues, setError);
+    } else if (formState.status === 200) {
+      setTab('list');
+    }
+  }, [formState, setError, errors, setTab]);
 
-  const onSubmit: SubmitHandler<ToolsForm> = async data => {
-    // TODO - Testar este fluxo
-    //* O erro de required na textarea só aparece quando tbm dá erro no name input
-    console.log(data);
+  const formSubmitAction = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = populateFormData(watch(), { id: selectedTool?.id });
+    handleSubmit(() => formAction(formData))(e);
   };
 
   return (
@@ -52,7 +76,9 @@ const ToolForm = ({ tool }: ToolFormProps) => {
             <h1 className='text-[22px] text-text'>tool:</h1>
           </div>
           <form
-            onSubmit={handleSubmit(onSubmit)}
+            ref={formRef}
+            action={formAction}
+            onSubmit={evt => formSubmitAction(evt)}
             className='mt-5 flex w-full flex-col items-end gap-6 lg:mt-0 lg:w-[70%]'>
             <Controller
               name='icon_url'
@@ -65,9 +91,11 @@ const ToolForm = ({ tool }: ToolFormProps) => {
                   id='tool-icon-input'
                   name='icon_url'
                   onChange={value => onChange(value)}
+                  valid={errors.icon_url ? false : true}
+                  helpText={(errors.icon_url?.message as string) ?? ''}
                 />
               )}
-              rules={{ required: true }}
+              rules={{ required: { value: true, message: 'This field is required!' } }}
             />
 
             <InputText
@@ -87,8 +115,8 @@ const ToolForm = ({ tool }: ToolFormProps) => {
               id='description'
               name='description'
               disabled={isSubmitting}
-              valid={errors.name ? false : true}
-              helpText={errors.name?.message ?? ''}
+              valid={errors.description ? false : true}
+              helpText={errors.description?.message ?? ''}
             />
             <div className='flex w-full flex-wrap items-center gap-4 lg:flex-nowrap'>
               <Controller
@@ -98,7 +126,7 @@ const ToolForm = ({ tool }: ToolFormProps) => {
                   <SelectInput
                     label='Level'
                     id='level'
-                    value={LevelOptions.find(opt => opt.label === value.toString())}
+                    value={LevelOptions.find(opt => opt.value === value)}
                     onChange={val => onChange(val?.value)}
                     options={LevelOptions}
                     placeholder='Select the level'
@@ -107,7 +135,7 @@ const ToolForm = ({ tool }: ToolFormProps) => {
                     helpText={errors.level?.message ?? ''}
                   />
                 )}
-                rules={{ required: true }}
+                rules={{ required: { value: true, message: 'This field is required!' } }}
               />
 
               <Controller
@@ -127,9 +155,12 @@ const ToolForm = ({ tool }: ToolFormProps) => {
                     helpText={errors.types?.message ?? ''}
                   />
                 )}
-                rules={{ required: true }}
+                rules={{ required: { value: true, message: 'This field is required!' } }}
               />
             </div>
+
+            {/* // TODO - Passar isto para um sitio melhor */}
+            {formState?.message !== '' && <div className='text-text'>{formState.message}</div>}
 
             <Button label='Submit' type='submit' />
           </form>

@@ -15,7 +15,7 @@ const ToolCard = ({ tool }: ToolCardProps) => {
       </div>
       <div className='mt-3 px-4'>
         <h3 className='text-accent'>Tool Level:</h3>
-        <LevelBar level={tool.level} />
+        <LevelBar level={Number(tool.level)} />
       </div>
     </article>
   );

@@ -38,7 +38,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
               {...props}
             />
           )}
-          rules={{ required }}
+          rules={{ required: { value: required, message: 'This field is required!' } }}
         />
 
         {_renderHelpText()}
