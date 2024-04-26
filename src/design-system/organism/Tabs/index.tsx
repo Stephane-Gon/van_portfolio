@@ -7,9 +7,10 @@ type TabsProps = {
   setActiveTab: (tab: TOGGLE_TABS) => void;
   hasSelectedItem: boolean;
   localStorageItem: string;
+  selectedItemName?: string;
 };
 
-const Tabs = ({ activeTab, setActiveTab, hasSelectedItem, localStorageItem }: TabsProps) => {
+const Tabs = ({ activeTab, setActiveTab, hasSelectedItem, localStorageItem, selectedItemName }: TabsProps) => {
   useEffect(() => {
     const animateTabBorder = async (tabId: string, fromTranslate: string, toTranslate: string) => {
       const { gsap } = await import('gsap');
@@ -41,7 +42,9 @@ const Tabs = ({ activeTab, setActiveTab, hasSelectedItem, localStorageItem }: Ta
         <span
           onClick={() => setActiveTab('detail')}
           className={`flex min-w-[100px] cursor-pointer flex-col items-center pb-1 2sm:min-w-[150px]`}>
-          <p className={`${activeTab === 'detail' ? 'text-primary' : 'text-text'} text-base`}>DETAIL</p>
+          <p className={`${activeTab === 'detail' ? 'text-primary' : 'text-text'} text-base uppercase`}>
+            DETAIL {selectedItemName && `- ${selectedItemName}`}
+          </p>
           <span
             id='border-detail'
             className={`${activeTab === 'detail' ? 'w-full' : 'w-0'} h-[2px] rounded-full bg-gradient-to-r from-secondary via-tertiary to-primary`}></span>

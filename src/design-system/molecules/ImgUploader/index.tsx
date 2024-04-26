@@ -64,7 +64,9 @@ const ImgUploader = ({
     return (
       !userHasPhoto && (
         <Gradient extraClasses='rounded-full p-[2px] cursor-pointer'>
-          <div className='flex size-[120px] items-center justify-center rounded-full bg-tertiary p-2 shadow-strongInner'>
+          <div
+            onClick={() => handleButtonClick()}
+            className='flex size-[120px] items-center justify-center rounded-full bg-tertiary p-2 shadow-strongInner'>
             <Add width={60} height={60} />
           </div>
         </Gradient>

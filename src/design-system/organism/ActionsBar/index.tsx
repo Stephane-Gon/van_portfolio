@@ -7,14 +7,20 @@ import { Add } from '@/design-system/icons';
 type ActionsBarProps = {
   btnLabel: string;
   btnPath: string;
+  formError?: string;
+  isInDetail?: boolean;
 };
 
-const ActionsBar = ({ btnPath, btnLabel }: ActionsBarProps) => {
+const ActionsBar = ({ btnPath, btnLabel, formError, isInDetail = false }: ActionsBarProps) => {
   const router = useRouter();
+
+  const _renderFormError = () => {
+    return isInDetail && formError && <p className='text-md text-dangerRed'>{formError}*</p>;
+  };
 
   return (
     <div className='flex w-full flex-wrap items-center justify-between'>
-      <div></div>
+      <div>{_renderFormError()}</div>
       <span className='w-full sm:w-1/2 lg:w-1/5'>
         <Button
           onClick={async () => router.push(btnPath)}
