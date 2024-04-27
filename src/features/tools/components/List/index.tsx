@@ -1,11 +1,13 @@
-import { supabaseAdmin } from '@/lib/supabase';
-import ToolCard from '../Card';
-import type { ToolT } from '../../types';
+import dynamic from 'next/dynamic';
+import ToolCardLoading from '../Card/loading';
+import type { ToolT } from '@/features/tools/types';
+import { getToolsList } from '@/features/tools/actions/getToolsList';
 
-// TODO - Verificar se posso passar isto para uma action: https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations
+const ToolCard = dynamic(() => import('../Card'), { loading: () => <ToolCardLoading /> });
+
+// TODO - Testar o loading state
 const List = async () => {
-  const toolsData = await supabaseAdmin.from('tools').select();
-  const tools: ToolT[] | null = toolsData.data;
+  const { data, error } = await getToolsList();
 
   const _handleErrorMessage = (title: string, text?: string) => {
     return (
@@ -16,16 +18,16 @@ const List = async () => {
     );
   };
 
-  if (toolsData.error) {
-    return _handleErrorMessage('Error while fetching the tools!', toolsData.error.message);
+  if (error) {
+    return _handleErrorMessage('Error while fetching the tools!', error.message);
   }
 
-  if (tools && tools.length === 0) {
+  if (data && data.length === 0) {
     return _handleErrorMessage('No tools available!', 'Add a new tool by pressing the button.');
   }
 
   const _renderCards = () => {
-    return tools?.map((tool: ToolT) => <ToolCard key={`tool-card-id-${tool.id}`} tool={tool} />);
+    return data?.map((tool: ToolT) => <ToolCard key={`tool-card-id-${tool.id}`} tool={tool} />);
   };
 
   return <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>{_renderCards()}</div>;

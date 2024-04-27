@@ -1,7 +1,5 @@
-// Imports
-import Button from './Button';
-import Spinner from './Spinner';
-import Gradient from './Gradient';
-import RscWrapper from './RscWrapper';
-
-export { Button, Spinner, Gradient, RscWrapper };
+export { default as Button } from './Button';
+export { default as Spinner } from './Spinner';
+export { default as Skeleton } from './Skeleton';
+export { default as Gradient } from './Gradient';
+export { default as RscWrapper } from './RscWrapper';
