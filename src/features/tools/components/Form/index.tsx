@@ -8,18 +8,11 @@ import { InputText, ImgUploader, Textarea, SelectInput } from '@/design-system/m
 import { useToolsStore } from '@/features/tools/store/useTools';
 import useToolsForm from '../../hooks/useToolsForm';
 // Types & Constants
-import type { ToolT } from '@/features/tools/types';
 import { LevelOptions, SkillTypesOptions } from '@/constants/options';
 import type { SkillTypes, SelectOption } from '@/constants';
 
-interface ToolFormProps {
-  tool?: ToolT;
-}
-
-// TODO - Tratar da lógica dos hard refetchs
-const ToolForm = ({ tool }: ToolFormProps) => {
-  console.log('🚀 ~ ToolForm ~ tool:', tool);
-  const { formAction, formSubmitAction, errors, isSubmitting, control, register } = useToolsForm();
+const ToolForm = () => {
+  const { formAction, formSubmitAction, errors, isSubmitting, control, register, isPending } = useToolsForm();
 
   const selectedTool = useToolsStore(state => state.selectedTool);
 
@@ -114,7 +107,7 @@ const ToolForm = ({ tool }: ToolFormProps) => {
                 rules={{ required: { value: true, message: 'This field is required!' } }}
               />
             </div>
-            <Button label='Submit' type='submit' />
+            <Button label='Submit' type='submit' loading={isPending} disabled={isPending} />
           </form>
         </div>
       </div>

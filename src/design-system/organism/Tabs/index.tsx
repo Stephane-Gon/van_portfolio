@@ -6,11 +6,14 @@ type TabsProps = {
   activeTab: TOGGLE_TABS;
   setActiveTab: (tab: TOGGLE_TABS) => void;
   hasSelectedItem: boolean;
+  selectedItem: {
+    name?: string;
+    id?: number;
+  };
   localStorageItem: string;
-  selectedItemName?: string;
 };
 
-const Tabs = ({ activeTab, setActiveTab, hasSelectedItem, localStorageItem, selectedItemName }: TabsProps) => {
+const Tabs = ({ activeTab, setActiveTab, hasSelectedItem, localStorageItem, selectedItem }: TabsProps) => {
   useEffect(() => {
     const animateTabBorder = async (tabId: string, fromTranslate: string, toTranslate: string) => {
       const { gsap } = await import('gsap');
@@ -40,10 +43,13 @@ const Tabs = ({ activeTab, setActiveTab, hasSelectedItem, localStorageItem, sele
     return (
       hasSelectedItem && (
         <span
-          onClick={() => setActiveTab('detail')}
+          onClick={() => {
+            setActiveTab('detail');
+            if (selectedItem.id) localStorage.setItem(localStorageItem, JSON.stringify(selectedItem.id));
+          }}
           className={`flex min-w-[100px] cursor-pointer flex-col items-center pb-1 2sm:min-w-[150px]`}>
           <p className={`${activeTab === 'detail' ? 'text-primary' : 'text-text'} text-base uppercase`}>
-            DETAIL {selectedItemName && `- ${selectedItemName}`}
+            DETAIL {selectedItem.name && `- ${selectedItem.name}`}
           </p>
           <span
             id='border-detail'

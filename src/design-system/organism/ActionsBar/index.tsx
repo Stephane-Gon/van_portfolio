@@ -7,15 +7,14 @@ import { Add } from '@/design-system/icons';
 type ActionsBarProps = {
   btnLabel: string;
   btnPath: string;
-  formError?: string;
-  isInDetail?: boolean;
+  error?: string;
 };
 
-const ActionsBar = ({ btnPath, btnLabel, formError, isInDetail = false }: ActionsBarProps) => {
+const ActionsBar = ({ btnPath, btnLabel, error }: ActionsBarProps) => {
   const router = useRouter();
 
   const _renderFormError = () => {
-    return isInDetail && formError && <p className='text-md text-dangerRed'>{formError}*</p>;
+    return error && <p className='text-md text-dangerRed'>{error}*</p>;
   };
 
   return (

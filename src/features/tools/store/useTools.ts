@@ -8,7 +8,7 @@ export const useToolsStore = create<ToolsStore>()(
     selectedTool: null,
     formMainError: '',
     setSelectedTool: tool => set({ selectedTool: tool }),
-    setTab: tab => set({ tab }),
+    setTab: tab => set({ tab, formMainError: '' }),
     setFormMainError: error => set({ formMainError: error }),
   })),
 );

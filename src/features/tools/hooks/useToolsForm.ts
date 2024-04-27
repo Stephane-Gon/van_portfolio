@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useEffect } from 'react';
+import { FormEvent, useEffect, useTransition } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
@@ -15,9 +15,9 @@ import { populateActionErrors, populateFormData } from '@/utils';
 import { ToolLevel } from '../types';
 
 // TODO - Quando tiver outro form pronto vêr se consigo passar esta lógica toda para uma hook generica
-// TODO - Adicionar um isLoading;
 
 const useToolsForm = () => {
+  const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const [formState, formAction] = useFormState(onSubmitForm, {
     message: '',
@@ -70,11 +70,13 @@ const useToolsForm = () => {
   }, [formState, setError, errors, setTab, setFormMainError, router, setSelectedTool, selectedTool, watch]);
 
   const formSubmitAction = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    handleSubmit(() => {
-      const formData = populateFormData(watch(), { id: selectedTool?.id });
-      formAction(formData);
-    })(e);
+    startTransition(() => {
+      e.preventDefault();
+      handleSubmit(() => {
+        const formData = populateFormData(watch(), { id: selectedTool?.id });
+        formAction(formData);
+      })(e);
+    });
   };
 
   return {
@@ -84,6 +86,7 @@ const useToolsForm = () => {
     errors,
     isSubmitting,
     formAction,
+    isPending,
   };
 };
 

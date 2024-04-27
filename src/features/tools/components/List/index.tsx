@@ -5,7 +5,6 @@ import { getToolsList } from '@/features/tools/actions/getToolsList';
 
 const ToolCard = dynamic(() => import('../Card'), { loading: () => <ToolCardLoading /> });
 
-// TODO - Testar o loading state
 const List = async () => {
   const { data, error } = await getToolsList();
 
