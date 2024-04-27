@@ -17,7 +17,6 @@ const ToolsContainer = ({ list, detail }: ToolsContainerProps) => {
   const formMainError = useToolsStore(state => state.formMainError);
   const setFormMainError = useToolsStore(state => state.setFormMainError);
   const setSelectedTool = useToolsStore(state => state.setSelectedTool);
-  const storageSelectedTool = window.localStorage.getItem('selectedTool');
 
   //* Here I check if there is a selected tool in the local storage
   //* If there is, I get the tool, save it in the store and set the tab to detail
@@ -30,9 +29,11 @@ const ToolsContainer = ({ list, detail }: ToolsContainerProps) => {
       } else if (tool.error) {
         setTab('list');
         setFormMainError(tool.error.message);
-        window.localStorage.removeItem('selectedTool');
+        localStorage.removeItem('selectedTool');
       }
     };
+
+    const storageSelectedTool = localStorage.getItem('selectedTool');
     if (storageSelectedTool) getSelectedTool();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
