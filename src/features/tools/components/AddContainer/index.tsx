@@ -11,6 +11,7 @@ const AddToolContainer = () => {
       <h1 className='text-xl text-text'>Add a new tool:</h1>
       <div className={`w-full rounded-md bg-neumorph p-4 shadow-neumorph`}>
         <ActionsBar error={formMainError} backLink='/tools' />
+        {/* TODO Criar form de adicionar tool */}
       </div>
     </div>
   );
