@@ -17,6 +17,7 @@ const invalidFormData = (issues: ZodIssue[], rawFormData: FormData) => {
       message: issue.message,
       fields: issue.path,
     })),
+    item: null,
   };
 };
 

@@ -10,6 +10,7 @@ interface ButtonProps {
   name?: string;
   iconLeft?: boolean;
   icon?: JSX.Element;
+  variant?: 'gradient' | 'danger';
 }
 
 /**
@@ -20,6 +21,7 @@ const ButtonRoot = ({
   type = 'button',
   loading = false,
   iconLeft = false,
+  variant = 'gradient',
   onClick,
   label,
   id,
@@ -34,9 +36,8 @@ const ButtonRoot = ({
   const disabledStyle = disabled ? 'opacity-40 cursor-auto pointer-events-none' : '';
   const loadingStyle = loading ? 'cursor-auto pointer-events-none' : '';
 
-  return (
-    <Gradient
-      extraClasses={`myBtn relative flex items-center justify-center gap-2 rounded-sm p-border transition-all hover:scale-105 ${disabledStyle} ${loadingStyle}`}>
+  const _renderButton = () => {
+    return (
       <button
         id={id}
         name={name}
@@ -50,8 +51,30 @@ const ButtonRoot = ({
         {label}
         {!iconLeft && icon}
       </button>
-    </Gradient>
-  );
+    );
+  };
+
+  const _renderVariant = () => {
+    switch (variant) {
+      case 'danger':
+        return (
+          <div
+            className={`myBtn relative flex items-center justify-center gap-2 rounded-sm bg-dangerRed p-border transition-all hover:scale-105 ${disabledStyle} ${loadingStyle}`}>
+            {_renderButton()}
+          </div>
+        );
+      case 'gradient':
+      default:
+        return (
+          <Gradient
+            extraClasses={`myBtn relative flex items-center justify-center gap-2 rounded-sm p-border transition-all hover:scale-105 ${disabledStyle} ${loadingStyle}`}>
+            {_renderButton()}
+          </Gradient>
+        );
+    }
+  };
+
+  return _renderVariant();
 };
 
 export default ButtonRoot;

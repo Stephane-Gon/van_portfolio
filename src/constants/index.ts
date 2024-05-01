@@ -18,8 +18,14 @@ export type Issue = {
   fields?: (string | number)[];
 };
 
-export type ActionReturnType = {
+export interface ActionReturnType<T> {
   status: number;
   message: string;
   issues?: Issue[];
-};
+  item: T | null;
+}
+
+export interface DeleteResponse<T> {
+  data: T | null;
+  error: Record<string, any> | null;
+}

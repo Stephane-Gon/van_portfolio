@@ -13,7 +13,7 @@ const ToolTabs = () => {
     <Tabs
       activeTab={tab}
       setActiveTab={setTab}
-      hasSelectedItem={Boolean(selectedTool)}
+      hasSelectedItem={Boolean(selectedTool.id)}
       localStorageItem='selectedTool'
       selectedItem={{
         name: selectedTool?.name,

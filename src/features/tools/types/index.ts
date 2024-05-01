@@ -3,19 +3,18 @@ import type { SkillTypes, TOGGLE_TABS } from '@/constants';
 export type ToolT = {
   id: number;
   name: string;
-  created_at: string;
+  created_at?: string;
   description: string | null;
-  icon_path: string;
   icon_url: string;
   types: SkillTypes[];
   level: ToolLevel;
 };
 
-export type ToolLevel = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10';
+export type ToolLevel = '' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10';
 
 type ToolsState = {
   tab: TOGGLE_TABS;
-  selectedTool: ToolT | null;
+  selectedTool: ToolT;
   formMainError: string;
 };
 

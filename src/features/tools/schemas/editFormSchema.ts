@@ -8,7 +8,18 @@ export const editFormSchema = z.object({
   description: z.string().min(20, {
     message: 'The description is required and must have more than 20 chars.',
   }),
-  level: z.number().int().min(0, 'Value must be between 0 and 10').max(10, 'Value must be between 0 and 10'),
+  level: z
+    .string()
+    .refine(value => {
+      if (!value) return false;
+      return true;
+    }, 'The level is required.')
+    .refine(value => {
+      if (value) {
+        return Number(value) >= 0 && Number(value) <= 10;
+      }
+      return false;
+    }, 'Value must be between 0 and 10'),
   types: z.array(z.enum(['frontend', 'backend', 'design', 'ci_cd', 'testing'])).min(1, {
     message: 'At least one skill type is required',
   }),

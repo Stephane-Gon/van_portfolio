@@ -5,7 +5,16 @@ import type { ToolsStore } from '@/features/tools/types';
 export const useToolsStore = create<ToolsStore>()(
   subscribeWithSelector(set => ({
     tab: 'list',
-    selectedTool: null,
+    selectedTool: {
+      id: 0,
+      name: '',
+      created_at: '',
+      description: '',
+      icon_path: '',
+      icon_url: '',
+      types: [],
+      level: '',
+    },
     formMainError: '',
     setSelectedTool: tool => set({ selectedTool: tool }),
     setTab: tab => set({ tab, formMainError: '' }),

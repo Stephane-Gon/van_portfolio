@@ -3,7 +3,7 @@ import ToolForm from '../Form';
 const Detail = async () => {
   return (
     <div>
-      <ToolForm />
+      <ToolForm isEdit={true} />
     </div>
   );
 };
