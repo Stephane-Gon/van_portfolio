@@ -1,7 +1,8 @@
 'use server';
 import { supabaseAdmin } from '@/lib/supabase';
 import { editFormSchema } from '../schemas/editFormSchema';
-import { invalidFormData, storeSupabaseImage } from '@/utils';
+import { invalidFormData } from '@/utils';
+import { storeSupabaseImage } from '@/lib/utils';
 import { ActionReturnType } from '@/constants';
 
 export const onSubmitForm = async <T>(

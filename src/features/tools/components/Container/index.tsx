@@ -10,7 +10,7 @@ interface ToolsContainerProps {
   list?: React.ReactNode;
   detail?: React.ReactNode;
 }
-// TODO - Ver o que posso fazer aqui para melhor performance
+
 const ToolsContainer = ({ list, detail }: ToolsContainerProps) => {
   const tab = useToolsStore(state => state.tab);
   const setTab = useToolsStore(state => state.setTab);

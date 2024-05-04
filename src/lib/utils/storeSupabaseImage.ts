@@ -1,7 +1,6 @@
 import { supabaseAdmin } from '@/lib/supabase';
 import { ActionReturnType, Modules } from '@/constants';
 
-// TODO - Dár fix disto e passar para o folder lib
 type StoredImageReturnType = ActionReturnType<null> & { icon_url?: string | File };
 
 const storeSupabaseImage = async (
