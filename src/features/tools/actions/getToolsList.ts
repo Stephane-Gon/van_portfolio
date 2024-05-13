@@ -1,13 +1,9 @@
 'use server';
 import { supabaseAdmin } from '@/lib/supabase';
 import type { ToolT } from '../types';
+import { getListResponse } from '@/constants';
 
-interface ToolsListResponse {
-  data: ToolT[] | null;
-  error: Record<string, any> | null;
-}
-
-export const getToolsList = async (): Promise<ToolsListResponse> => {
+export const getToolsList = async (): Promise<getListResponse<ToolT>> => {
   const toolsData = await supabaseAdmin.from('tools').select();
   return {
     data: toolsData.data,

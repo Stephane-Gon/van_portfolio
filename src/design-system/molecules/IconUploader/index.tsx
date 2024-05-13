@@ -2,10 +2,10 @@
 import Image from 'next/image';
 import { Add, Upload, Close } from '@/design-system/icons';
 import { Button, Gradient } from '@/design-system/atoms';
-import useIconUploader from './useImgUploader';
+import useIconUploader from './useIconUploader';
 import { FILE_DISPLAY_NAME_MAX_LENGTH } from '@/constants';
 
-interface ImgUploaderProps {
+interface IconUploaderProps {
   label: string;
   valid?: boolean;
   helpText?: string | null;
@@ -18,7 +18,7 @@ interface ImgUploaderProps {
   name: string;
 }
 
-const ImgUploader = ({
+const IconUploader = ({
   label = '',
   valid = true,
   required = true,
@@ -29,7 +29,7 @@ const ImgUploader = ({
   id,
   name,
   onChange,
-}: ImgUploaderProps) => {
+}: IconUploaderProps) => {
   const { userHasPhoto, filePath, filePreviewUrl, uploader, errorText, handleButtonClick, handleChange, handleRemove } =
     useIconUploader({ image, onChange, fileSizeLimit });
 
@@ -37,16 +37,9 @@ const ImgUploader = ({
     return (
       userHasPhoto &&
       filePreviewUrl && (
-        <Gradient extraClasses='rounded-md p-[4px] cursor-pointer'>
-          <div className='relative flex aspect-video w-full items-center justify-center bg-tertiary p-2 shadow-strongInner'>
-            <Image
-              className='rounded-md'
-              src={filePreviewUrl}
-              alt='Preview of the uploaded image'
-              layout='fill'
-              objectFit='cover'
-              objectPosition='center'
-            />
+        <Gradient extraClasses='rounded-full p-[2px] cursor-pointer'>
+          <div className='flex size-[120px] items-center justify-center rounded-full bg-tertiary p-2 shadow-strongInner'>
+            <Image src={filePreviewUrl} alt='Preview of the uploaded image' width={80} height={80} />
           </div>
         </Gradient>
       )
@@ -58,16 +51,9 @@ const ImgUploader = ({
       userHasPhoto &&
       !filePreviewUrl &&
       typeof image === 'string' && (
-        <Gradient extraClasses='rounded-md p-[4px] cursor-pointer'>
-          <div className='relative flex aspect-video w-full items-center justify-center bg-tertiary p-2 shadow-strongInner'>
-            <Image
-              className='rounded-md'
-              src={image}
-              alt='Preview of the current image'
-              layout='fill'
-              objectFit='cover'
-              objectPosition='center'
-            />
+        <Gradient extraClasses='rounded-full p-[2px] cursor-pointer'>
+          <div className='flex size-[120px] items-center justify-center rounded-full bg-tertiary p-2 shadow-strongInner'>
+            <Image src={image} alt='Preview of the current image' width={80} height={80} />
           </div>
         </Gradient>
       )
@@ -77,19 +63,11 @@ const ImgUploader = ({
   const _renderDefaultAvatar = () => {
     return (
       !userHasPhoto && (
-        <Gradient extraClasses='rounded-md p-[4px] cursor-pointer'>
+        <Gradient extraClasses='rounded-full p-[2px] cursor-pointer'>
           <div
             onClick={() => handleButtonClick()}
-            className='relative flex aspect-video w-full items-center justify-center bg-tertiary p-2 shadow-strongInner'>
-            <Image
-              className='rounded-md'
-              src='/placeholder_img.webp'
-              alt='Preview of the current image'
-              layout='fill'
-              objectFit='cover'
-              objectPosition='center'
-            />
-            <Add width={60} height={60} className='z-10' />
+            className='flex size-[120px] items-center justify-center rounded-full bg-tertiary p-2 shadow-strongInner'>
+            <Add width={60} height={60} />
           </div>
         </Gradient>
       )
@@ -108,7 +86,7 @@ const ImgUploader = ({
   };
 
   return (
-    <div className='flex w-full flex-col justify-center gap-4 md:justify-start'>
+    <div className='flex w-full flex-wrap justify-center gap-4 md:justify-start'>
       {_renderDefaultAvatar()}
       {_renderUserPhoto()}
       {_renderPreview()}
@@ -150,4 +128,4 @@ const ImgUploader = ({
   );
 };
 
-export default ImgUploader;
+export default IconUploader;

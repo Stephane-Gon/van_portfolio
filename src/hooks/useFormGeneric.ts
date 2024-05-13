@@ -17,7 +17,7 @@ interface UseToolsForm<T> {
   setTab: (tab: TOGGLE_TABS) => void;
   setSelectedItem: (tool: T) => void;
   setFormMainError: (error: string) => void;
-  editFormSchema: z.ZodObject<any>;
+  formSchema: z.ZodObject<any>;
   onSubmitForm: (prevState: ActionReturnType<T>, formData: FormData) => Promise<ActionReturnType<T>>;
   path: string | null;
   storageItem: string | null;
@@ -29,7 +29,7 @@ const useGenericForm = <T extends Record<string, any>>({
   setTab,
   setFormMainError,
   setSelectedItem,
-  editFormSchema,
+  formSchema,
   onSubmitForm,
   path,
   storageItem,
@@ -51,14 +51,14 @@ const useGenericForm = <T extends Record<string, any>>({
     watch,
     setError,
     formState: { errors, isSubmitting },
-  } = useForm<z.output<typeof editFormSchema>>({
-    resolver: zodResolver(editFormSchema),
+  } = useForm<z.output<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     values: populatedValues,
   });
 
   useEffect(() => {
     if (formState.status === 400 && formState.issues) {
-      populateActionErrors<z.output<typeof editFormSchema>>(formState.issues, setError);
+      populateActionErrors<z.output<typeof formSchema>>(formState.issues, setError);
       setFormMainError(formState.message);
     } else if (formState.status === 200) {
       setFormMainError('');

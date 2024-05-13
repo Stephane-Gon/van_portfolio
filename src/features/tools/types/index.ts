@@ -33,3 +33,13 @@ export type ToolsForm = {
 };
 
 export type ToolsStore = ToolsState & ToolsActions;
+
+export const defaultTool: ToolT = {
+  id: 0,
+  name: '',
+  created_at: '',
+  description: '',
+  icon_url: '',
+  types: [],
+  level: '',
+};

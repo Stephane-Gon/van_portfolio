@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { AVAIALABLE_ENTENSIONS, FILE_SIZE_LIMIT } from '@/constants';
 
-export const editFormSchema = z.object({
+export const formSchema = z.object({
   name: z.string().min(1, {
     message: 'The name is required.',
   }),

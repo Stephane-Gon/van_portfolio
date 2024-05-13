@@ -4,18 +4,18 @@ import { Controller } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 // Components
 import { Gradient, Button } from '@/design-system/atoms';
-import { InputText, ImgUploader, Textarea, SelectInput } from '@/design-system/molecules';
+import { InputText, IconUploader, Textarea, SelectInput } from '@/design-system/molecules';
 // Store
 import { useToolsStore } from '@/features/tools/store/useTools';
 // Actions & Hooks
 import useGenericForm from '@/hooks/useFormGeneric';
 import { onSubmitForm } from '../../actions/editForm';
 import { deleteTool } from '../../actions/deleteTools';
-import { editFormSchema } from '../../schemas/editFormSchema';
+import { formSchema } from '../../schemas/formSchema';
 // Types & Constants
 import { LevelOptions, SkillTypesOptions } from '@/constants/options';
 import type { SkillTypes, SelectOption } from '@/constants';
-import type { ToolT } from '../../types';
+import { ToolT, defaultTool } from '../../types';
 
 interface ToolFormProps {
   isEdit: boolean;
@@ -29,11 +29,11 @@ const ToolForm = ({ isEdit }: ToolFormProps) => {
   const setFormMainError = useToolsStore(state => state.setFormMainError);
 
   const { formAction, formSubmitAction, errors, isSubmitting, control, register, isPending } = useGenericForm<ToolT>({
-    selectedItem: isEdit ? selectedTool : { name: '', description: '', icon_url: '', level: '', types: [], id: 0 },
+    selectedItem: isEdit ? selectedTool : defaultTool,
     setTab,
     setSelectedItem: setSelectedTool,
     setFormMainError,
-    editFormSchema,
+    formSchema,
     onSubmitForm,
     id: isEdit ? selectedTool?.id : null,
     path: isEdit ? null : '/tools',
@@ -62,22 +62,24 @@ const ToolForm = ({ isEdit }: ToolFormProps) => {
   const _renderDeleteBtn = () => {
     return (
       isEdit && (
-        <Button
-          label='Delete'
-          variant='danger'
-          onClick={async () => {
-            const res = await deleteTool(selectedTool);
-            if (res.error) {
-              setFormMainError(res.error.message);
-              return;
-            } else {
-              setTab('list');
-              localStorage.removeItem('selectedTool');
-              setSelectedTool({ name: '', description: '', icon_url: '', level: '', types: [], id: 0 });
-              router.refresh();
-            }
-          }}
-        />
+        <div className='w-full 2sm:w-1/4'>
+          <Button
+            label='Delete'
+            variant='danger'
+            onClick={async () => {
+              const res = await deleteTool(selectedTool);
+              if (res.error) {
+                setFormMainError(res.error.message);
+                return;
+              } else {
+                setTab('list');
+                localStorage.removeItem('selectedTool');
+                setSelectedTool(defaultTool);
+                router.refresh();
+              }
+            }}
+          />
+        </div>
       )
     );
   };
@@ -95,7 +97,7 @@ const ToolForm = ({ isEdit }: ToolFormProps) => {
               name='icon_url'
               control={control}
               render={({ field: { onChange, value } }) => (
-                <ImgUploader
+                <IconUploader
                   image={value}
                   label='Add the tool icon'
                   required
@@ -170,9 +172,9 @@ const ToolForm = ({ isEdit }: ToolFormProps) => {
               />
             </div>
 
-            <div className='flex w-full justify-between'>
+            <div className='flex w-full flex-wrap justify-between gap-2'>
               {_renderDeleteBtn()}
-              <div className='ml-auto'>
+              <div className='ml-auto w-full 2sm:w-1/4'>
                 <Button label='Submit' type='submit' loading={isPending} disabled={isPending} />
               </div>
             </div>

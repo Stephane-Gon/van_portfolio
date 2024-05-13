@@ -29,3 +29,13 @@ export interface DeleteResponse<T> {
   data: T | null;
   error: Record<string, any> | null;
 }
+
+export interface getListResponse<T> {
+  data: T[] | null;
+  error: Record<string, any> | null;
+}
+
+export interface getSingleResponse<T> {
+  data: T | null;
+  error: Record<string, any> | null;
+}

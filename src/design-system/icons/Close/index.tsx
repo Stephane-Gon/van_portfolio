@@ -6,6 +6,7 @@
 const SVGComponent = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
+      className={props.className}
       onClick={props.onClick}
       cursor={props.cursor || 'default'}
       xmlns='http://www.w3.org/2000/svg'

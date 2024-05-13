@@ -1,13 +1,13 @@
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
-import { ToolsStore, defaultTool } from '@/features/tools/types';
+import { ProjectsStore, defaultProject } from '@/features/projects/types';
 
-export const useToolsStore = create<ToolsStore>()(
+export const useProjectsStore = create<ProjectsStore>()(
   subscribeWithSelector(set => ({
     tab: 'list',
-    selectedTool: defaultTool,
+    selectedProject: defaultProject,
     formMainError: '',
-    setSelectedTool: tool => set({ selectedTool: tool }),
+    setSelectedProject: project => set({ selectedProject: project }),
     setTab: tab => set({ tab, formMainError: '' }),
     setFormMainError: error => set({ formMainError: error }),
   })),
