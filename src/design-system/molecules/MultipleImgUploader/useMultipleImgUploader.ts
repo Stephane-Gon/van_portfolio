@@ -3,7 +3,7 @@ import { fileHasValidExtension, isBelowFileSizeLimit } from './utils';
 
 interface UseMultipleImgUploaderProps {
   images: Array<string | File>;
-  onChange: (e: File | string) => void;
+  onChange: (e: Array<File | string>) => void;
   fileSizeLimit: number; // Bytes
 }
 
@@ -40,14 +40,15 @@ const useMultipleImgUploader = ({ images, onChange, fileSizeLimit }: UseMultiple
       return;
     }
 
-    onChange(e.target.files[0]);
+    onChange([...allImages, e.target.files[0]]);
     setAllImages(prevState => [...prevState, e.target.files[0]]);
     setErrorText('');
   };
 
-  const handleRemove = () => {
-    onChange('');
-    setAllImages([]);
+  const handleRemove = (index: number) => {
+    const updatedImgArray = allImages.filter((_, i) => i !== index);
+    onChange(updatedImgArray);
+    setAllImages(updatedImgArray);
     setErrorText('');
   };
 

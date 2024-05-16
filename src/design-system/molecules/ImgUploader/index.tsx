@@ -39,14 +39,7 @@ const ImgUploader = ({
       filePreviewUrl && (
         <Gradient extraClasses='rounded-md p-[4px] cursor-pointer'>
           <div className='relative flex aspect-video w-full items-center justify-center bg-tertiary p-2 shadow-strongInner'>
-            <Image
-              className='rounded-md'
-              src={filePreviewUrl}
-              alt='Preview of the uploaded image'
-              layout='fill'
-              objectFit='cover'
-              objectPosition='center'
-            />
+            <Image className='rounded-md' src={filePreviewUrl} alt='Preview of the uploaded image' fill sizes='100vw' />
           </div>
         </Gradient>
       )
@@ -60,14 +53,7 @@ const ImgUploader = ({
       typeof image === 'string' && (
         <Gradient extraClasses='rounded-md p-[4px] cursor-pointer'>
           <div className='relative flex aspect-video w-full items-center justify-center bg-tertiary p-2 shadow-strongInner'>
-            <Image
-              className='rounded-md'
-              src={image}
-              alt='Preview of the current image'
-              layout='fill'
-              objectFit='cover'
-              objectPosition='center'
-            />
+            <Image className='rounded-md' src={image} alt='Preview of the current image' fill sizes='100vw' />
           </div>
         </Gradient>
       )
@@ -85,9 +71,8 @@ const ImgUploader = ({
               className='rounded-md'
               src='/placeholder_img.webp'
               alt='Preview of the current image'
-              layout='fill'
-              objectFit='cover'
-              objectPosition='center'
+              fill
+              sizes='100vw'
             />
             <Add width={60} height={60} className='z-10' />
           </div>

@@ -22,8 +22,8 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
         <Image
           src={project.main_image}
           alt={`${project.title} project main image`}
-          layout='fill'
-          objectFit='cover'
+          fill
+          sizes='100vw'
           className='rounded-md'
         />
       </div>

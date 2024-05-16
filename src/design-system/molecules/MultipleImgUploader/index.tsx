@@ -14,7 +14,7 @@ interface MultipleImgUploaderProps {
   id: string;
   required?: boolean;
   fileSizeLimit?: number; // Bytes
-  onChange: (e: File | string) => void;
+  onChange: (e: Array<File | string>) => void;
   buttonLabel?: string | null;
   images: Array<string | File>;
   name: string;
@@ -34,6 +34,7 @@ const MultipleImgUploader = ({
 }: MultipleImgUploaderProps) => {
   const { userHasPhoto, allImages, uploader, errorText, handleButtonClick, handleChange, handleRemove } =
     useMultipleImgUploader({ images, onChange, fileSizeLimit });
+  console.log('🚀 ~ userHasPhoto:', userHasPhoto);
 
   const _renderUserPhoto = () => {
     return userHasPhoto && allImages.length ? (
@@ -43,13 +44,12 @@ const MultipleImgUploader = ({
             className='rounded-md'
             src={typeof allImages[0] === 'string' ? allImages[0] : URL.createObjectURL(allImages[0])}
             alt='Preview of the current image'
-            layout='fill'
-            objectFit='cover'
-            objectPosition='center'
+            fill
+            sizes='100vw'
           />
         </div>
         <Close
-          onClick={() => handleRemove()}
+          onClick={() => handleRemove(0)}
           className='absolute right-3 top-3 z-10 transform rounded-full bg-accent p-1 shadow-md hover:scale-105'
           cursor='pointer'
           fill='#a3e7fc'
@@ -69,9 +69,8 @@ const MultipleImgUploader = ({
               className='rounded-md'
               src='/placeholder_img.webp'
               alt='Preview of the current image'
-              layout='fill'
-              objectFit='cover'
-              objectPosition='center'
+              fill
+              sizes='100vw'
             />
             <Add width={60} height={60} className='z-10' />
           </div>
@@ -104,13 +103,12 @@ const MultipleImgUploader = ({
               <Image
                 src={typeof slideImage === 'string' ? slideImage : URL.createObjectURL(slideImage)}
                 alt='Preview of the current image'
-                layout='fill'
-                objectFit='cover'
-                objectPosition='center'
+                fill
+                sizes='100vw'
               />
             </div>
             <Close
-              onClick={() => handleRemove()}
+              onClick={() => handleRemove(index + 1)}
               className='absolute right-3 top-3 z-10 transform rounded-full bg-accent p-1 shadow-md hover:scale-105'
               cursor='pointer'
               fill='#a3e7fc'
