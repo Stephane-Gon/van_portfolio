@@ -1,4 +1,4 @@
-export const AVAIALABLE_ENTENSIONS = ['.webp', 'image/svg+xml', '.svg'];
+export const AVAIALABLE_ENTENSIONS = ['.webp', 'image/svg+xml', '.svg', 'image/webp'];
 export const FILE_DISPLAY_NAME_MAX_LENGTH = 20;
 export const FILE_SIZE_LIMIT = 1 * 1024 * 1024; // 1 MB in bytes
 

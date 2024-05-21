@@ -10,7 +10,7 @@ export const onSubmitForm = async <T>(
   formData: FormData,
 ): Promise<ActionReturnType<T>> => {
   const rawFormData = Object.fromEntries(formData);
-  rawFormData.types = rawFormData.types.toString().split(',') as any;
+  rawFormData.types = JSON.parse(rawFormData.types as any);
 
   const { data, success, error: zodError } = formSchema.safeParse(rawFormData);
   if (!success) {
@@ -19,26 +19,28 @@ export const onSubmitForm = async <T>(
 
   //* Upload the image to the storage
   let icon_url: string | File = data.icon_url;
-  const storedImage = await storeSupabaseImage(data.icon_url, data.name, 'tools');
+  const storedImage = await storeSupabaseImage(data.icon_url, data.name, 'tools', 'icon_url');
 
-  if (storedImage.status === 200 && storedImage.icon_url) {
-    icon_url = storedImage.icon_url;
+  if (storedImage.status === 200 && storedImage.image) {
+    icon_url = storedImage.image;
   } else {
     return storedImage;
   }
 
   let successItem: any;
 
+  const bodyData = {
+    name: data.name,
+    description: data.description,
+    level: Number(data.level),
+    types: data.types,
+    icon_url,
+  };
+
   if (Number(rawFormData.id) > 0) {
     const { data: item, error } = await supabaseAdmin
       .from('tools')
-      .update({
-        name: data.name,
-        description: data.description,
-        level: Number(data.level),
-        types: data.types,
-        icon_url: icon_url,
-      })
+      .update(bodyData)
       .eq('id', Number(rawFormData.id))
       .select();
     successItem = item ? item[0] : null;
@@ -52,16 +54,7 @@ export const onSubmitForm = async <T>(
       };
     }
   } else {
-    const { data: item, error } = await supabaseAdmin
-      .from('tools')
-      .insert({
-        name: data.name,
-        description: data.description,
-        level: Number(data.level),
-        types: data.types,
-        icon_url: icon_url,
-      })
-      .select();
+    const { data: item, error } = await supabaseAdmin.from('tools').insert(bodyData).select();
     successItem = item ? item[0] : null;
 
     if (error) {

@@ -87,11 +87,9 @@ const ProjectForm = ({ isEdit }: ProjectFormProps) => {
   };
 
   // TODO - TESTAR FORM
-  //* Começar input a input;
-  //* Vejo se pass a validação;
-  //* Se chega á form action;
-  //* Se passa a validação na form action;
-  //* E começo a gravar na db;
+  //* Edit com images com mais de 1 MB
+
+  //* Tenho que passar uma deleteImage function para os "x" icons do image slider
 
   return (
     <Gradient extraClasses='p-1 rounded-sm'>

@@ -11,6 +11,8 @@ export const formSchema = z.object({
   slogan: z.string().min(5, {
     message: 'The slogan must be at least 5 characters long.',
   }),
+  repository: z.string().nullable(),
+  live_link: z.string().nullable(),
   challenges: z.string().min(5, {
     message: 'The challenges must be at least 5 characters long.',
   }),
@@ -41,13 +43,13 @@ export const formSchema = z.object({
       return true;
     }, 'The icon is required.')
     .refine(images => {
-      images.forEach(image => {
+      return images.some(image => {
         if (typeof image === 'string') return true;
         return image?.size <= FILE_SIZE_LIMIT;
       });
     }, `Max image size is 1MB.`)
     .refine(images => {
-      images.forEach(image => {
+      return images.some(image => {
         if (typeof image === 'string') return true;
         return AVAIALABLE_ENTENSIONS.includes(image?.type);
       });

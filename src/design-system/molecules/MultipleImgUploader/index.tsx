@@ -34,7 +34,6 @@ const MultipleImgUploader = ({
 }: MultipleImgUploaderProps) => {
   const { userHasPhoto, allImages, uploader, errorText, handleButtonClick, handleChange, handleRemove } =
     useMultipleImgUploader({ images, onChange, fileSizeLimit });
-  console.log('🚀 ~ userHasPhoto:', userHasPhoto);
 
   const _renderUserPhoto = () => {
     return userHasPhoto && allImages.length ? (

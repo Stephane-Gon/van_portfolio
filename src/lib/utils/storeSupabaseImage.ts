@@ -1,12 +1,13 @@
 import { supabaseAdmin } from '@/lib/supabase';
 import { ActionReturnType, Modules } from '@/constants';
 
-type StoredImageReturnType = ActionReturnType<null> & { icon_url?: string | File };
+type StoredImageReturnType = ActionReturnType<null> & { image?: string | File };
 
 const storeSupabaseImage = async (
   image: File | string,
   name: string,
   folder: Modules,
+  field: string,
 ): Promise<StoredImageReturnType> => {
   if (typeof image !== 'string') {
     const { data, error } = await supabaseAdmin.storage
@@ -22,7 +23,7 @@ const storeSupabaseImage = async (
         issues: [
           {
             message: error.message,
-            fields: ['icon_url'],
+            fields: [field],
           },
         ],
         item: null,
@@ -33,7 +34,7 @@ const storeSupabaseImage = async (
       return {
         status: 200,
         message: 'Image uploaded successfully',
-        icon_url: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${data.path}`,
+        image: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${data.path}`,
         item: null,
       };
     }
@@ -42,7 +43,7 @@ const storeSupabaseImage = async (
   return {
     status: 200,
     message: 'Image uploaded successfully',
-    icon_url: image,
+    image: image,
     item: null,
   };
 };
