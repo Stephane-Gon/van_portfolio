@@ -11,7 +11,7 @@ const AddToolContainer = () => {
     <div className={`container flex flex-col items-center gap-10`}>
       <h1 className='text-xl text-text'>Add a new tool:</h1>
       <div className={`flex w-full flex-col gap-4 rounded-md bg-neumorph p-4 shadow-neumorph`}>
-        <ActionsBar error={formMainError} backLink='/tools' />
+        <ActionsBar error={formMainError} backLink='/tools' backTitle='Back to tools list' />
         <ToolForm isEdit={false} />
       </div>
     </div>

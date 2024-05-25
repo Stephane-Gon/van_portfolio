@@ -9,9 +9,10 @@ type ActionsBarProps = {
   btnPath?: string;
   error?: string;
   backLink?: string;
+  backTitle?: string;
 };
 
-const ActionsBar = ({ btnPath, btnLabel, error, backLink }: ActionsBarProps) => {
+const ActionsBar = ({ btnPath, btnLabel, error, backLink, backTitle }: ActionsBarProps) => {
   const router = useRouter();
 
   const _renderBackLink = () => {
@@ -24,7 +25,7 @@ const ActionsBar = ({ btnPath, btnLabel, error, backLink }: ActionsBarProps) => 
             className='fill-text group-hover:fill-primary'
             cursor='pointer'
           />
-          <p className='cursor-pointer text-lg text-text group-hover:text-primary'>Tools List</p>
+          <p className='cursor-pointer text-lg text-text group-hover:text-primary'>{backTitle ?? 'Back to List'}</p>
         </span>
       )
     );
