@@ -24,16 +24,22 @@ export const onSubmitForm = async <T>(
   rawFormData.images = [...stringImages, ...fileImages] as any;
 
   const { data, success, error: zodError } = formSchema.safeParse(rawFormData);
-  console.log('🚀 ~ data:', data);
   if (!success) {
     return invalidFormData(zodError.issues, rawFormData);
   }
 
   //* Upload the main Image to the storage
   let mainImage: string | File = data.main_image;
-  const storedImage = await storeSupabaseImage(data.main_image, data.title, 'projects', 'main_image');
+  let imageCouter = Number(rawFormData.image_counter);
+  const storedImage = await storeSupabaseImage(
+    data.main_image,
+    `${data.title}_main_${imageCouter}`,
+    'projects',
+    'main_image',
+  );
 
   if (storedImage.status === 200 && storedImage.image) {
+    imageCouter++;
     mainImage = storedImage.image;
   } else {
     return storedImage;
@@ -42,7 +48,6 @@ export const onSubmitForm = async <T>(
   //* Upload the secondary images
   let secondaryImages: Array<string | File> = [];
   const titles: string[] = [];
-  let imageCouter = Number(rawFormData.image_counter);
 
   data.images.forEach(image => {
     if (typeof image !== 'string') {

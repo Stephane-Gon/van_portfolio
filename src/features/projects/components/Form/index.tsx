@@ -88,9 +88,6 @@ const ProjectForm = ({ isEdit }: ProjectFormProps) => {
     );
   };
 
-  // TODO - TESTAR FORM
-  //* A component Next Image está a apresentar as imagens erradas
-
   return (
     <Gradient extraClasses='p-1 rounded-sm'>
       <div className='flex flex-col bg-accent px-2 py-4 lg:px-8'>
