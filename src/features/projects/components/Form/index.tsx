@@ -28,8 +28,8 @@ const ProjectForm = ({ isEdit }: ProjectFormProps) => {
   const setSelectedProject = useProjectsStore(state => state.setSelectedProject);
   const setFormMainError = useProjectsStore(state => state.setFormMainError);
 
-  const { formAction, formSubmitAction, errors, isSubmitting, control, register, isPending } = useGenericForm<ProjectT>(
-    {
+  const { formAction, formSubmitAction, errors, isSubmitting, control, register, isPending, isDirty } =
+    useGenericForm<ProjectT>({
       selectedItem: isEdit ? selectedProject : defaultProject,
       setTab,
       setSelectedItem: setSelectedProject,
@@ -39,24 +39,26 @@ const ProjectForm = ({ isEdit }: ProjectFormProps) => {
       id: isEdit ? selectedProject?.id : null,
       path: isEdit ? null : '/projects',
       storageItem: 'selectedProject',
-    },
-  );
+    });
 
-  const _renderFormTitle = () => {
+  const _renderLeftContent = () => {
     return (
-      <div className='flex'>
-        {isEdit ? (
-          <>
-            <h1 className='text-[22px] text-text'>Edit&nbsp;</h1>
-            <h1 className='text-[22px] text-primary'>{selectedProject?.title}&nbsp;</h1>
-            <h1 className='text-[22px] text-text'>project:</h1>
-          </>
-        ) : (
-          <>
-            <h1 className='text-[22px] text-text'>Add&nbsp;</h1>
-            <h1 className='text-[22px] text-text'>project:</h1>
-          </>
-        )}
+      <div>
+        <div className='flex'>
+          {isEdit ? (
+            <>
+              <h1 className='text-[22px] text-text'>Edit&nbsp;</h1>
+              <h1 className='text-[22px] text-primary'>{selectedProject?.title}&nbsp;</h1>
+              <h1 className='text-[22px] text-text'>project:</h1>
+            </>
+          ) : (
+            <>
+              <h1 className='text-[22px] text-text'>Add&nbsp;</h1>
+              <h1 className='text-[22px] text-text'>project:</h1>
+            </>
+          )}
+        </div>
+        {isDirty && <p className='text-[12px] text-dangerRed'>You have unsaved changes *</p>}
       </div>
     );
   };
@@ -87,19 +89,17 @@ const ProjectForm = ({ isEdit }: ProjectFormProps) => {
   };
 
   // TODO - TESTAR FORM
-  //* Edit com images com mais de 1 MB
-
-  //* Tenho que passar uma deleteImage function para os "x" icons do image slider
+  //* A component Next Image está a apresentar as imagens erradas
 
   return (
     <Gradient extraClasses='p-1 rounded-sm'>
       <div className='flex flex-col bg-accent px-2 py-4 lg:px-8'>
         <div className='flex flex-wrap justify-between gap-10 lg:flex-nowrap'>
-          {_renderFormTitle()}
+          {_renderLeftContent()}
           <form
             action={formAction}
             onSubmit={evt => formSubmitAction(evt)}
-            className='mt-5 flex w-full flex-col items-end gap-10 lg:mt-0 lg:w-[70%]'>
+            className='no-scrollbar mt-5 flex h-[62vh] w-full flex-col items-end gap-10 overflow-y-auto px-2 lg:mt-0 lg:w-[70%]'>
             <Controller
               name='main_image'
               control={control}
@@ -218,7 +218,7 @@ const ProjectForm = ({ isEdit }: ProjectFormProps) => {
                   name='images'
                   onChange={value => onChange(value)}
                   valid={errors.images ? false : true}
-                  helpText={(errors.images?.message as string) ?? ''}
+                  helpTexts={(errors.images as any) ?? ''}
                 />
               )}
               rules={{ required: { value: true, message: 'This field is required!' } }}

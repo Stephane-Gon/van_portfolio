@@ -1,6 +1,7 @@
 'use client';
 
 import { Slide } from 'react-slideshow-image';
+import { useMemo } from 'react';
 import 'react-slideshow-image/dist/styles.css';
 import Image from 'next/image';
 import { Add, Upload, Close, ChevronLeft, ChevronRight } from '@/design-system/icons';
@@ -10,7 +11,7 @@ import useMultipleImgUploader from './useMultipleImgUploader';
 interface MultipleImgUploaderProps {
   label: string;
   valid?: boolean;
-  helpText?: string | null;
+  helpTexts?: { message: string }[] | null;
   id: string;
   required?: boolean;
   fileSizeLimit?: number; // Bytes
@@ -24,9 +25,9 @@ const MultipleImgUploader = ({
   label = '',
   valid = true,
   required = true,
-  helpText = '',
+  helpTexts = [],
   buttonLabel = 'Upload',
-  fileSizeLimit = 10000000,
+  fileSizeLimit = 1000000,
   images,
   id,
   name,
@@ -78,55 +79,65 @@ const MultipleImgUploader = ({
     );
   };
 
+  const sliderImgs = useMemo(() => {
+    return allImages.slice(1);
+  }, [allImages]);
+
   const _renderSlider = () => {
-    const sliderImgs = allImages.slice(1);
     return (
-      <Slide
-        slidesToScroll={1}
-        slidesToShow={sliderImgs.length > 2 ? 3 : 1}
-        infinite={false}
-        transitionDuration={300}
-        prevArrow={
-          <div className='rounded-full'>
-            <ChevronLeft width={40} height={40} className='fill-primary hover:fill-secondary' />
-          </div>
-        }
-        nextArrow={
-          <div className='rounded-full'>
-            <ChevronRight width={40} height={40} className='fill-primary hover:fill-secondary' />
-          </div>
-        }>
-        {sliderImgs.map((slideImage, index) => (
-          <div key={`project-${slideImage}-${index}`} className='relative cursor-pointer p-[4px]'>
-            <div className='relative flex aspect-video w-full items-center justify-center bg-tertiary p-2 shadow-strongInner'>
-              <Image
-                src={typeof slideImage === 'string' ? slideImage : URL.createObjectURL(slideImage)}
-                alt='Preview of the current image'
-                fill
-                sizes='100vw'
-              />
+      sliderImgs.length > 0 && (
+        <Slide
+          slidesToScroll={1}
+          slidesToShow={sliderImgs.length > 2 ? 3 : 1}
+          infinite={false}
+          autoplay={false}
+          transitionDuration={300}
+          prevArrow={
+            <div className='rounded-full'>
+              <ChevronLeft width={40} height={40} className='fill-primary hover:fill-secondary' />
             </div>
-            <Close
-              onClick={() => handleRemove(index + 1)}
-              className='absolute right-3 top-3 z-10 transform rounded-full bg-accent p-1 shadow-md hover:scale-105'
-              cursor='pointer'
-              fill='#a3e7fc'
-            />
-          </div>
-        ))}
-      </Slide>
+          }
+          nextArrow={
+            <div className='rounded-full'>
+              <ChevronRight width={40} height={40} className='fill-primary hover:fill-secondary' />
+            </div>
+          }>
+          {sliderImgs.map((slideImage, index) => {
+            return (
+              <div key={`project-${slideImage}-${index}`} className='relative cursor-pointer p-[4px]'>
+                <div className='relative flex aspect-video w-full items-center justify-center bg-tertiary p-2 shadow-strongInner'>
+                  <Image
+                    src={typeof slideImage === 'string' ? slideImage : URL.createObjectURL(slideImage)}
+                    alt='Preview of the current image'
+                    fill
+                    sizes='100vw'
+                  />
+                </div>
+                <Close
+                  onClick={() => handleRemove(index + 1)}
+                  className='absolute right-3 top-3 z-10 transform rounded-full bg-accent p-1 shadow-md hover:scale-105'
+                  cursor='pointer'
+                  fill='#a3e7fc'
+                />
+              </div>
+            );
+          })}
+        </Slide>
+      )
     );
   };
 
   const _renderErrorText = () => {
     let text: string = '';
+
     if (errorText) {
       text = errorText;
-    } else {
-      text = !valid && helpText ? helpText : '';
+    } else if (helpTexts && helpTexts.length > 0) {
+      const filteredErrors = helpTexts.filter(Boolean);
+      text = !valid && filteredErrors && filteredErrors.length > 0 ? filteredErrors[0].message : '';
     }
 
-    return (errorText || helpText) && <p className='text-sm text-dangerRed'>{text}</p>;
+    return (errorText || (helpTexts && helpTexts.length > 0)) && <p className='text-sm text-dangerRed'>{text}</p>;
   };
 
   return (

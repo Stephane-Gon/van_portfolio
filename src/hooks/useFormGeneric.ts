@@ -50,7 +50,7 @@ const useGenericForm = <T extends Record<string, any>>({
     handleSubmit,
     watch,
     setError,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isDirty },
   } = useForm<z.output<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     values: populatedValues,
@@ -107,6 +107,7 @@ const useGenericForm = <T extends Record<string, any>>({
     isSubmitting,
     formAction,
     isPending,
+    isDirty,
   };
 };
 

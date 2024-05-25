@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { AVAIALABLE_ENTENSIONS, FILE_SIZE_LIMIT } from '@/constants';
+import { imageSchema } from '@/schemas';
 
 export const formSchema = z.object({
   title: z.string().min(1, {
@@ -36,22 +37,5 @@ export const formSchema = z.object({
       if (typeof file === 'string') return true;
       return AVAIALABLE_ENTENSIONS.includes(file?.type);
     }, 'Only .svg, and .webp formats are supported.'),
-  images: z
-    .array(z.any())
-    .refine(images => {
-      if (!images) return false;
-      return true;
-    }, 'The icon is required.')
-    .refine(images => {
-      return images.some(image => {
-        if (typeof image === 'string') return true;
-        return image?.size <= FILE_SIZE_LIMIT;
-      });
-    }, `Max image size is 1MB.`)
-    .refine(images => {
-      return images.some(image => {
-        if (typeof image === 'string') return true;
-        return AVAIALABLE_ENTENSIONS.includes(image?.type);
-      });
-    }, 'Only .svg, and .webp formats are supported.'),
+  images: z.array(imageSchema).min(1, { message: 'At least one image is required.' }),
 });

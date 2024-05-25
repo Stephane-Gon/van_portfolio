@@ -13,6 +13,7 @@ export type ProjectT = {
   challenges: string | null;
   learned: string | null;
   main_image: string;
+  image_counter: number;
 };
 
 type ProjectsState = {
@@ -55,4 +56,5 @@ export const defaultProject: ProjectT = {
   challenges: '',
   learned: '',
   main_image: '',
+  image_counter: 0,
 };
