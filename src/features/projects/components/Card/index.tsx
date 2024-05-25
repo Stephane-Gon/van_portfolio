@@ -20,7 +20,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
     <article className='group relative min-h-60 cursor-pointer rounded-sm p-2'>
       <div className='absolute inset-0 transition-opacity duration-100 group-hover:opacity-40'>
         <Image
-          src={project.main_image}
+          src={project.main_image ?? '/placeholder_img.webp'}
           alt={`${project.title} project main image`}
           fill
           sizes='100vw'

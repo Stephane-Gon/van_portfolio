@@ -15,7 +15,7 @@ const useMultipleImgUploader = ({ images, onChange, fileSizeLimit }: UseMultiple
   const userHasPhoto = Boolean(images);
 
   useEffect(() => {
-    if (images.length) {
+    if (images && images.length > 0) {
       setAllImages(images);
     }
   }, [images]);
