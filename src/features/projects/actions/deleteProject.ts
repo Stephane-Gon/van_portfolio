@@ -1,12 +1,26 @@
 'use server';
-import { deleteBucketImage, deleteTableItem } from '@/lib/utils';
+import { deleteBucketImages, deleteTableItem } from '@/lib/utils';
 import type { ProjectT } from '../types';
 import type { DeleteResponse } from '@/constants';
 
 export const deleteProject = async (project: ProjectT): Promise<DeleteResponse<ProjectT>> => {
-  //TODO - Apagar o resto das imagens
-  const deleteImgRes = await deleteBucketImage<ProjectT>(project.main_image, 'projects');
-  if (deleteImgRes.error) return deleteImgRes;
+  const toDeleteImages: string[] = [];
+
+  if (project.main_image && typeof project.main_image === 'string') {
+    toDeleteImages.push(project.main_image);
+  }
+  if (project.images && project.images.length > 0) {
+    project.images.forEach(image => {
+      if (typeof image === 'string') {
+        toDeleteImages.push(image);
+      }
+    });
+  }
+
+  if (toDeleteImages.length > 0) {
+    const deleteImgRes = await deleteBucketImages<ProjectT>(toDeleteImages, 'projects');
+    if (deleteImgRes.error) return deleteImgRes;
+  }
 
   const { error } = await deleteTableItem<ProjectT>(project.id.toString(), 'projects');
 
