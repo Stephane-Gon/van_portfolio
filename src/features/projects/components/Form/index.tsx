@@ -21,6 +21,7 @@ interface ProjectFormProps {
   isEdit: boolean;
 }
 
+// TODO - Falta fazer o input para adicionar tools
 const ProjectForm = ({ isEdit }: ProjectFormProps) => {
   const router = useRouter();
   const selectedProject = useProjectsStore(state => state.selectedProject);
