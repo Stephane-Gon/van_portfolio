@@ -10,7 +10,6 @@ export const onSubmitForm = async <T>(
 ): Promise<ActionReturnType<T>> => {
   const rawFormData = Object.fromEntries(formData);
   rawFormData.skills = JSON.parse(rawFormData.skills as any);
-  console.log('🚀 ~ rawFormData:', rawFormData);
 
   const { data, success, error: zodError } = formSchema.safeParse(rawFormData);
   if (!success) {
@@ -26,7 +25,7 @@ export const onSubmitForm = async <T>(
     role: data.role,
     skills: data.skills,
     started_at: data.started_at,
-    ended_at: data.ended_at,
+    ...(data.ended_at ? { ended_at: data.ended_at } : null),
   };
 
   if (Number(rawFormData.id) > 0) {

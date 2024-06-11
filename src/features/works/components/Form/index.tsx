@@ -28,18 +28,17 @@ const WorkForm = ({ isEdit }: WorkFormProps) => {
   const setSelectedWork = useWorksStore(state => state.setSelectedWork);
   const setFormMainError = useWorksStore(state => state.setFormMainError);
 
-  const { formAction, formSubmitAction, errors, isSubmitting, control, register, isPending, watch } =
-    useGenericForm<WorkT>({
-      selectedItem: isEdit ? selectedWork : defaultWork,
-      setTab,
-      setSelectedItem: setSelectedWork,
-      setFormMainError,
-      formSchema,
-      onSubmitForm,
-      id: isEdit ? selectedWork?.id : null,
-      path: isEdit ? null : '/works',
-      storageItem: 'selectedWork',
-    });
+  const { formAction, formSubmitAction, errors, isSubmitting, control, register, isPending } = useGenericForm<WorkT>({
+    selectedItem: isEdit ? selectedWork : defaultWork,
+    setTab,
+    setSelectedItem: setSelectedWork,
+    setFormMainError,
+    formSchema,
+    onSubmitForm,
+    id: isEdit ? selectedWork?.id : null,
+    path: isEdit ? null : '/works',
+    storageItem: 'selectedWork',
+  });
 
   const _renderFormTitle = () => {
     return (
@@ -84,9 +83,6 @@ const WorkForm = ({ isEdit }: WorkFormProps) => {
       )
     );
   };
-
-  console.log('FORM', watch());
-  console.log('ERRORS', errors);
 
   return (
     <Gradient extraClasses='p-1 rounded-sm'>
@@ -190,7 +186,6 @@ const WorkForm = ({ isEdit }: WorkFormProps) => {
                     disabled={isSubmitting}
                     valid={errors.endDate ? false : true}
                     helpText={(errors.endDate?.message as string) ?? ''}
-                    required
                     onChange={onChange}
                     value={value}
                   />
