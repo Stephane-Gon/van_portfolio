@@ -16,10 +16,12 @@ import Close from './Close';
 import Check from './Check';
 import ChevronUp from './ChevronUp';
 import ChevronDown from './ChevronDown';
+import Callendar from './Callendar';
 
 export {
   // Exports
   ChevronLeft,
+  Callendar,
   ChevronRight,
   Van,
   Tools,

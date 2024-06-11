@@ -103,7 +103,7 @@ export const onSubmitForm = async <T>(
     if (error) {
       return {
         status: 400,
-        message: `Failed on supabase tools edit: ${error.message}`,
+        message: `Failed on supabase projects create: ${error.message}`,
         issues: [],
         item: null,
       };

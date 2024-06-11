@@ -108,6 +108,7 @@ const useGenericForm = <T extends Record<string, any>>({
     formAction,
     isPending,
     isDirty,
+    watch,
   };
 };
 

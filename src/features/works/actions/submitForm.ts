@@ -2,7 +2,6 @@
 import { supabaseAdmin } from '@/lib/supabase';
 import { formSchema } from '../schemas/formSchema';
 import { invalidFormData } from '@/utils';
-import { storeSupabaseImage } from '@/lib/utils';
 import { ActionReturnType } from '@/constants';
 
 export const onSubmitForm = async <T>(
@@ -10,36 +9,29 @@ export const onSubmitForm = async <T>(
   formData: FormData,
 ): Promise<ActionReturnType<T>> => {
   const rawFormData = Object.fromEntries(formData);
-  rawFormData.types = JSON.parse(rawFormData.types as any);
+  rawFormData.skills = JSON.parse(rawFormData.skills as any);
+  console.log('🚀 ~ rawFormData:', rawFormData);
 
   const { data, success, error: zodError } = formSchema.safeParse(rawFormData);
   if (!success) {
     return invalidFormData(zodError.issues, rawFormData);
   }
 
-  //* Upload the image to the storage
-  let icon_url: string | File = data.icon_url;
-  const storedImage = await storeSupabaseImage(data.icon_url, data.name, 'tools', 'icon_url');
-
-  if (storedImage.status === 200 && storedImage.image) {
-    icon_url = storedImage.image;
-  } else {
-    return storedImage;
-  }
-
   let successItem: any;
 
   const bodyData = {
-    name: data.name,
+    company: data.company,
     description: data.description,
-    level: Number(data.level),
-    types: data.types,
-    icon_url,
+    achievements: data.achievements,
+    role: data.role,
+    skills: data.skills,
+    started_at: data.started_at,
+    ended_at: data.ended_at,
   };
 
   if (Number(rawFormData.id) > 0) {
     const { data: item, error } = await supabaseAdmin
-      .from('tools')
+      .from('works')
       .update(bodyData)
       .eq('id', Number(rawFormData.id))
       .select();
@@ -48,19 +40,19 @@ export const onSubmitForm = async <T>(
     if (error) {
       return {
         status: 400,
-        message: `Failed on supabase tools edit: ${error.message}`,
+        message: `Failed on supabase works edit: ${error.message}`,
         issues: [],
         item: null,
       };
     }
   } else {
-    const { data: item, error } = await supabaseAdmin.from('tools').insert(bodyData).select();
+    const { data: item, error } = await supabaseAdmin.from('works').insert(bodyData).select();
     successItem = item ? item[0] : null;
 
     if (error) {
       return {
         status: 400,
-        message: `Failed on supabase tools create: ${error.message}`,
+        message: `Failed on supabase works create: ${error.message}`,
         issues: [],
         item: null,
       };
