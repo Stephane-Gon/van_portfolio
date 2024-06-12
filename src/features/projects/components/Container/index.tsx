@@ -27,7 +27,10 @@ const ProjectsContainer = ({ list, detail }: ProjectsContainerProps) => {
       const project = await getProject(Number(storageSelectedProject));
       if (project.data) {
         setTab('detail');
-        setSelectedProject(project.data);
+        setSelectedProject({
+          ...project.data,
+          tools: project.data.tools.map(tool => ({ value: tool.tool_id, label: tool.tools.name })),
+        });
       } else if (project.error) {
         setTab('list');
         setFormMainError(project.error.message);

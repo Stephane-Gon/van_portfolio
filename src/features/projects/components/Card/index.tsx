@@ -2,10 +2,10 @@
 import Image from 'next/image';
 import { Button } from '@/design-system/atoms';
 import { useProjectsStore } from '../../store/useProjects';
-import type { ProjectT } from '../../types';
+import type { SupabaseProject } from '../../types';
 
 interface ProjectCardProps {
-  project: ProjectT;
+  project: SupabaseProject;
 }
 
 const ProjectCard = ({ project }: ProjectCardProps) => {
@@ -35,7 +35,10 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
             label='Editar'
             onClick={() => {
               localStorage.setItem('selectedProject', JSON.stringify(project.id));
-              setSelectedProject(project);
+              setSelectedProject({
+                ...project,
+                tools: project.tools.map(tool => ({ value: tool.tool_id, label: tool.tools.name })),
+              });
               setTab('detail');
             }}
           />

@@ -10,7 +10,7 @@ import { useProjectsStore } from '@/features/projects/store/useProjects';
 // Actions & Hooks
 import useGenericForm from '@/hooks/useFormGeneric';
 import { deleteProject } from '../../actions/deleteProject';
-import { onSubmitForm } from '../../actions/editForm';
+import { onSubmitForm } from '../../actions/submitForm';
 import { formSchema } from '../../schemas/formSchema';
 // Types
 import { defaultProject, ProjectT } from '@/features/projects/types';
@@ -19,10 +19,10 @@ import type { SkillTypes, SelectOption } from '@/constants';
 
 interface ProjectFormProps {
   isEdit: boolean;
+  tools: { value: number; label: string }[];
 }
 
-// TODO - Falta fazer o input para adicionar tools
-const ProjectForm = ({ isEdit }: ProjectFormProps) => {
+const ProjectForm = ({ isEdit, tools }: ProjectFormProps) => {
   const router = useRouter();
   const selectedProject = useProjectsStore(state => state.selectedProject);
   const setTab = useProjectsStore(state => state.setTab);
@@ -199,6 +199,26 @@ const ProjectForm = ({ isEdit }: ProjectFormProps) => {
                   valid={errors.skills ? false : true}
                   isMulti
                   helpText={(errors.skills?.message as string) ?? ''}
+                />
+              )}
+              rules={{ required: { value: true, message: 'This field is required!' } }}
+            />
+
+            <Controller
+              name='tools'
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <SelectInput
+                  label='Tools'
+                  id='tools'
+                  value={value}
+                  onChange={val => onChange(val)}
+                  options={tools}
+                  placeholder='Select one or more tools'
+                  required
+                  valid={errors.tools ? false : true}
+                  isMulti
+                  helpText={(errors.tools?.message as string) ?? ''}
                 />
               )}
               rules={{ required: { value: true, message: 'This field is required!' } }}

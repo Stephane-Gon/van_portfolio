@@ -4,6 +4,7 @@ import { formSchema } from '../schemas/formSchema';
 import { invalidFormData } from '@/utils';
 import { storeSupabaseImage, StoreMultipleImages } from '@/lib/utils';
 import { ActionReturnType } from '@/constants';
+import type { ProjectToolT } from '@/features/projects/types';
 
 export const onSubmitForm = async <T>(
   prevState: ActionReturnType<T>,
@@ -11,6 +12,7 @@ export const onSubmitForm = async <T>(
 ): Promise<ActionReturnType<T>> => {
   const rawFormData = Object.fromEntries(formData);
   rawFormData.skills = JSON.parse(rawFormData.skills as any);
+  rawFormData.tools = JSON.parse(rawFormData.tools as any);
 
   const stringImages = JSON.parse(rawFormData.stringImages as any);
   const fileImages: FormDataEntryValue[] = [];
@@ -110,9 +112,64 @@ export const onSubmitForm = async <T>(
     }
   }
 
+  if (successItem) {
+    const { error } = await supabaseAdmin.from('project_tools').delete().in('project_id', [successItem.id]);
+
+    if (error) {
+      return {
+        status: 400,
+        message: `Failed on supabase projects create while deleting items from project_tools: ${error.message}`,
+        issues: [],
+        item: null,
+      };
+    }
+
+    if (data.tools && data.tools.length > 0) {
+      const { error: createError } = await supabaseAdmin.from('project_tools').insert(
+        data.tools.map((tool: { value: number; label: string }) => ({
+          project_id: successItem.id,
+          tool_id: tool.value,
+        })),
+      );
+
+      if (createError) {
+        return {
+          status: 400,
+          message: `Failed on supabase projects create while creating items for project_tools: ${createError.message}`,
+          issues: [],
+          item: null,
+        };
+      }
+    }
+  }
+
+  const { data: projectData, error } = await supabaseAdmin
+    .from('projects')
+    .select(
+      `
+    *,
+    tools: project_tools(project_id, tool_id, id, tools(name, id))  
+  `,
+    )
+    .eq('id', successItem.id);
+
+  if (error) {
+    return {
+      status: 400,
+      message: `Failed on getting the updated/created project: ${error.message}`,
+      issues: [],
+      item: null,
+    };
+  }
+
   return {
     status: 200,
     message: 'The Form was submitted successfully!',
-    item: successItem,
+    item: projectData
+      ? {
+          ...projectData[0],
+          tools: projectData[0].tools.map((tool: ProjectToolT) => ({ value: tool.tool_id, label: tool.tools.name })),
+        }
+      : null,
   };
 };

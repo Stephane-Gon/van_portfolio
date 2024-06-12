@@ -1,4 +1,5 @@
 import type { SkillTypes, TOGGLE_TABS } from '@/constants';
+import type { ToolT } from '@/features/tools/types';
 
 export type ProjectT = {
   id: number;
@@ -14,6 +15,31 @@ export type ProjectT = {
   learned: string | null;
   main_image: string;
   image_counter: number;
+  tools: { value: number; label: string }[];
+};
+
+export type SupabaseProject = {
+  id: number;
+  created_at?: string;
+  title: string;
+  skills: SkillTypes[];
+  description: string | null;
+  slogan: string | null;
+  images: string[] | null;
+  repository: string | null;
+  live_link: string | null;
+  challenges: string | null;
+  learned: string | null;
+  main_image: string;
+  image_counter: number;
+  tools: ProjectToolT[];
+};
+
+export type ProjectToolT = {
+  id: number;
+  project_id: number;
+  tool_id: number;
+  tools: ToolT;
 };
 
 type ProjectsState = {
@@ -57,4 +83,5 @@ export const defaultProject: ProjectT = {
   learned: '',
   main_image: '',
   image_counter: 0,
+  tools: [],
 };

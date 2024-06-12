@@ -12,7 +12,7 @@ const AddProjectContainer = () => {
       <h1 className='text-xl text-text'>Add a new project:</h1>
       <div className={`flex w-full flex-col gap-4 rounded-md bg-neumorph p-4 shadow-neumorph`}>
         <ActionsBar error={formMainError} backLink='/projects' backTitle='Back to projects list' />
-        <ProgectForm isEdit={false} />
+        <ProgectForm tools={[]} isEdit={false} />
       </div>
     </div>
   );
