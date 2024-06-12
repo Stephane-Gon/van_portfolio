@@ -8,7 +8,6 @@ const ProjectCard = dynamic(() => import('../Card'), { loading: () => <ProjectCa
 
 const List = async () => {
   const { data, error } = await getProjectsList();
-  console.log('🚀 ~ List ~ data:', data);
 
   if (error) {
     return <ListError title='Error while fetching the projects!' text={error.message} />;
