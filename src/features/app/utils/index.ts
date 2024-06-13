@@ -1,4 +1,4 @@
-import { Tools, Code, Jobs, Texts } from '@/design-system/icons';
+import { Tools, Code, Jobs } from '@/design-system/icons';
 import type { LinkT } from '@/features/app/types';
 
 export const Links: LinkT[] = [
@@ -31,17 +31,6 @@ export const Links: LinkT[] = [
     Icon: Jobs,
     styles: {
       stroke: '#A3E7FC',
-      width: '1.2rem',
-      height: '1.2rem',
-    },
-  },
-  {
-    id: 4,
-    href: '/about',
-    label: 'About Me',
-    Icon: Texts,
-    styles: {
-      fill: '#A3E7FC',
       width: '1.2rem',
       height: '1.2rem',
     },
