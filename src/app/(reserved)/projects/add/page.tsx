@@ -1,4 +1,5 @@
 import AddProjectContainer from '@/features/projects/components/AddContainer';
+import { getToolsList } from '@/features/tools/actions/getToolsList';
 
 export const metadata = {
   metadataBase: 'http://localhost:3000',
@@ -7,9 +8,13 @@ export const metadata = {
 };
 
 const AddProject = async () => {
+  const { data } = await getToolsList();
+
+  const tools = data && data.length > 0 ? data.map(tool => ({ value: tool.id, label: tool.name })) : [];
+
   return (
     <div className='flex flex-col items-center'>
-      <AddProjectContainer />
+      <AddProjectContainer tools={tools} />
     </div>
   );
 };

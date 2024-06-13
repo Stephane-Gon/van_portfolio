@@ -78,7 +78,6 @@ const useGenericForm = <T extends Record<string, any>>({
       setTab('list');
       if (storageItem) localStorage.removeItem(storageItem);
       if (path) router.push(path);
-
       router.refresh();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

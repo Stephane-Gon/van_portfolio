@@ -2,7 +2,7 @@
 import { supabaseAdmin } from '@/lib/supabase';
 import { formSchema } from '../schemas/formSchema';
 import { invalidFormData } from '@/utils';
-import { storeSupabaseImage, StoreMultipleImages } from '@/lib/utils';
+import { storeSupabaseImage, StoreMultipleImages, deleteMultipleTableItems } from '@/lib/utils';
 import { ActionReturnType } from '@/constants';
 import type { ProjectToolT } from '@/features/projects/types';
 
@@ -113,7 +113,7 @@ export const onSubmitForm = async <T>(
   }
 
   if (successItem) {
-    const { error } = await supabaseAdmin.from('project_tools').delete().in('project_id', [successItem.id]);
+    const { error } = await deleteMultipleTableItems<ProjectToolT>('project_tools', 'project_id', [successItem.id]);
 
     if (error) {
       return {

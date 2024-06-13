@@ -4,7 +4,11 @@ import { ActionsBar } from '@/design-system/organism';
 import { useProjectsStore } from '@/features/projects/store/useProjects';
 import ProgectForm from '../Form';
 
-const AddProjectContainer = () => {
+interface AddProjectContainerProps {
+  tools: { value: number; label: string }[];
+}
+
+const AddProjectContainer = ({ tools }: AddProjectContainerProps) => {
   const formMainError = useProjectsStore(state => state.formMainError);
 
   return (
@@ -12,7 +16,7 @@ const AddProjectContainer = () => {
       <h1 className='text-xl text-text'>Add a new project:</h1>
       <div className={`flex w-full flex-col gap-4 rounded-md bg-neumorph p-4 shadow-neumorph`}>
         <ActionsBar error={formMainError} backLink='/projects' backTitle='Back to projects list' />
-        <ProgectForm tools={[]} isEdit={false} />
+        <ProgectForm tools={tools} isEdit={false} />
       </div>
     </div>
   );

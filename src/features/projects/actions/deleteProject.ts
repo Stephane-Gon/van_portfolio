@@ -22,6 +22,7 @@ export const deleteProject = async (project: ProjectT): Promise<DeleteResponse<P
     if (deleteImgRes.error) return deleteImgRes;
   }
 
+  //* Ao apagar o projeto ele também apaga as rows relacionadas em outras tabelas
   const { error } = await deleteTableItem<ProjectT>(project.id.toString(), 'projects');
 
   return {
