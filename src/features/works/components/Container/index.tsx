@@ -29,6 +29,7 @@ const WorksContainer = ({ list, detail }: WorksContainerProps) => {
         setSelectedWork({
           ...work.data,
           tools: work.data.tools.map(work => ({ value: work.tool_id, label: work.tools.name })),
+          projects: work.data.projects.map(work => ({ value: work.project_id, label: work.projects.title })),
         });
       } else if (work.error) {
         setTab('list');

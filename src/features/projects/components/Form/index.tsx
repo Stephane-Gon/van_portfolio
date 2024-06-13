@@ -19,7 +19,7 @@ import type { SkillTypes, SelectOption } from '@/constants';
 
 interface ProjectFormProps {
   isEdit: boolean;
-  tools: { value: number; label: string }[];
+  tools: SelectOption[];
 }
 
 const ProjectForm = ({ isEdit, tools }: ProjectFormProps) => {

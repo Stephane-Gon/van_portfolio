@@ -9,7 +9,8 @@ export const getWork = async (id: number): Promise<getSingleResponse<SupabaseWor
     .select(
       `
     *,
-    tools: work_tools(work_id, tool_id, id, tools(name, id))  
+    tools: work_tools(work_id, tool_id, id, tools(name, id)),
+    projects: work_projects(work_id, project_id, id, projects(title, id))  
   `,
     )
     .eq('id', id);

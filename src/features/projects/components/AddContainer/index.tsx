@@ -3,9 +3,10 @@
 import { ActionsBar } from '@/design-system/organism';
 import { useProjectsStore } from '@/features/projects/store/useProjects';
 import ProgectForm from '../Form';
+import type { SelectOption } from '@/constants';
 
 interface AddProjectContainerProps {
-  tools: { value: number; label: string }[];
+  tools: SelectOption[];
 }
 
 const AddProjectContainer = ({ tools }: AddProjectContainerProps) => {

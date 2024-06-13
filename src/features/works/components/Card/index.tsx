@@ -26,6 +26,7 @@ const WorkCard = ({ work }: WorkCardProps) => {
               setSelectedWork({
                 ...work,
                 tools: work.tools.map(work => ({ value: work.tool_id, label: work.tools.name })),
+                projects: work.projects.map(work => ({ value: work.project_id, label: work.projects.title })),
               });
               setTab('detail');
             }}

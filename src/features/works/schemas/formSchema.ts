@@ -21,4 +21,5 @@ export const formSchema = z.object({
   }),
   ended_at: z.string().nullable(),
   tools: z.array(z.any()).nullable(),
+  projects: z.array(z.any()).nullable(),
 });

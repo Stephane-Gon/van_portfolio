@@ -1,5 +1,5 @@
 import AddProjectContainer from '@/features/projects/components/AddContainer';
-import { getToolsList } from '@/features/tools/actions/getToolsList';
+import { getToolsListInput } from '@/features/tools/actions/getToolsListInput';
 
 export const metadata = {
   metadataBase: 'http://localhost:3000',
@@ -8,8 +8,7 @@ export const metadata = {
 };
 
 const AddProject = async () => {
-  const { data } = await getToolsList();
-
+  const { data } = await getToolsListInput();
   const tools = data && data.length > 0 ? data.map(tool => ({ value: tool.id, label: tool.name })) : [];
 
   return (

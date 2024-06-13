@@ -3,8 +3,8 @@ import { supabaseAdmin } from '@/lib/supabase';
 import { deleteMultipleTableItems } from '@/lib/utils';
 import { formSchema } from '../schemas/formSchema';
 import { invalidFormData } from '@/utils';
-import { ActionReturnType } from '@/constants';
-import type { WorkToolT } from '../types';
+import { ActionReturnType, SelectOption } from '@/constants';
+import type { WorkToolT, WorkProjectT } from '../types';
 
 export const onSubmitForm = async <T>(
   prevState: ActionReturnType<T>,
@@ -13,6 +13,7 @@ export const onSubmitForm = async <T>(
   const rawFormData = Object.fromEntries(formData);
   rawFormData.skills = JSON.parse(rawFormData.skills as any);
   rawFormData.tools = JSON.parse(rawFormData.tools as any);
+  rawFormData.projects = JSON.parse(rawFormData.projects as any);
 
   const { data, success, error: zodError } = formSchema.safeParse(rawFormData);
   if (!success) {
@@ -75,7 +76,7 @@ export const onSubmitForm = async <T>(
 
     if (data.tools && data.tools.length > 0) {
       const { error: createError } = await supabaseAdmin.from('work_tools').insert(
-        data.tools.map((tool: { value: number; label: string }) => ({
+        data.tools.map((tool: SelectOption) => ({
           work_id: successItem.id,
           tool_id: tool.value,
         })),
@@ -90,15 +91,47 @@ export const onSubmitForm = async <T>(
         };
       }
     }
+
+    const { error: pError } = await deleteMultipleTableItems<WorkProjectT>('work_projects', 'work_id', [
+      successItem.id,
+    ]);
+
+    if (pError) {
+      return {
+        status: 400,
+        message: `Failed on supabase works create while deleting items from work_projects: ${pError.message}`,
+        issues: [],
+        item: null,
+      };
+    }
+
+    if (data.projects && data.projects.length > 0) {
+      const { error: createError } = await supabaseAdmin.from('work_projects').insert(
+        data.projects.map((project: SelectOption) => ({
+          work_id: successItem.id,
+          project_id: project.value,
+        })),
+      );
+
+      if (createError) {
+        return {
+          status: 400,
+          message: `Failed on supabase works create while creating items for work_projects: ${createError.message}`,
+          issues: [],
+          item: null,
+        };
+      }
+    }
   }
 
   const { data: workData, error } = await supabaseAdmin
     .from('works')
     .select(
       `
-        *,
-        tools: work_tools(work_id, tool_id, id, tools(name, id))  
-      `,
+      *,
+      tools: work_tools(work_id, tool_id, id, tools(name, id)),
+      projects: work_projects(work_id, project_id, id, projects(title, id))  
+    `,
     )
     .eq('id', successItem.id);
 
@@ -118,6 +151,10 @@ export const onSubmitForm = async <T>(
       ? {
           ...workData[0],
           tools: workData[0].tools.map((tool: WorkToolT) => ({ value: tool.tool_id, label: tool.tools.name })),
+          projects: workData[0].projects.map((project: WorkProjectT) => ({
+            value: project.project_id,
+            label: project.projects.title,
+          })),
         }
       : null,
   };

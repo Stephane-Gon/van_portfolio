@@ -19,11 +19,11 @@ import type { SkillTypes, SelectOption } from '@/constants';
 
 interface WorkFormProps {
   isEdit: boolean;
-  tools: { value: number; label: string }[];
+  tools: SelectOption[];
+  projects: SelectOption[];
 }
 
-// TODO - Adicionar  o campo para adicionar projetos
-const WorkForm = ({ isEdit, tools }: WorkFormProps) => {
+const WorkForm = ({ isEdit, tools, projects }: WorkFormProps) => {
   const router = useRouter();
   const selectedWork = useWorksStore(state => state.selectedWork);
   const setTab = useWorksStore(state => state.setTab);
@@ -170,6 +170,26 @@ const WorkForm = ({ isEdit, tools }: WorkFormProps) => {
                   onChange={val => onChange(val)}
                   options={tools}
                   placeholder='Select one or more tools'
+                  required
+                  valid={errors.tools ? false : true}
+                  isMulti
+                  helpText={(errors.tools?.message as string) ?? ''}
+                />
+              )}
+              rules={{ required: { value: true, message: 'This field is required!' } }}
+            />
+
+            <Controller
+              name='projects'
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <SelectInput
+                  label='Projects'
+                  id='projects'
+                  value={value}
+                  onChange={val => onChange(val)}
+                  options={projects}
+                  placeholder='Select one or more projects'
                   required
                   valid={errors.tools ? false : true}
                   isMulti
