@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import { unstable_noStore as noStore } from 'next/cache';
 import ProjectCardLoading from '../Card/loading';
 import type { SupabaseProject } from '@/features/projects/types';
 import { getProjectsList } from '@/features/projects/actions/getProjectsList';
@@ -6,7 +7,10 @@ import { ListError } from '@/design-system/atoms';
 
 const ProjectCard = dynamic(() => import('../Card'), { loading: () => <ProjectCardLoading /> });
 
+export const revalidate = 0;
+
 const List = async () => {
+  noStore();
   const { data, error } = await getProjectsList();
 
   if (error) {

@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import { unstable_noStore as noStore } from 'next/cache';
 import { ListError } from '@/design-system/atoms';
 import WorkCardLoading from '../Card/loading';
 import type { WorkT } from '@/features/works/types';
@@ -7,6 +8,7 @@ import { getWorksList } from '../../actions/getWorksList';
 const WorkCard = dynamic(() => import('../Card'), { loading: () => <WorkCardLoading /> });
 
 const List = async () => {
+  noStore();
   const { data, error } = await getWorksList();
 
   if (error) {

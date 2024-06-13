@@ -147,9 +147,9 @@ export const onSubmitForm = async <T>(
     .from('projects')
     .select(
       `
-    *,
-    tools: project_tools(project_id, tool_id, id, tools(name, id))  
-  `,
+        *,
+        tools: project_tools(project_id, tool_id, id, tools(name, id))  
+      `,
     )
     .eq('id', successItem.id);
 

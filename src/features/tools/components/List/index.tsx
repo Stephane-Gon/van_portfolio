@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import { unstable_noStore as noStore } from 'next/cache';
 import ToolCardLoading from '../Card/loading';
 import type { ToolT } from '@/features/tools/types';
 import { getToolsList } from '@/features/tools/actions/getToolsList';
@@ -7,6 +8,7 @@ import { ListError } from '@/design-system/atoms';
 const ToolCard = dynamic(() => import('../Card'), { loading: () => <ToolCardLoading /> });
 
 const List = async () => {
+  noStore();
   const { data, error } = await getToolsList();
 
   if (error) {
