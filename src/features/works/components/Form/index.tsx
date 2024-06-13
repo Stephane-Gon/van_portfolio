@@ -19,10 +19,11 @@ import type { SkillTypes, SelectOption } from '@/constants';
 
 interface WorkFormProps {
   isEdit: boolean;
+  tools: { value: number; label: string }[];
 }
 
-// TODO - Adicionar o campo para adicionar tools e o campo para adicionar projetos
-const WorkForm = ({ isEdit }: WorkFormProps) => {
+// TODO - Adicionar  o campo para adicionar projetos
+const WorkForm = ({ isEdit, tools }: WorkFormProps) => {
   const router = useRouter();
   const selectedWork = useWorksStore(state => state.selectedWork);
   const setTab = useWorksStore(state => state.setTab);
@@ -93,7 +94,7 @@ const WorkForm = ({ isEdit }: WorkFormProps) => {
           <form
             action={formAction}
             onSubmit={evt => formSubmitAction(evt)}
-            className='mt-5 flex w-full flex-col items-end gap-6 lg:mt-0 lg:w-[70%]'>
+            className='no-scrollbar mt-5 flex h-[62vh] w-full flex-col items-end gap-10 overflow-y-auto px-2 pt-2 lg:mt-0 lg:w-[70%]'>
             <InputText
               label='Company Name'
               placeholder='Type the company name'
@@ -153,6 +154,26 @@ const WorkForm = ({ isEdit }: WorkFormProps) => {
                   valid={errors.skills ? false : true}
                   isMulti
                   helpText={(errors.skills?.message as string) ?? ''}
+                />
+              )}
+              rules={{ required: { value: true, message: 'This field is required!' } }}
+            />
+
+            <Controller
+              name='tools'
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <SelectInput
+                  label='Tools'
+                  id='tools'
+                  value={value}
+                  onChange={val => onChange(val)}
+                  options={tools}
+                  placeholder='Select one or more tools'
+                  required
+                  valid={errors.tools ? false : true}
+                  isMulti
+                  helpText={(errors.tools?.message as string) ?? ''}
                 />
               )}
               rules={{ required: { value: true, message: 'This field is required!' } }}

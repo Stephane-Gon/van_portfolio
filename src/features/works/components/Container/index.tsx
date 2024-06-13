@@ -26,7 +26,10 @@ const WorksContainer = ({ list, detail }: WorksContainerProps) => {
       const work = await getWork(Number(storageSelectedWork));
       if (work.data) {
         setTab('detail');
-        setSelectedWork(work.data);
+        setSelectedWork({
+          ...work.data,
+          tools: work.data.tools.map(work => ({ value: work.tool_id, label: work.tools.name })),
+        });
       } else if (work.error) {
         setTab('list');
         setFormMainError(work.error.message);

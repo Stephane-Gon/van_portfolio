@@ -20,4 +20,5 @@ export const formSchema = z.object({
     message: 'The start date is required.',
   }),
   ended_at: z.string().nullable(),
+  tools: z.array(z.any()).nullable(),
 });

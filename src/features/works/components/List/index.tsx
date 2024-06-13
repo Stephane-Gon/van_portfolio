@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import { unstable_noStore as noStore } from 'next/cache';
 import { ListError } from '@/design-system/atoms';
 import WorkCardLoading from '../Card/loading';
-import type { WorkT } from '@/features/works/types';
+import type { SupabaseWork } from '@/features/works/types';
 import { getWorksList } from '../../actions/getWorksList';
 
 const WorkCard = dynamic(() => import('../Card'), { loading: () => <WorkCardLoading /> });
@@ -20,7 +20,7 @@ const List = async () => {
   }
 
   const _renderCards = () => {
-    return data?.map((work: WorkT) => <WorkCard key={`work-card-id-${work.id}`} work={work} />);
+    return data?.map((work: SupabaseWork) => <WorkCard key={`work-card-id-${work.id}`} work={work} />);
   };
 
   return <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3'>{_renderCards()}</div>;

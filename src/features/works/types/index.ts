@@ -1,4 +1,5 @@
 import type { SkillTypes, TOGGLE_TABS } from '@/constants';
+import type { ToolT } from '@/features/tools/types';
 
 export type WorkT = {
   id: number;
@@ -10,6 +11,27 @@ export type WorkT = {
   ended_at: string | null;
   description: string | null;
   achievements: string | null;
+  tools: { value: number; label: string }[];
+};
+
+export type SupabaseWork = {
+  id: number;
+  created_at?: string;
+  role: string;
+  skills: SkillTypes[];
+  company: string;
+  started_at: string | null;
+  ended_at: string | null;
+  description: string | null;
+  achievements: string | null;
+  tools: WorkToolT[];
+};
+
+export type WorkToolT = {
+  id: number;
+  work_id: number;
+  tool_id: number;
+  tools: ToolT;
 };
 
 type WorksState = {
@@ -46,4 +68,5 @@ export const defaultWork: WorkT = {
   started_at: '',
   ended_at: '',
   achievements: '',
+  tools: [],
 };

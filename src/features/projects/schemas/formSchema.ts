@@ -38,6 +38,5 @@ export const formSchema = z.object({
       return AVAIALABLE_ENTENSIONS.includes(file?.type);
     }, 'Only .svg, and .webp formats are supported.'),
   images: z.array(imageSchema).min(1, { message: 'At least one image is required.' }),
-  // TODO - Melhorar aqui esta validatção
   tools: z.array(z.any()).nullable(),
 });

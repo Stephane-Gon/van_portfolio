@@ -1,10 +1,10 @@
 'use client';
 import { Button } from '@/design-system/atoms';
 import { useWorksStore } from '../../store/useWorks';
-import type { WorkT } from '../../types';
+import type { SupabaseWork } from '../../types';
 
 interface WorkCardProps {
-  work: WorkT;
+  work: SupabaseWork;
 }
 
 const WorkCard = ({ work }: WorkCardProps) => {
@@ -23,7 +23,10 @@ const WorkCard = ({ work }: WorkCardProps) => {
             label='Editar'
             onClick={() => {
               localStorage.setItem('selectedWork', JSON.stringify(work.id));
-              setSelectedWork(work);
+              setSelectedWork({
+                ...work,
+                tools: work.tools.map(work => ({ value: work.tool_id, label: work.tools.name })),
+              });
               setTab('detail');
             }}
           />
