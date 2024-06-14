@@ -4,7 +4,14 @@ import { Controller } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 // Components
 import { Gradient, Button } from '@/design-system/atoms';
-import { InputText, ImgUploader, Textarea, SelectInput, MultipleImgUploader } from '@/design-system/molecules';
+import {
+  InputText,
+  ImgUploader,
+  Textarea,
+  SelectInput,
+  MultipleImgUploader,
+  InputCheckbox,
+} from '@/design-system/molecules';
 // Store
 import { useProjectsStore } from '@/features/projects/store/useProjects';
 // Actions & Hooks
@@ -223,6 +230,25 @@ const ProjectForm = ({ isEdit, tools }: ProjectFormProps) => {
               )}
               rules={{ required: { value: true, message: 'This field is required!' } }}
             />
+
+            <div className='flex w-full justify-start'>
+              <Controller
+                name='is_personal'
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <InputCheckbox
+                    label='Is this a personal project?'
+                    id='is_personal'
+                    checked={value}
+                    onCheckedChange={val => onChange(val)}
+                    required
+                    valid={errors.is_personal ? false : true}
+                    helpText={(errors.is_personal?.message as string) ?? ''}
+                  />
+                )}
+                rules={{ required: { value: true, message: 'This field is required!' } }}
+              />
+            </div>
 
             <Controller
               name='images'

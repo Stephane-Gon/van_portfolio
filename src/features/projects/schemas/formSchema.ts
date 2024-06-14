@@ -39,4 +39,5 @@ export const formSchema = z.object({
     }, 'Only .svg, and .webp formats are supported.'),
   images: z.array(imageSchema).min(1, { message: 'At least one image is required.' }),
   tools: z.array(z.any()).nullable(),
+  is_personal: z.boolean(),
 });

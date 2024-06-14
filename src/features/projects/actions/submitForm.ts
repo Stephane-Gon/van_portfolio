@@ -13,6 +13,7 @@ export const onSubmitForm = async <T>(
   const rawFormData = Object.fromEntries(formData);
   rawFormData.skills = JSON.parse(rawFormData.skills as any);
   rawFormData.tools = JSON.parse(rawFormData.tools as any);
+  rawFormData.is_personal = JSON.parse(rawFormData.is_personal as any);
 
   const stringImages = JSON.parse(rawFormData.stringImages as any);
   const fileImages: FormDataEntryValue[] = [];
@@ -79,6 +80,7 @@ export const onSubmitForm = async <T>(
     repository: data.repository,
     live_link: data.live_link,
     image_counter: imageCouter,
+    is_personal: data.is_personal,
   };
 
   if (Number(rawFormData.id) > 0) {
