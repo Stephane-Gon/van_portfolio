@@ -37,7 +37,7 @@ const MobileMenu = () => {
   };
 
   return (
-    <div className='absolute bottom-0 left-0 right-0 top-[70px] flex flex-col bg-accent p-4 xl:hidden'>
+    <div className='fixed bottom-0 left-0 right-0 top-[70px] flex flex-col bg-accent p-4 xl:hidden'>
       <span className='flex w-full items-center justify-center'>
         <VanLogo width='150px' height='150px' />
       </span>

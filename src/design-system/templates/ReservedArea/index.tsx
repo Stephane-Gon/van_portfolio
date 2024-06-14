@@ -32,9 +32,9 @@ const ReservedArea = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <main className='flex min-h-screen flex-col items-center bg-accent bg-background  bg-cover bg-fixed'>
+    <main className='relative flex min-h-screen flex-col items-center bg-accent bg-background bg-cover bg-fixed'>
       <Header />
-      <div className='flex w-full'>
+      <div className='relative flex w-full'>
         {_renderSidebar()}
         <div className='no-scrollbar w-full overflow-y-auto p-2 md:p-8'>{children}</div>
       </div>
