@@ -17,6 +17,8 @@ const populateFormData = (data: Record<string, any>, ...moreData: Record<string,
       formData.append(key, JSON.stringify(allData[key]));
     } else if (typeof data[key] === 'number') {
       formData.append(key, allData[key].toString());
+    } else if (typeof data[key] === 'boolean') {
+      formData.append(key, JSON.stringify(allData[key]));
     } else {
       formData.append(key, allData[key]);
     }

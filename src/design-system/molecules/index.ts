@@ -11,6 +11,7 @@ import MultipleImgUploader from './MultipleImgUploader';
 import { Popover, PopoverTrigger, PopoverContent } from './Popover';
 import Calendar from './Callendar';
 import DatePicker from './DatePicker';
+import InputCheckbox from './InputCheckbox';
 
 export {
   InputText,
@@ -28,4 +29,5 @@ export {
   PopoverTrigger,
   Calendar,
   DatePicker,
+  InputCheckbox,
 };

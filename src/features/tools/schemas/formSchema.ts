@@ -8,6 +8,8 @@ export const formSchema = z.object({
   description: z.string().min(20, {
     message: 'The description is required and must have more than 20 chars.',
   }),
+  work_use: z.boolean(),
+  personal_use: z.boolean(),
   level: z
     .string()
     .refine(value => {

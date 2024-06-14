@@ -11,6 +11,8 @@ export const onSubmitForm = async <T>(
 ): Promise<ActionReturnType<T>> => {
   const rawFormData = Object.fromEntries(formData);
   rawFormData.types = JSON.parse(rawFormData.types as any);
+  rawFormData.work_use = JSON.parse(rawFormData.work_use as any);
+  rawFormData.personal_use = JSON.parse(rawFormData.personal_use as any);
 
   const { data, success, error: zodError } = formSchema.safeParse(rawFormData);
   if (!success) {
@@ -35,6 +37,8 @@ export const onSubmitForm = async <T>(
     level: Number(data.level),
     types: data.types,
     icon_url,
+    work_use: data.work_use,
+    personal_use: data.personal_use,
   };
 
   if (Number(rawFormData.id) > 0) {

@@ -8,6 +8,8 @@ export type ToolT = {
   icon_url: string;
   types: SkillTypes[];
   level: ToolLevel;
+  work_use: boolean;
+  personal_use: boolean;
 };
 
 export type ToolLevel = '' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10';
@@ -30,6 +32,8 @@ export type ToolsForm = {
   types: SkillTypes[];
   level: ToolLevel;
   icon_url: string | File;
+  work_use: boolean;
+  personal_use: boolean;
 };
 
 export type ToolsStore = ToolsState & ToolsActions;
@@ -42,4 +46,6 @@ export const defaultTool: ToolT = {
   icon_url: '',
   types: [],
   level: '',
+  work_use: false,
+  personal_use: false,
 };
