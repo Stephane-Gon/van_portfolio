@@ -40,4 +40,7 @@ export const formSchema = z.object({
   images: z.array(imageSchema).min(1, { message: 'At least one image is required.' }),
   tools: z.array(z.any()).nullable(),
   is_personal: z.boolean(),
+  finished_at: z.string().min(1, {
+    message: 'The start date is required.',
+  }),
 });

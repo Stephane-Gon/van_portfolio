@@ -11,6 +11,7 @@ import {
   SelectInput,
   MultipleImgUploader,
   InputCheckbox,
+  DatePicker,
 } from '@/design-system/molecules';
 // Store
 import { useProjectsStore } from '@/features/projects/store/useProjects';
@@ -29,6 +30,7 @@ interface ProjectFormProps {
   tools: SelectOption[];
 }
 
+// TODO - Add a date field to the form
 const ProjectForm = ({ isEdit, tools }: ProjectFormProps) => {
   const router = useRouter();
   const selectedProject = useProjectsStore(state => state.selectedProject);
@@ -230,6 +232,26 @@ const ProjectForm = ({ isEdit, tools }: ProjectFormProps) => {
               )}
               rules={{ required: { value: true, message: 'This field is required!' } }}
             />
+
+            <div className='flex w-full justify-start'>
+              <Controller
+                name='finished_at'
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <DatePicker
+                    id='finished_at'
+                    label='Finish Date'
+                    disabled={isSubmitting}
+                    valid={errors.finished_at ? false : true}
+                    helpText={(errors.finished_at?.message as string) ?? ''}
+                    required
+                    onChange={onChange}
+                    value={value}
+                  />
+                )}
+                rules={{ required: { value: true, message: 'This field is required!' } }}
+              />
+            </div>
 
             <div className='flex w-full justify-start'>
               <Controller

@@ -81,6 +81,7 @@ export const onSubmitForm = async <T>(
     live_link: data.live_link,
     image_counter: imageCouter,
     is_personal: data.is_personal,
+    finished_at: data.finished_at,
   };
 
   if (Number(rawFormData.id) > 0) {
