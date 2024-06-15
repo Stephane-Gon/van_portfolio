@@ -14,12 +14,8 @@ export const formSchema = z.object({
   }),
   repository: z.string().nullable(),
   live_link: z.string().nullable(),
-  challenges: z.string().min(5, {
-    message: 'The challenges must be at least 5 characters long.',
-  }),
-  learned: z.string().min(5, {
-    message: 'The learned must be at least 5 characters long.',
-  }),
+  challenges: z.string().nullable(),
+  learned: z.string().nullable(),
   skills: z.array(z.enum(['frontend', 'backend', 'design', 'ci_cd', 'testing'])).min(1, {
     message: 'At least one skill is required',
   }),
@@ -40,6 +36,7 @@ export const formSchema = z.object({
   images: z.array(imageSchema).min(1, { message: 'At least one image is required.' }),
   tools: z.array(z.any()).nullable(),
   is_personal: z.boolean(),
+  is_active: z.boolean(),
   finished_at: z.string().min(1, {
     message: 'The start date is required.',
   }),

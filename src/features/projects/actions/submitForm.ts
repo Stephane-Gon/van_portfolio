@@ -14,6 +14,7 @@ export const onSubmitForm = async <T>(
   rawFormData.skills = JSON.parse(rawFormData.skills as any);
   rawFormData.tools = JSON.parse(rawFormData.tools as any);
   rawFormData.is_personal = JSON.parse(rawFormData.is_personal as any);
+  rawFormData.is_active = JSON.parse(rawFormData.is_active as any);
 
   const stringImages = JSON.parse(rawFormData.stringImages as any);
   const fileImages: FormDataEntryValue[] = [];
@@ -81,6 +82,7 @@ export const onSubmitForm = async <T>(
     live_link: data.live_link,
     image_counter: imageCouter,
     is_personal: data.is_personal,
+    is_active: data.is_active,
     finished_at: data.finished_at,
   };
 

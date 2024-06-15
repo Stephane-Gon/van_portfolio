@@ -13,6 +13,7 @@ export const onSubmitForm = async <T>(
   rawFormData.types = JSON.parse(rawFormData.types as any);
   rawFormData.work_use = JSON.parse(rawFormData.work_use as any);
   rawFormData.personal_use = JSON.parse(rawFormData.personal_use as any);
+  rawFormData.is_active = JSON.parse(rawFormData.is_active as any);
 
   const { data, success, error: zodError } = formSchema.safeParse(rawFormData);
   if (!success) {
@@ -39,6 +40,7 @@ export const onSubmitForm = async <T>(
     icon_url,
     work_use: data.work_use,
     personal_use: data.personal_use,
+    is_active: data.is_active,
   };
 
   if (Number(rawFormData.id) > 0) {

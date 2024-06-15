@@ -10,6 +10,7 @@ export type ToolT = {
   level: ToolLevel;
   work_use: boolean;
   personal_use: boolean;
+  is_active: boolean;
 };
 
 export type ToolLevel = '' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10';
@@ -34,6 +35,7 @@ export type ToolsForm = {
   icon_url: string | File;
   work_use: boolean;
   personal_use: boolean;
+  is_active: boolean;
 };
 
 export type ToolsStore = ToolsState & ToolsActions;
@@ -48,4 +50,5 @@ export const defaultTool: ToolT = {
   level: '',
   work_use: false,
   personal_use: false,
+  is_active: true,
 };

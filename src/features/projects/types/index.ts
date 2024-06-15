@@ -18,6 +18,7 @@ export type ProjectT = {
   tools: { value: number; label: string }[];
   is_personal: boolean;
   finished_at: string | null;
+  is_active: boolean;
 };
 
 export type SupabaseProject = {
@@ -37,6 +38,7 @@ export type SupabaseProject = {
   tools: ProjectToolT[];
   is_personal: boolean;
   finished_at: string | null;
+  is_active: boolean;
 };
 
 export type ProjectToolT = {
@@ -71,6 +73,7 @@ export type ProjectsForm = {
   main_image: string | File;
   is_personal: boolean;
   finished_at: string;
+  is_active: boolean;
 };
 
 export type ProjectsStore = ProjectsState & ProjectsActions;
@@ -91,5 +94,6 @@ export const defaultProject: ProjectT = {
   image_counter: 0,
   tools: [],
   is_personal: false,
+  is_active: true,
   finished_at: '',
 };

@@ -172,7 +172,7 @@ const ToolForm = ({ isEdit }: ToolFormProps) => {
               />
             </div>
 
-            <div className='flex w-full justify-start'>
+            <div className='flex w-full flex-col justify-start gap-4'>
               <Controller
                 name='work_use'
                 control={control}
@@ -189,9 +189,7 @@ const ToolForm = ({ isEdit }: ToolFormProps) => {
                 )}
                 rules={{ required: { value: true, message: 'This field is required!' } }}
               />
-            </div>
 
-            <div className='flex w-full justify-start'>
               <Controller
                 name='personal_use'
                 control={control}
@@ -204,6 +202,23 @@ const ToolForm = ({ isEdit }: ToolFormProps) => {
                     required
                     valid={errors.personal_use ? false : true}
                     helpText={(errors.personal_use?.message as string) ?? ''}
+                  />
+                )}
+                rules={{ required: { value: true, message: 'This field is required!' } }}
+              />
+
+              <Controller
+                name='is_active'
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <InputCheckbox
+                    label='Is this tool to be shown in the public area?'
+                    id='is_active'
+                    checked={value}
+                    onCheckedChange={val => onChange(val)}
+                    required
+                    valid={errors.is_active ? false : true}
+                    helpText={(errors.is_active?.message as string) ?? ''}
                   />
                 )}
                 rules={{ required: { value: true, message: 'This field is required!' } }}

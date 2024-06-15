@@ -10,6 +10,7 @@ export const formSchema = z.object({
   }),
   work_use: z.boolean(),
   personal_use: z.boolean(),
+  is_active: z.boolean(),
   level: z
     .string()
     .refine(value => {

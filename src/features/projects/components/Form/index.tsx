@@ -30,7 +30,6 @@ interface ProjectFormProps {
   tools: SelectOption[];
 }
 
-// TODO - Add a date field to the form
 const ProjectForm = ({ isEdit, tools }: ProjectFormProps) => {
   const router = useRouter();
   const selectedProject = useProjectsStore(state => state.selectedProject);
@@ -179,6 +178,7 @@ const ProjectForm = ({ isEdit, tools }: ProjectFormProps) => {
               placeholder='Type the project challenges'
               id='challenges'
               name='challenges'
+              required={false}
               disabled={isSubmitting}
               valid={errors.challenges ? false : true}
               helpText={(errors.challenges?.message as string) ?? ''}
@@ -189,6 +189,7 @@ const ProjectForm = ({ isEdit, tools }: ProjectFormProps) => {
               placeholder='Type what you learned'
               id='learned'
               name='learned'
+              required={false}
               disabled={isSubmitting}
               valid={errors.learned ? false : true}
               helpText={(errors.learned?.message as string) ?? ''}
@@ -253,7 +254,7 @@ const ProjectForm = ({ isEdit, tools }: ProjectFormProps) => {
               />
             </div>
 
-            <div className='flex w-full justify-start'>
+            <div className='flex w-full flex-col justify-start gap-4'>
               <Controller
                 name='is_personal'
                 control={control}
@@ -266,6 +267,23 @@ const ProjectForm = ({ isEdit, tools }: ProjectFormProps) => {
                     required
                     valid={errors.is_personal ? false : true}
                     helpText={(errors.is_personal?.message as string) ?? ''}
+                  />
+                )}
+                rules={{ required: { value: true, message: 'This field is required!' } }}
+              />
+
+              <Controller
+                name='is_active'
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <InputCheckbox
+                    label='Is this project to be shown in the public area?'
+                    id='is_active'
+                    checked={value}
+                    onCheckedChange={val => onChange(val)}
+                    required
+                    valid={errors.is_active ? false : true}
+                    helpText={(errors.is_active?.message as string) ?? ''}
                   />
                 )}
                 rules={{ required: { value: true, message: 'This field is required!' } }}
