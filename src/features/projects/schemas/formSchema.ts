@@ -9,9 +9,7 @@ export const formSchema = z.object({
   description: z.string().min(20, {
     message: 'The description is required and must have more than 20 characters.',
   }),
-  slogan: z.string().min(5, {
-    message: 'The slogan must be at least 5 characters long.',
-  }),
+  slogan: z.string().nullable(),
   repository: z.string().nullable(),
   live_link: z.string().nullable(),
   challenges: z.string().nullable(),
