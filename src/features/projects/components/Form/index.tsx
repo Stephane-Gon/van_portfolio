@@ -96,7 +96,7 @@ const ProjectForm = ({ isEdit, tools }: ProjectFormProps) => {
       )
     );
   };
-  // TODO - Update styles of this form to look like the others, no
+
   return (
     <Gradient extraClasses='p-1 rounded-sm'>
       <div className='flex flex-col bg-accent px-2 py-4 lg:px-8'>

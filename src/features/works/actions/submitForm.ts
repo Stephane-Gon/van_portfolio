@@ -29,7 +29,7 @@ export const onSubmitForm = async <T>(
     role: data.role,
     skills: data.skills,
     started_at: data.started_at,
-    ...(data.ended_at ? { ended_at: data.ended_at } : null),
+    ended_at: data.ended_at === 'null' ? null : data.ended_at,
   };
 
   if (Number(rawFormData.id) > 0) {
