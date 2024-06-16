@@ -1,15 +1,18 @@
 'use client';
 
 import Link from 'next/link';
-import { useSession, signOut } from 'next-auth/react';
+import dynamic from 'next/dynamic';
+import { useSession } from 'next-auth/react';
 // Components
 import { VanLogo, RouteLink } from '@/design-system/molecules';
 import { Dashboard, Linkedin, Github } from '@/design-system/icons';
-import { Button } from '@/design-system/atoms';
 // Utils
-import { Links, LinkT } from '@/utils/app';
+import { LinkT } from '@/features/app/types';
+import { Links } from '@/features/app/utils';
 // Hooks
-import { useAppStore } from '@/store/useApp';
+import { useAppStore } from '@/features/app/store';
+
+const Button = dynamic(() => import('@/design-system/atoms/Button'));
 
 const MobileMenu = () => {
   const { status } = useSession();
@@ -23,12 +26,18 @@ const MobileMenu = () => {
 
   const _renderLogOutBtn = () => {
     if (status === 'authenticated') {
-      return <Button id='logout-btn' onClick={() => signOut()} label='Log Out' />;
+      return (
+        <Button
+          id='logout-btn'
+          onClick={async () => await import('next-auth/react').then(({ signOut }) => signOut())}
+          label='Log Out'
+        />
+      );
     }
   };
 
   return (
-    <div className='absolute bottom-0 left-0 right-0 top-[70px] flex flex-col bg-accent p-4 xl:hidden'>
+    <div className='fixed bottom-0 left-0 right-0 top-[70px] flex flex-col bg-accent p-4 xl:hidden'>
       <span className='flex w-full items-center justify-center'>
         <VanLogo width='150px' height='150px' />
       </span>

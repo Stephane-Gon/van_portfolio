@@ -1,4 +1,4 @@
-import { Spinner } from '..';
+import { Spinner, Gradient } from '..';
 
 interface ButtonProps {
   disabled?: boolean;
@@ -8,6 +8,9 @@ interface ButtonProps {
   loading?: boolean;
   id?: string;
   name?: string;
+  iconLeft?: boolean;
+  icon?: JSX.Element;
+  variant?: 'gradient' | 'danger';
 }
 
 /**
@@ -17,10 +20,13 @@ const ButtonRoot = ({
   disabled = false,
   type = 'button',
   loading = false,
+  iconLeft = false,
+  variant = 'gradient',
   onClick,
   label,
   id,
   name,
+  icon,
   ...props
 }: ButtonProps) => {
   const _renderSpinner = () => {
@@ -30,9 +36,8 @@ const ButtonRoot = ({
   const disabledStyle = disabled ? 'opacity-40 cursor-auto pointer-events-none' : '';
   const loadingStyle = loading ? 'cursor-auto pointer-events-none' : '';
 
-  return (
-    <span
-      className={`myBtn relative flex items-center justify-center rounded-sm bg-gradient-to-r from-secondary via-tertiary to-primary p-border transition-all hover:scale-105 ${disabledStyle} ${loadingStyle}`}>
+  const _renderButton = () => {
+    return (
       <button
         id={id}
         name={name}
@@ -42,10 +47,34 @@ const ButtonRoot = ({
         {...props}
         className='flex w-full items-center justify-center gap-1 rounded-sm border-none bg-accent px-9 py-1 font-semibold text-text'>
         {_renderSpinner()}
+        {iconLeft && icon}
         {label}
+        {!iconLeft && icon}
       </button>
-    </span>
-  );
+    );
+  };
+
+  const _renderVariant = () => {
+    switch (variant) {
+      case 'danger':
+        return (
+          <div
+            className={`myBtn relative flex items-center justify-center gap-2 rounded-sm bg-dangerRed p-border transition-all hover:scale-105 ${disabledStyle} ${loadingStyle}`}>
+            {_renderButton()}
+          </div>
+        );
+      case 'gradient':
+      default:
+        return (
+          <Gradient
+            extraClasses={`myBtn relative flex items-center justify-center gap-2 rounded-sm p-border transition-all hover:scale-105 ${disabledStyle} ${loadingStyle}`}>
+            {_renderButton()}
+          </Gradient>
+        );
+    }
+  };
+
+  return _renderVariant();
 };
 
 export default ButtonRoot;
