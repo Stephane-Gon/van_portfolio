@@ -35,35 +35,40 @@ export const onSubmitForm = async <T>(
   //* Upload the main Image to the storage
   let mainImage: string | File = data.main_image;
   let imageCouter = Number(rawFormData.image_counter);
-  const storedImage = await storeSupabaseImage(
-    data.main_image,
-    `${data.title}_main_${imageCouter}`,
-    'projects',
-    'main_image',
-  );
 
-  if (storedImage.status === 200 && storedImage.image) {
-    imageCouter++;
-    mainImage = storedImage.image;
-  } else {
-    return storedImage;
+  if (mainImage) {
+    const storedImage = await storeSupabaseImage(
+      data.main_image,
+      `${data.title}_main_${imageCouter}`,
+      'projects',
+      'main_image',
+    );
+
+    if (storedImage.status === 200 && storedImage.image) {
+      imageCouter++;
+      mainImage = storedImage.image;
+    } else {
+      return storedImage;
+    }
   }
 
   //* Upload the secondary images
   let secondaryImages: Array<string | File> = [];
   const titles: string[] = [];
 
-  data.images.forEach(image => {
-    if (typeof image !== 'string') {
-      titles.push(`${data.title}_${imageCouter}`);
-      imageCouter++;
+  if (data.images && data.images.length > 0) {
+    data.images.forEach(image => {
+      if (typeof image !== 'string') {
+        titles.push(`${data.title}_${imageCouter}`);
+        imageCouter++;
+      }
+    });
+    const storedSecondaryImages = await StoreMultipleImages(data.images, titles, 'projects', 'images');
+    if (storedSecondaryImages.status === 200 && storedSecondaryImages.images) {
+      secondaryImages = storedSecondaryImages.images;
+    } else {
+      return storedSecondaryImages;
     }
-  });
-  const storedSecondaryImages = await StoreMultipleImages(data.images, titles, 'projects', 'images');
-  if (storedSecondaryImages.status === 200 && storedSecondaryImages.images) {
-    secondaryImages = storedSecondaryImages.images;
-  } else {
-    return storedSecondaryImages;
   }
 
   //* Upload the project to the database

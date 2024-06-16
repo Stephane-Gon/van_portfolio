@@ -96,7 +96,7 @@ const ProjectForm = ({ isEdit, tools }: ProjectFormProps) => {
       )
     );
   };
-
+  // TODO - Update styles of this form to look like the others, no scroll
   return (
     <Gradient extraClasses='p-1 rounded-sm'>
       <div className='flex flex-col bg-accent px-2 py-4 lg:px-8'>
@@ -113,7 +113,7 @@ const ProjectForm = ({ isEdit, tools }: ProjectFormProps) => {
                 <ImgUploader
                   image={value}
                   label='Add the project main image'
-                  required
+                  required={false}
                   id='project-main-image-input'
                   name='main_image'
                   onChange={value => onChange(value)}
@@ -297,7 +297,7 @@ const ProjectForm = ({ isEdit, tools }: ProjectFormProps) => {
                 <MultipleImgUploader
                   images={value}
                   label='Add the project secondary images'
-                  required
+                  required={false}
                   id='project-images-input'
                   name='images'
                   onChange={value => onChange(value)}

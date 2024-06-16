@@ -5,6 +5,7 @@ export const imageSchema = z
   .any()
   .refine(
     file => {
+      if (!file) return true;
       if (typeof file === 'string') return true;
       return AVAIALABLE_ENTENSIONS.includes(file.type);
     },
@@ -14,6 +15,7 @@ export const imageSchema = z
   )
   .refine(
     file => {
+      if (!file) return true;
       if (typeof file === 'string') return true;
       return file.size <= FILE_SIZE_LIMIT;
     },
