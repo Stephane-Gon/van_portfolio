@@ -1,7 +1,6 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 // Icons & Components
 import { Menu } from '@/design-system/icons';
@@ -13,24 +12,8 @@ const Button = dynamic(() => import('@/design-system/atoms/Button'));
 
 const Header = () => {
   const { status } = useSession();
-  const navRef = useRef<HTMLHeadElement>(null);
   const toggleMobileMenu = useAppStore(state => state.toggleMobileMenu);
   const toggleTheme = useAppStore(state => state.toggleTheme);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (navRef.current) {
-        if (window.scrollY >= 70) {
-          navRef.current.classList.add('bg-accent/95');
-        } else {
-          navRef.current.classList.remove('bg-accent/95');
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const _renderLogOutBtn = () => {
     if (status === 'authenticated') {
@@ -45,7 +28,7 @@ const Header = () => {
   };
 
   return (
-    <header ref={navRef} className='sticky top-0 z-10 h-[70px] w-full border-b-4 border-secondary'>
+    <header className='sticky top-0 z-10 h-[70px] w-full border-b-4 border-secondary'>
       <div className='flex h-full items-center justify-between px-5 py-3'>
         <span className='block xl:hidden'>
           <Menu width='1.5rem' height='1.5rem' fill='#EA9E8D' cursor='pointer' onClick={() => toggleMobileMenu()} />
