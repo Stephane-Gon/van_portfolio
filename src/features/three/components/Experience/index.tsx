@@ -1,20 +1,34 @@
 'use client';
 
-import { OrbitControls, GizmoHelper, GizmoViewport } from '@react-three/drei';
+import { GizmoHelper, GizmoViewport, PresentationControls } from '@react-three/drei';
 import DirectionalLight from '../Lights/DirectionalLight';
 import Tv from '../Models/Tv';
-import useInfoPoints from '../../hooks/useInfoPoints';
+import TvZoom from '../Models/TvZoom';
+import Boombox from '../Models/Boombox';
 
 export default function Experience() {
   // TODO - Depois tenho que arranjar forma de saber se a scene já está completamente loaded
-  useInfoPoints({ sceneReady: true });
+  // TODO - Arranjar um environment map (fundo)
+  // TODO - Criar loading animation
+
 
   return (
     <>
-      <OrbitControls makeDefault />
       <color attach='background' args={['#bdedfc']} />
       <DirectionalLight />
-      <Tv />
+
+      <PresentationControls
+        global
+        rotation={[0.13, 0.1, 0]}
+        polar={[ -0.4, 0.2]}
+        azimuth={[ -1, 0.75 ]}
+        config={{ mass: 2, tension: 400 }}
+        snap={{ mass: 4, tension: 400 }}
+      >
+        <TvZoom />
+        <Tv />
+        <Boombox />
+      </PresentationControls>
 
       {/* TODO - Apagar este Gizmo */}
       <GizmoHelper alignment='bottom-right' margin={[80, 80]}>
