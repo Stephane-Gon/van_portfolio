@@ -1,11 +1,21 @@
+import { RefObject } from 'react';
+import * as THREE from 'three';
 
 type ThreeActions = {
-  setIsZooming: (zoom: boolean) => void;
+  setInitialCamera: (position: THREE.Vector3, rotation: THREE.Euler) => void;
 };
 
 export type ThreeState = {
-  isZooming: boolean;
+  initialCamera: {
+    position: THREE.Vector3 | null;
+    rotation: THREE.Euler | null;
+  };
 };
 
 export type ThreeStore = ThreeState & ThreeActions;
 
+export type PointT = {
+  ref: RefObject<THREE.Group<THREE.Object3DEventMap>>;
+  newPosition: THREE.Vector3;
+  oldPosition: THREE.Vector3;
+};

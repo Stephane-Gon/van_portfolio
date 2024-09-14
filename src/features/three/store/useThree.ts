@@ -4,7 +4,10 @@ import { ThreeStore } from '@/features/three/types';
 
 export const useThreeStore = create<ThreeStore>()(
   subscribeWithSelector(set => ({
-    isZooming: false,
-    setIsZooming: isZooming => set({ isZooming })
+    initialCamera: {
+      position: null,
+      rotation: null,
+    },
+    setInitialCamera: (position, rotation) => set({ initialCamera: { position, rotation } }),
   })),
 );
