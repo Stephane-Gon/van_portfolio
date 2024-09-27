@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import type { PointT } from '../../types';
+import { useThreeStore } from '../../store/useThree';
 
 interface PointProps {
   position: THREE.Vector3;
@@ -15,6 +16,7 @@ interface PointProps {
 
 export default function Point({ position, label, description, onZoom }: PointProps) {
   const pointRef = useRef<THREE.Group>(null);
+  const startScene = useThreeStore(state => state.startScene);
 
   const [isOccluded, setOccluded] = useState<boolean>();
   const [isInRange, setInRange] = useState<boolean>();
@@ -48,7 +50,7 @@ export default function Point({ position, label, description, onZoom }: PointPro
           opacity: isVisible ? 1 : 0,
           transform: `scale(${isVisible ? 1 : 0.25})`,
         }}>
-        <div className='point'>
+        <div className={`point ${startScene ? 'block' : 'hidden'}`}>
           <div className='label' onClick={handleZoom}>
             {label}
           </div>

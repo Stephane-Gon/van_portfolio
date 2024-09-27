@@ -8,6 +8,9 @@ import { useZoom } from '@/features/three/hooks/useZoom';
 import { useControls } from 'leva';
 
 export default function Tv() {
+  const modelRef = useRef<THREE.Group>(null);
+  const screen = useGLTF('./tv.glb');
+
   const controls = useControls('zoom', {
     position: {
       value: { x: 0.55, y: 0.25, z: 0.55 },
@@ -28,9 +31,6 @@ export default function Tv() {
       step: 0.01,
     },
   });
-
-  const modelRef = useRef<THREE.Group>(null);
-  const screen = useGLTF('./tv.glb');
 
   const { toggleCameraZoom } = useZoom({
     newCameraPosition: new THREE.Vector3(controls.position.x, controls.position.y, controls.position.z),
@@ -57,3 +57,5 @@ export default function Tv() {
     </group>
   );
 }
+
+useGLTF.preload('./tv.glb');

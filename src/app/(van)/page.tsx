@@ -1,8 +1,14 @@
 'use client';
+import { useEffect } from 'react';
+import dynamic from 'next/dynamic';
 
-import Scene from '@/features/three/components/Scene';
+const Scene = dynamic(() => import('@/features/three/components/Scene'), { ssr: false });
 
 const Home = () => {
+  useEffect(() => {
+    document.body.classList.add('dark');
+  }, []);
+
   return <Scene />;
 };
 

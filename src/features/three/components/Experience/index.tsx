@@ -1,13 +1,11 @@
 'use client';
 
-import { GizmoHelper, GizmoViewport, PresentationControls } from '@react-three/drei';
+import { PresentationControls } from '@react-three/drei';
 import DirectionalLight from '../Lights/DirectionalLight';
 import Tv from '../Models/Tv';
 
 export default function Experience() {
-  // TODO - Depois tenho que arranjar forma de saber se a scene já está completamente loaded
   // TODO - Arranjar um environment map (fundo)
-  // TODO - Criar loading animation
 
   return (
     <>
@@ -22,11 +20,6 @@ export default function Experience() {
         snap={{ mass: 4, tension: 400 }}>
         <Tv />
       </PresentationControls>
-
-      {/* TODO - Apagar este Gizmo */}
-      <GizmoHelper alignment='bottom-right' margin={[80, 80]}>
-        <GizmoViewport axisColors={['red', 'green', 'blue']} labelColor='black' />
-      </GizmoHelper>
     </>
   );
 }

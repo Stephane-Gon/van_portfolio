@@ -150,6 +150,53 @@ p, h1, h2, h3, h4, h5, h6 {
     opacity: 0;
     transition: opacity 0.3s;
   }
+
+  .dreiHtmlLoader {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    transform: none !important;
+  }
+
+  .loader_title {
+    text-transform: uppercase;
+    font-family: verdana;
+    font-size: 2.5rem;
+    text-align: center;
+    max-width: 750px;
+    font-weight: 700;
+    color: rgb(var(--primary));
+    text-shadow: 1px 1px 1px #919191,
+        1px 2px 1px #919191,
+        1px 3px 1px #919191,
+        1px 4px 1px #919191,
+        1px 5px 1px #919191,
+        1px 6px 1px #919191,
+    1px 18px 6px rgba(16,16,16,0.4),
+    1px 22px 10px rgba(16,16,16,0.2),
+    1px 25px 35px rgba(16,16,16,0.2),
+    1px 30px 60px rgba(16,16,16,0.4);
+	  animation: float 6s ease-in-out infinite;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  @keyframes float {
+    0% {
+      transform: translatey(0px) rotate(0deg);
+
+    }
+    50% {
+      transform: translatey(-10px) rotate(2deg);
+    }
+    100% {
+      transform: translatey(0px) rotate(0deg);
+    }
+  }
+  
 }
 
 @layer utilities {
