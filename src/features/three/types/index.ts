@@ -4,6 +4,7 @@ import * as THREE from 'three';
 type ThreeActions = {
   setInitialCamera: (position: THREE.Vector3, rotation: THREE.Euler) => void;
   setStartScene: (value: boolean) => void;
+  setDebugMode: (value: boolean) => void;
 };
 
 export type ThreeState = {
@@ -12,6 +13,7 @@ export type ThreeState = {
     rotation: THREE.Euler | null;
   };
   startScene: boolean;
+  debugMode: boolean;
 };
 
 export type ThreeStore = ThreeState & ThreeActions;

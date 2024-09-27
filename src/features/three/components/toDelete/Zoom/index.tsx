@@ -15,8 +15,6 @@ interface ZoomProps {
   localToWorld: number[];
 }
 
-// TODO - Talvez usar um useEffect que lida com os casos em que se escreva o url do item do zoom (http://localhost:3000/item/boombox)
-
 export default function Zoom({ name, route, groupPosition, groupRotation, children, localToWorld }: ZoomProps) {
   const groupRef = useRef<THREE.Group>(null);
   const clicked = useRef<THREE.Object3D>();

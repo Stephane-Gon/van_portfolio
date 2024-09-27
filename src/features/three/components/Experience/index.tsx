@@ -6,6 +6,7 @@ import Tv from '../Models/Tv';
 
 export default function Experience() {
   // TODO - Arranjar um environment map (fundo)
+  // TODO - Tentar passar os models para um serviceworker
 
   return (
     <>

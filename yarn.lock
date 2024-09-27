@@ -4340,6 +4340,11 @@ react-dropzone@^12.0.0:
     file-selector "^0.5.0"
     prop-types "^15.8.1"
 
+react-fps-stats@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/react-fps-stats/-/react-fps-stats-0.3.1.tgz#8fde25fd633c9c50a28abc2fe6a19587e8dfa23d"
+  integrity sha512-SwjJd8eK6XQseXF0DjOv0PotfzSkIm9yhqsggEaJHhPgKq0P7QcL5xuLy/UlOFGjFbRMHRp1w8b8wJfoWNR3uA==
+
 react-hook-form@^7.51.0:
   version "7.51.2"
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.51.2.tgz#79f7f72ee217c5114ff831012d1a7ec344096e7f"

@@ -9,6 +9,8 @@ export const useThreeStore = create<ThreeStore>()(
       rotation: null,
     },
     startScene: false,
+    debugMode: false,
+    setDebugMode: value => set({ debugMode: value }),
     setStartScene: value => set({ startScene: value }),
     setInitialCamera: (position, rotation) => set({ initialCamera: { position, rotation } }),
   })),
