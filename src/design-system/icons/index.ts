@@ -17,6 +17,8 @@ import Check from './Check';
 import ChevronUp from './ChevronUp';
 import ChevronDown from './ChevronDown';
 import Callendar from './Callendar';
+import VanLoader from './VanLoader';
+import ArrowRight from './ArrowRight';
 
 export {
   // Exports
@@ -38,4 +40,6 @@ export {
   Check,
   ChevronUp,
   ChevronDown,
+  ArrowRight,
+  VanLoader,
 };
