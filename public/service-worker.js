@@ -4,7 +4,7 @@
 
 // TODO - Add more resources to cache
 const cacheName = 'v1';
-const cacheAssets = ['tv.glb', 'the_sun.glb', 'the_moon.glb'];
+const cacheAssets = ['tv.glb', 'the_sun.glb', 'the_moon.glb', 'van.glb'];
 
 const isCacheableRequest = request => {
   return request.url.startsWith('http') || request.url.startsWith('https');
