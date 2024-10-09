@@ -4,7 +4,11 @@
 
 // TODO - Add more resources to cache
 const cacheName = 'v1';
-const cacheAssets = ['tv.glb'];
+const cacheAssets = ['tv.glb', 'the_sun.glb', 'the_moon.glb'];
+
+const isCacheableRequest = request => {
+  return request.url.startsWith('http') || request.url.startsWith('https');
+};
 
 const addResourcesToCache = async resources => {
   const cache = await caches.open(cacheName);
@@ -12,6 +16,7 @@ const addResourcesToCache = async resources => {
 };
 
 const putInCache = async (request, response) => {
+  if (!isCacheableRequest(request)) return; // Avoid caching invalid schemes
   const cache = await caches.open(cacheName);
   await cache.put(request, response);
 };
@@ -61,20 +66,28 @@ const enableNavigationPreload = async () => {
   }
 };
 
+self.addEventListener('install', event => {
+  event.waitUntil(addResourcesToCache(cacheAssets));
+});
+
 self.addEventListener('activate', event => {
   event.waitUntil(enableNavigationPreload());
 });
 
+// Handle fetch requests
 self.addEventListener('fetch', event => {
+  // Wait for the preload response promise to settle
   event.respondWith(
-    cacheFirst({
-      request: event.request,
-      preloadResponsePromise: event.preloadResponse,
-      fallbackUrl: '/gallery/myLittleVader.jpg',
-    }),
-  );
-});
+    (async () => {
+      const preloadResponse = event.preloadResponse;
+      const cacheableRequest = event.request;
 
-self.addEventListener('install', event => {
-  event.waitUntil(addResourcesToCache(cacheAssets));
+      // Use cache-first strategy with navigation preload and fallback
+      return cacheFirst({
+        request: cacheableRequest,
+        preloadResponsePromise: preloadResponse,
+        fallbackUrl: '/gallery/myLittleVader.jpg',
+      });
+    })(),
+  );
 });
