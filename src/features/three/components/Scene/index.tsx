@@ -10,6 +10,7 @@ import { useThreeStore } from '../../store/useThree';
 import Loader from '../Loader';
 
 // TODO - Tenho que ajustar a scene em todos os viewports
+// TODO - Entender de onde vem o scroll
 
 const Scene = () => {
   const setInitialCamera = useThreeStore(state => state.setInitialCamera);

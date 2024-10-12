@@ -9,7 +9,7 @@ import { useControls } from 'leva';
 
 export default function Tv() {
   const modelRef = useRef<THREE.Group>(null);
-  const screen = useGLTF('./tv.glb');
+  const screen = useGLTF('./models/tv.glb');
 
   const controls = useControls('zoom', {
     position: {
@@ -58,4 +58,4 @@ export default function Tv() {
   );
 }
 
-useGLTF.preload('./tv.glb');
+useGLTF.preload('./models/tv.glb');

@@ -8,9 +8,11 @@ import Point from '../../Point';
 import { Themes } from '@/features/app/types';
 
 export default function Tv() {
-  const van = useGLTF('./van.glb');
+  const van = useGLTF('./models/van.glb');
   const toggleTheme = useAppStore(state => state.toggleTheme);
   const theme = useAppStore(state => state.theme);
+
+  // TODO - Tentar comprimir os glb files
 
   const { switcherPoint } = useControls('van', {
     switcherPoint: {
@@ -41,4 +43,4 @@ export default function Tv() {
   );
 }
 
-useGLTF.preload('./van.glb');
+useGLTF.preload('./models/van.glb');
