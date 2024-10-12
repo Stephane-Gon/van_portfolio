@@ -12,9 +12,11 @@ interface PointProps {
   label: string;
   description: string;
   onZoom?: (e: any, point: PointT) => void;
+  sizes?: 'small' | 'normal';
+  onClick?: () => void;
 }
 
-export default function Point({ position, label, description, onZoom }: PointProps) {
+export default function Point({ position, label, description, onZoom, onClick, sizes = 'normal' }: PointProps) {
   const pointRef = useRef<THREE.Group>(null);
   const startScene = useThreeStore(state => state.startScene);
 
@@ -50,8 +52,8 @@ export default function Point({ position, label, description, onZoom }: PointPro
           opacity: isVisible ? 1 : 0,
           transform: `scale(${isVisible ? 1 : 0.25})`,
         }}>
-        <div className={`point ${startScene ? 'block' : 'hidden'}`}>
-          <div className='label' onClick={handleZoom}>
+        <div className={`point ${startScene ? 'block' : 'hidden'}`} onClick={() => onClick && onClick()}>
+          <div className={`label ${sizes}`} onClick={handleZoom}>
             {label}
           </div>
           <div className='text'>{description}</div>

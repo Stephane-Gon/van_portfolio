@@ -9,6 +9,8 @@ import * as THREE from 'three';
 import { useThreeStore } from '../../store/useThree';
 import Loader from '../Loader';
 
+// TODO - Tenho que ajustar a scene em todos os viewports
+
 const Scene = () => {
   const setInitialCamera = useThreeStore(state => state.setInitialCamera);
   const debugMode = useThreeStore(state => state.debugMode);

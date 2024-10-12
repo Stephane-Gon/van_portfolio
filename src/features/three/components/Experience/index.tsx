@@ -2,23 +2,25 @@
 
 import { PresentationControls } from '@react-three/drei';
 import DirectionalLight from '../Lights/DirectionalLight';
-import Tv from '../Models/Tv';
+import Van from '../Models/Van';
+import Day from '../Environments/Day';
+import Night from '../Environments/Night';
 
 export default function Experience() {
-  // TODO - Arranjar um environment map (fundo)
-
   return (
     <>
-      <color attach='background' args={['#bdedfc']} />
+      <Day />
+      <Night />
+
       <DirectionalLight />
 
       <PresentationControls
         global
         polar={[-0.4, 0.2]}
         azimuth={[-1, 0.75]}
-        config={{ mass: 2, tension: 400 }}
-        snap={{ mass: 4, tension: 400 }}>
-        <Tv />
+        config={{ mass: 1, tension: 100 }}
+        snap={{ mass: 2, tension: 200 }}>
+        <Van />
       </PresentationControls>
     </>
   );

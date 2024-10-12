@@ -1,7 +1,9 @@
 import { useProgress } from '@react-three/drei';
 import { useThreeStore } from '../../store/useThree';
+import { useAppStore } from '@/features/app/store';
 import { useEffect, useState } from 'react';
 import { VanLoader } from '@/design-system/icons';
+import { ThemeToggler } from '@/design-system/molecules';
 
 const Loader = () => {
   const { progress } = useProgress();
@@ -9,6 +11,7 @@ const Loader = () => {
   const [canClick, setCanClick] = useState<boolean>(false);
   const startScene = useThreeStore(state => state.startScene);
   const setStartScene = useThreeStore(state => state.setStartScene);
+  const toggleTheme = useAppStore(state => state.toggleTheme);
 
   useEffect(() => {
     if (progress === 100) {
@@ -41,7 +44,7 @@ const Loader = () => {
       className={`bg-inherit fixed inset-0 z-10 flex flex-col items-center justify-between bg-accent p-2 transition-opacity duration-[1500ms] md:p-16 ${startScene ? 'pointer-events-none opacity-0' : ''}`}>
       <div className='loader_title'>The van is being assembled, just wait a moment...</div>
 
-      <div className='flex flex-1 items-center justify-center'>
+      <div className='flex flex-1 flex-col items-center justify-center'>
         <button
           className={`
             flex h-14 items-center justify-center rounded-full border-2 border-primary p-4 text-primary shadow-md duration-300 ease-out
@@ -50,6 +53,11 @@ const Loader = () => {
           onClick={handleStartScene}>
           {countdown}
         </button>
+
+        <ThemeToggler
+          className={`duration-300 ease-out ${canClick ? 'opacity-100' : 'opacity-0'}`}
+          toggleTheme={toggleTheme}
+        />
       </div>
 
       <div className='relative flex h-[125px] w-full flex-col justify-end overflow-hidden md:w-[95%]'>
