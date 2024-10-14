@@ -1,7 +1,7 @@
 'use client';
 
 import { Html } from '@react-three/drei';
-import { useRef, useState } from 'react';
+import { useRef, useState, forwardRef, useImperativeHandle } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import type { PointT } from '../../types';
@@ -14,10 +14,26 @@ interface PointProps {
   onZoom?: (e: any, point: PointT) => void;
   sizes?: 'small' | 'normal';
   onClick?: () => void;
+  forwardedRef?: React.RefObject<THREE.Group> | ((instance: THREE.Group | null) => void);
 }
 
-export default function Point({ position, label, description, onZoom, onClick, sizes = 'normal' }: PointProps) {
-  const pointRef = useRef<THREE.Group>(null);
+// Helper function to get the ref's current value whether it's an object ref or callback ref
+const useResolvedRef = (ref: any) => {
+  const innerRef = useRef<THREE.Group>(null);
+
+  // Use `useImperativeHandle` to make sure the ref from props is updated with the internal ref
+  useImperativeHandle(ref, () => innerRef.current);
+
+  return innerRef;
+};
+
+// eslint-disable-next-line react/display-name
+const Point = forwardRef<THREE.Group, PointProps>((props, forwardedRef) => {
+  const { position, label, description, onZoom, onClick, sizes = 'normal' } = props;
+
+  // Use the ref passed in props or fallback to the internal ref
+  const groupRef = useResolvedRef(forwardedRef);
+
   const startScene = useThreeStore(state => state.startScene);
 
   const [isOccluded, setOccluded] = useState<boolean>();
@@ -27,8 +43,8 @@ export default function Point({ position, label, description, onZoom, onClick, s
   // Test distance
   const vec = new THREE.Vector3();
   useFrame(state => {
-    if (pointRef.current) {
-      const range = state.camera.position.distanceTo(pointRef.current.getWorldPosition(vec)) <= 10;
+    if (groupRef.current) {
+      const range = state.camera.position.distanceTo(groupRef.current.getWorldPosition(vec)) <= 10;
       if (range !== isInRange) setInRange(range);
     }
   });
@@ -37,13 +53,13 @@ export default function Point({ position, label, description, onZoom, onClick, s
     onZoom &&
       onZoom(e, {
         newPosition: new THREE.Vector3(0.33, 0.46, 0),
-        ref: pointRef,
+        ref: groupRef,
         oldPosition: position,
       });
   };
 
   return (
-    <group ref={pointRef} position={position}>
+    <group ref={groupRef} position={position}>
       <Html
         occlude
         onOcclude={setOccluded}
@@ -61,4 +77,7 @@ export default function Point({ position, label, description, onZoom, onClick, s
       </Html>
     </group>
   );
-}
+});
+
+// You will use this exported component in parent components
+export default Point;
