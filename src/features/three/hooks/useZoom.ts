@@ -13,7 +13,6 @@ type useZoomProps = {
   newPointPosition?: THREE.Vector3;
 };
 
-// TODO - Tentar lidar com a questão dos URLS
 export const useZoom = ({ newCameraPosition, newCameraRotation, route, routeId }: useZoomProps) => {
   const { camera } = useThree();
   const [, setLocation] = useLocation();

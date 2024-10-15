@@ -6,12 +6,14 @@ import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import type { PointT } from '../../types';
 import { useThreeStore } from '../../store/useThree';
+import { ArrowRight } from '@/design-system/icons';
 
 interface PointProps {
   position: THREE.Vector3;
   label: string;
   description: string;
   onZoom?: (e: any, point: PointT) => void;
+  isZoomed?: boolean;
   sizes?: 'small' | 'normal';
   onClick?: () => void;
   forwardedRef?: React.RefObject<THREE.Group> | ((instance: THREE.Group | null) => void);
@@ -29,7 +31,7 @@ const useResolvedRef = (ref: any) => {
 
 // eslint-disable-next-line react/display-name
 const Point = forwardRef<THREE.Group, PointProps>((props, forwardedRef) => {
-  const { position, label, description, onZoom, onClick, sizes = 'normal' } = props;
+  const { position, label, description, onZoom, onClick, isZoomed = false, sizes = 'normal' } = props;
 
   // Use the ref passed in props or fallback to the internal ref
   const groupRef = useResolvedRef(forwardedRef);
@@ -69,10 +71,10 @@ const Point = forwardRef<THREE.Group, PointProps>((props, forwardedRef) => {
           transform: `scale(${isVisible ? 1 : 0.25})`,
         }}>
         <div className={`point ${startScene ? 'block' : 'hidden'}`} onClick={() => onClick && onClick()}>
-          <div className={`label ${sizes}`} onClick={handleZoom}>
-            {label}
+          <div className={`label ${sizes} ${isZoomed && 'zoomed'}`} onClick={handleZoom}>
+            {isZoomed ? <ArrowRight width={20} height={20} className='rotate-180' /> : label}
           </div>
-          <div className='text'>{description}</div>
+          <div className='text'>{isZoomed ? 'Go back' : description}</div>
         </div>
       </Html>
     </group>
