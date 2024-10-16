@@ -5,9 +5,10 @@ import { usePathname } from 'next/navigation';
 // Components
 import { Header, Sidebar, MobileMenu } from '@/design-system/organism';
 // Hooks
-import { useAppStore } from '@/store/useApp';
+import { useAppStore } from '@/features/app/store';
 // Utils
-import { Links, LinkT } from '@/utils/app';
+import { LinkT } from '@/features/app/types';
+import { Links } from '@/features/app/utils';
 
 const ReservedArea = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
@@ -30,13 +31,12 @@ const ReservedArea = ({ children }: { children: React.ReactNode }) => {
     return status === 'authenticated' && showMobileMenu && <MobileMenu />;
   };
 
-  // TODO - Em vez de remover a scrollbar, tentar adicionar um style
   return (
-    <main className='flex min-h-screen flex-col items-center bg-accent bg-background  bg-cover bg-fixed'>
+    <main className='relative flex min-h-screen flex-col items-center bg-accent bg-background bg-cover bg-fixed'>
       <Header />
-      <div className='flex w-full'>
+      <div className='relative flex w-full'>
         {_renderSidebar()}
-        <div className='no-scrollbar w-full overflow-y-auto p-12'>{children}</div>
+        <div className='no-scrollbar w-full overflow-y-auto p-2 md:p-8'>{children}</div>
       </div>
       {_renderMobileMenu()}
     </main>
