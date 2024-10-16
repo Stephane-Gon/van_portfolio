@@ -216,6 +216,42 @@ p, h1, h2, h3, h4, h5, h6 {
     }
   }
 
+  .projects_wrapper {
+    display: none;
+    opacity: 0;
+
+    &.visible {
+      display: flex;
+      animation: showElement 1s forwards;
+    }
+  }
+  
+  .projects_container {
+    background: white;
+    width: 1550px;
+    height: 900px;
+    border-radius: 5px;
+  }
+
+
+  @keyframes showElement {
+    0% {
+      display: none;
+      opacity: 0;
+      transform: scale(0) !important;
+    }
+    70% {
+      display: none;
+      opacity: 0;
+      transform: scale(0) !important;
+    }
+    100% {
+      display: flex;
+      opacity: 1;
+      transform: scale(1) !important;
+    }
+  }
+
   @keyframes float {
     0% {
       transform: translatey(0px) rotate(0deg);

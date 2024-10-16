@@ -7,9 +7,9 @@ import { ThemeToggler } from '@/design-system/molecules';
 
 const Loader = () => {
   const { progress } = useProgress();
+  const [isVisible, setIsVisible] = useState<boolean>(false);
   const [countdown, setCountdown] = useState<number | string>(1.5);
   const [canClick, setCanClick] = useState<boolean>(false);
-  const startScene = useThreeStore(state => state.startScene);
   const setStartScene = useThreeStore(state => state.setStartScene);
   const toggleTheme = useAppStore(state => state.toggleTheme);
 
@@ -35,13 +35,14 @@ const Loader = () => {
 
   const handleStartScene = () => {
     if (progress === 100 && canClick) {
-      setStartScene(true);
+      setIsVisible(true);
+      setTimeout(() => setStartScene(true), 1000);
     }
   };
 
   return (
     <div
-      className={`bg-inherit fixed inset-0 z-10 flex flex-col items-center justify-between bg-accent p-2 transition-opacity duration-[1500ms] md:p-16 ${startScene ? 'pointer-events-none opacity-0' : ''}`}>
+      className={`bg-inherit fixed inset-0 z-10 flex flex-col items-center justify-between bg-accent p-2 transition-opacity duration-[1500ms] md:p-16 ${isVisible ? 'pointer-events-none opacity-0' : ''}`}>
       <div className='loader_title'>The van is being assembled, just wait a moment...</div>
 
       <div className='flex flex-1 flex-col items-center justify-center'>

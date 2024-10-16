@@ -7,18 +7,24 @@ import Experience from '../Experience';
 import { Leva } from 'leva';
 import * as THREE from 'three';
 import { useThreeStore } from '../../store/useThree';
-import Loader from '../Loader';
+import dynamic from 'next/dynamic';
+
+const Loader = dynamic(() => import('../Loader'), { ssr: false });
 
 // TODO - Tenho que ajustar a scene em todos os viewports
-// TODO - Entender de onde vem o scroll
 
 const Scene = () => {
   const setInitialCamera = useThreeStore(state => state.setInitialCamera);
+  const startScene = useThreeStore(state => state.startScene);
   const debugMode = useThreeStore(state => state.debugMode);
 
   const cameraPosition = new THREE.Vector3(1.5, 4, 7);
   const cameraRotation = new THREE.Euler(-0.5, 0.18, 0.1);
   setInitialCamera(cameraPosition, cameraRotation);
+
+  const _renderLoader = () => {
+    return startScene ? null : <Loader />;
+  };
 
   return (
     <StrictMode>
@@ -37,7 +43,7 @@ const Scene = () => {
           <Experience />
         </Suspense>
       </Canvas>
-      <Loader />
+      {_renderLoader()}
     </StrictMode>
   );
 };
