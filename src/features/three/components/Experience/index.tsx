@@ -1,9 +1,9 @@
 'use client';
 
-import DirectionalLight from '../Lights/DirectionalLight';
+import DirectionalLight from '../Environment/Lights/DirectionalLight';
 import Van from '../Models/Van';
-import Day from '../Environments/Day';
-import Night from '../Environments/Night';
+import Day from '../Environment/Day';
+import Night from '../Environment/Night';
 
 export default function Experience() {
   return (

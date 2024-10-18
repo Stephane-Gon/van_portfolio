@@ -1,5 +1,5 @@
 import { useProgress } from '@react-three/drei';
-import { useThreeStore } from '../../store/useThree';
+import { useThreeStore } from '@/features/three/store/useThree';
 import { useAppStore } from '@/features/app/store';
 import { useEffect, useState } from 'react';
 import { VanLoader } from '@/design-system/icons';

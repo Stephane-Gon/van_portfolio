@@ -4,8 +4,8 @@ import { Html } from '@react-three/drei';
 import { useRef, useState, forwardRef, useImperativeHandle } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
-import type { PointT } from '../../types';
-import { useThreeStore } from '../../store/useThree';
+import type { PointT } from '@/features/three/types';
+import { useThreeStore } from '@/features/three/store/useThree';
 import { ArrowRight } from '@/design-system/icons';
 
 interface PointProps {

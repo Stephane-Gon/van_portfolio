@@ -2,7 +2,7 @@
 
 import { useAppStore } from '@/features/app/store';
 import * as THREE from 'three';
-import Point from '../../../Point';
+import Point from '../../../Html/Point';
 import { Themes } from '@/features/app/types';
 
 export default function ThemeToggler() {

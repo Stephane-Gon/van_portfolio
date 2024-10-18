@@ -9,9 +9,9 @@ import * as THREE from 'three';
 import { useThreeStore } from '../../store/useThree';
 import dynamic from 'next/dynamic';
 
-const Loader = dynamic(() => import('../Loader'), { ssr: false });
+const Loader = dynamic(() => import('../Html/Loader'), { ssr: false });
 
-// TODO - Tenho que ajustar a scene em todos os viewports
+// TODO - Fazer um Burger Menu
 
 const Scene = () => {
   const setInitialCamera = useThreeStore(state => state.setInitialCamera);

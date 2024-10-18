@@ -7,7 +7,7 @@ import { useRef } from 'react';
 import { useThreeStore } from '@/features/three/store/useThree';
 import useViewportSize from '@/hooks/useViewport';
 
-const Point = dynamic(() => import('@/features/three/components/Point'), { ssr: false });
+const Point = dynamic(() => import('@/features/three/components/Html/Point'), { ssr: false });
 
 export default function Tools() {
   const toolsPointRef = useRef<THREE.Group>(null);
