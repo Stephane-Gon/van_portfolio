@@ -3,7 +3,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import gsap from 'gsap';
-import { Cloud, Clouds } from '@react-three/drei';
+import dynamic from 'next/dynamic';
 import { useControls } from 'leva';
 import { useFrame } from '@react-three/fiber';
 import { useAppStore } from '@/features/app/store';
@@ -12,6 +12,9 @@ import nightGradientVertexShader from '@/features/three/shaders/nightGradient/ve
 import nightGradientFragmentShader from '@/features/three/shaders/nightGradient/fragment.glsl';
 import { Themes } from '@/features/app/types';
 import { useThreeStore } from '@/features/three/store/useThree';
+import useViewportSize from '@/hooks/useViewport';
+
+const NightClouds = dynamic(() => import('../../Models/NightClouds'), { ssr: false });
 
 const Night = () => {
   const [nightRotation, setNightRotation] = useState<number>(0);
@@ -19,6 +22,7 @@ const Night = () => {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
   const theme = useAppStore(state => state.theme);
   const startScene = useThreeStore(state => state.startScene);
+  const { width } = useViewportSize();
 
   const uniforms = useMemo(
     () => ({
@@ -138,9 +142,7 @@ const Night = () => {
           side={THREE.BackSide}
         />
       </mesh>
-      <Clouds material={THREE.MeshBasicMaterial} position={[0, 3.8, 0]}>
-        <Cloud seed={8} segments={10} bounds={[5, 1, 1]} volume={0.5} color='white' speed={0.1} />
-      </Clouds>
+      {width > 600 && <NightClouds />}
       <Moon />
     </group>
   );
