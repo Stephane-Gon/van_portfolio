@@ -7,8 +7,6 @@ import useServiceWorker from '@/hooks/useServiceWorker';
 
 const Scene = dynamic(() => import('@/features/three/components/Scene'), { ssr: false });
 
-// TODO - Tentar passar os models para um serviceworker
-
 const Home = () => {
   const searchParams = useSearchParams();
   const setDebugMode = useThreeStore(state => state.setDebugMode);
