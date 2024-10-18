@@ -10,6 +10,8 @@ export const useThreeStore = create<ThreeStore>()(
     },
     startScene: false,
     debugMode: false,
+    zoomedFeature: null,
+    setZoomedFeature: value => set({ zoomedFeature: value }),
     setDebugMode: value => set({ debugMode: value }),
     setStartScene: value => set({ startScene: value }),
     setInitialCamera: (position, rotation) => set({ initialCamera: { position, rotation } }),

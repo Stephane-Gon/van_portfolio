@@ -5,6 +5,7 @@ type ThreeActions = {
   setInitialCamera: (position: THREE.Vector3, rotation: THREE.Euler) => void;
   setStartScene: (value: boolean) => void;
   setDebugMode: (value: boolean) => void;
+  setZoomedFeature: (value: ZoomedFeaturesT | null) => void;
 };
 
 export type ThreeState = {
@@ -14,7 +15,10 @@ export type ThreeState = {
   };
   startScene: boolean;
   debugMode: boolean;
+  zoomedFeature: ZoomedFeaturesT | null;
 };
+
+export type ZoomedFeaturesT = 'projects' | 'tools' | 'works' | 'about';
 
 export type ThreeStore = ThreeState & ThreeActions;
 

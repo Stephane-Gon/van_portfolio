@@ -1,24 +1,21 @@
 import { useThree } from '@react-three/fiber';
 import gsap from 'gsap';
 import * as THREE from 'three';
-import { useLocation, useRoute } from 'wouter';
 import { useThreeStore } from '../store/useThree';
-import type { PointT } from '../types';
+import type { PointT, ZoomedFeaturesT } from '../types';
 
 type useZoomProps = {
   newCameraPosition: THREE.Vector3;
   newCameraRotation: THREE.Euler;
-  route: string;
-  routeId: string;
-  newPointPosition?: THREE.Vector3;
+  toZoomFeature: ZoomedFeaturesT | null;
 };
 
-export const useZoom = ({ newCameraPosition, newCameraRotation, route, routeId }: useZoomProps) => {
+export const useZoom = ({ newCameraPosition, newCameraRotation, toZoomFeature }: useZoomProps) => {
   const { camera } = useThree();
-  const [, setLocation] = useLocation();
-  const [, params] = useRoute(`${route}:id`);
 
   const initialCamera = useThreeStore(state => state.initialCamera);
+  const zoomedFeature = useThreeStore(state => state.zoomedFeature);
+  const setZoomedFeature = useThreeStore(state => state.setZoomedFeature);
 
   const animateCameraZoom = (point?: PointT) => {
     // Animate the camera position
@@ -48,7 +45,7 @@ export const useZoom = ({ newCameraPosition, newCameraRotation, route, routeId }
       });
     }
 
-    setLocation(route + routeId);
+    setZoomedFeature(toZoomFeature);
   };
 
   const animateCameraReset = (point?: PointT) => {
@@ -78,14 +75,14 @@ export const useZoom = ({ newCameraPosition, newCameraRotation, route, routeId }
       });
     }
 
-    setLocation('/');
+    setZoomedFeature(null);
   };
 
   const toggleCameraZoom = (e: any, point?: PointT) => {
     e.stopPropagation();
-    if (params?.id === routeId) {
+    if (zoomedFeature === toZoomFeature) {
       animateCameraReset(point);
-    } else if (!params?.id) {
+    } else if (!zoomedFeature) {
       animateCameraZoom(point);
     }
   };

@@ -64,6 +64,8 @@ const Night = () => {
     },
   });
 
+  // TODO - Tentar fazer com que as estrelas só sejam pintadas até meio do screen
+
   useEffect(() => {
     if (groupRef.current && theme === Themes.light) {
       groupRef.current.visible = false;
