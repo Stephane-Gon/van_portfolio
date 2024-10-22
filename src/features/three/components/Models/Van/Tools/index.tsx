@@ -37,7 +37,7 @@ export default function Tools() {
               oldPosition: pointPosition,
             });
           }}
-          ref={toolsPointRef}
+          innerRef={toolsPointRef}
           isZoomed={isZoomed}
         />
       )}

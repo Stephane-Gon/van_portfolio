@@ -16,7 +16,7 @@ interface PointProps {
   isZoomed?: boolean;
   sizes?: 'small' | 'normal';
   onClick?: () => void;
-  forwardedRef?: React.RefObject<THREE.Group> | ((instance: THREE.Group | null) => void);
+  innerRef?: React.RefObject<THREE.Group> | ((instance: THREE.Group | null) => void);
 }
 
 // Helper function to get the ref's current value whether it's an object ref or callback ref
@@ -30,11 +30,11 @@ const useResolvedRef = (ref: any) => {
 };
 
 // eslint-disable-next-line react/display-name
-const Point = forwardRef<THREE.Group, PointProps>((props, forwardedRef) => {
+const Point = forwardRef<THREE.Group, PointProps>((props, innerRef) => {
   const { position, label, description, onZoom, onClick, isZoomed = false, sizes = 'normal' } = props;
 
   // Use the ref passed in props or fallback to the internal ref
-  const groupRef = useResolvedRef(forwardedRef);
+  const groupRef = useResolvedRef(innerRef);
 
   const startScene = useThreeStore(state => state.startScene);
 

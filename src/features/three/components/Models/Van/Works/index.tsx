@@ -37,7 +37,7 @@ export default function Works() {
             });
           }}
           sizes='small'
-          ref={worksPointRef}
+          innerRef={worksPointRef}
           isZoomed={isZoomed}
         />
       )}

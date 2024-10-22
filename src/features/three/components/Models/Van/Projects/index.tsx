@@ -7,8 +7,12 @@ import { useRef } from 'react';
 import { useZoom } from '@/features/three/hooks/useZoom';
 import { useThreeStore } from '@/features/three/store/useThree';
 import useViewportSize from '@/hooks/useViewport';
+import List from '@/features/projects/publicComponents/list';
 
 const Point = dynamic(() => import('@/features/three/components/Html/Point'), { ssr: false });
+
+// TODO - Fazer a list dos projects e o responsive
+// TODO - Arranjar forma de importar dinamicamente a lista de projects??
 
 export default function Projects() {
   const projectPointRef = useRef<THREE.Group>(null);
@@ -26,7 +30,9 @@ export default function Projects() {
   return (
     <>
       <Html position={[-4.74, 3.03, 0.4]} className={`projects_wrapper ${isZoomed ? 'visible' : ''}`}>
-        <div className='projects_container'>aqui</div>
+        <div className='projects_container'>
+          <List />
+        </div>
       </Html>
       {width > 800 && (
         <Point
@@ -41,7 +47,7 @@ export default function Projects() {
             });
           }}
           sizes='small'
-          ref={projectPointRef}
+          innerRef={projectPointRef}
           isZoomed={isZoomed}
         />
       )}
