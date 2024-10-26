@@ -19,10 +19,12 @@ import ChevronDown from './ChevronDown';
 import Callendar from './Callendar';
 import VanLoader from './VanLoader';
 import ArrowRight from './ArrowRight';
+import Mail from './Mail';
 
 export {
   // Exports
   ChevronLeft,
+  Mail,
   Callendar,
   ChevronRight,
   Van,
