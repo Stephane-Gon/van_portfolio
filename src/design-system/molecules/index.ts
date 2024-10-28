@@ -12,9 +12,13 @@ import { Popover, PopoverTrigger, PopoverContent } from './Popover';
 import Calendar from './Callendar';
 import DatePicker from './DatePicker';
 import InputCheckbox from './InputCheckbox';
+import CopyToClipboard from './CopyToClipboard';
+import MenuLink from './MenuLink';
 
 export {
   InputText,
+  CopyToClipboard,
+  MenuLink,
   ImgUploader,
   MultipleImgUploader,
   VanLogo,
