@@ -18,6 +18,7 @@ export default function Projects() {
   const projectPointRef = useRef<THREE.Group>(null);
   const pointPosition = new THREE.Vector3(-0.6, 1.55, 2.05);
   const zoomedFeature = useThreeStore(state => state.zoomedFeature);
+  const menuHoverLink = useThreeStore(state => state.menuHoverLink);
   const isZoomed = zoomedFeature === 'projects';
   const { width } = useViewportSize();
 
@@ -49,6 +50,7 @@ export default function Projects() {
           sizes='small'
           innerRef={projectPointRef}
           isZoomed={isZoomed}
+          forceDisplay={menuHoverLink === 'projects'}
         />
       )}
     </>

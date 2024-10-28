@@ -17,6 +17,7 @@ interface PointProps {
   sizes?: 'small' | 'normal';
   onClick?: () => void;
   innerRef?: React.RefObject<THREE.Group> | ((instance: THREE.Group | null) => void);
+  forceDisplay?: boolean;
 }
 
 // Helper function to get the ref's current value whether it's an object ref or callback ref
@@ -31,12 +32,22 @@ const useResolvedRef = (ref: any) => {
 
 // eslint-disable-next-line react/display-name
 const Point = forwardRef<THREE.Group, PointProps>((props, innerRef) => {
-  const { position, label, description, onZoom, onClick, isZoomed = false, sizes = 'normal' } = props;
+  const {
+    position,
+    label,
+    description,
+    onZoom,
+    onClick,
+    isZoomed = false,
+    sizes = 'normal',
+    forceDisplay = false,
+  } = props;
 
   // Use the ref passed in props or fallback to the internal ref
   const groupRef = useResolvedRef(innerRef);
 
   const startScene = useThreeStore(state => state.startScene);
+  const isMenuOpen = useThreeStore(state => state.isMenuOpen);
 
   const [isOccluded, setOccluded] = useState<boolean>();
   const [isInRange, setInRange] = useState<boolean>();
@@ -70,7 +81,9 @@ const Point = forwardRef<THREE.Group, PointProps>((props, innerRef) => {
           opacity: isVisible ? 1 : 0,
           transform: `scale(${isVisible ? 1 : 0.25})`,
         }}>
-        <div className={`point ${startScene ? 'block' : 'hidden'}`} onClick={() => onClick && onClick()}>
+        <div
+          className={`point ${(startScene && !isMenuOpen) || forceDisplay ? 'block' : 'hidden'}`}
+          onClick={() => onClick && onClick()}>
           <div className={`label ${sizes} ${isZoomed && 'zoomed'}`} onClick={handleZoom}>
             {isZoomed ? <ArrowRight width={20} height={20} className='rotate-180' /> : label}
           </div>

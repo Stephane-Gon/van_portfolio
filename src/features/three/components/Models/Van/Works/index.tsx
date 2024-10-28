@@ -13,6 +13,7 @@ export default function Works() {
   const worksPointRef = useRef<THREE.Group>(null);
   const pointPosition = new THREE.Vector3(-0.48, 1.23, 1.9);
   const zoomedFeature = useThreeStore(state => state.zoomedFeature);
+  const menuHoverLink = useThreeStore(state => state.menuHoverLink);
   const isZoomed = zoomedFeature === 'works';
   const { width } = useViewportSize();
 
@@ -39,6 +40,7 @@ export default function Works() {
           sizes='small'
           innerRef={worksPointRef}
           isZoomed={isZoomed}
+          forceDisplay={menuHoverLink === 'works'}
         />
       )}
     </>
