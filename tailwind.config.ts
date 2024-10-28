@@ -34,6 +34,10 @@ const config: Config = {
         background: `var(--bgImage)`,
         neumorph: 'var(--neumorphismBg)',
       },
+      transitionDelay: {
+        '125': '125ms',
+        '175': '175ms',
+      },
       scale: {
         '70': '0.70',
       },
