@@ -3,28 +3,20 @@
 import { StrictMode, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import FPSStats from 'react-fps-stats';
-import Experience from '../Experience';
 import { Leva } from 'leva';
 import * as THREE from 'three';
+import Experience from '../Experience';
+import Loader from '../Html/Loader';
+import MenuToggler from '../Html/MenuToggler';
 import { useThreeStore } from '../../store/useThree';
-import dynamic from 'next/dynamic';
-
-const Loader = dynamic(() => import('../Html/Loader'), { ssr: false });
-
-// TODO - Fazer um Burger Menu
 
 const Scene = () => {
   const setInitialCamera = useThreeStore(state => state.setInitialCamera);
-  const startScene = useThreeStore(state => state.startScene);
   const debugMode = useThreeStore(state => state.debugMode);
 
   const cameraPosition = new THREE.Vector3(1.5, 4, 7);
   const cameraRotation = new THREE.Euler(-0.5, 0.18, 0.1);
   setInitialCamera(cameraPosition, cameraRotation);
-
-  const _renderLoader = () => {
-    return startScene ? null : <Loader />;
-  };
 
   return (
     <StrictMode>
@@ -43,7 +35,8 @@ const Scene = () => {
           <Experience />
         </Suspense>
       </Canvas>
-      {_renderLoader()}
+      <Loader />
+      <MenuToggler mainMenu className='text-text' />
     </StrictMode>
   );
 };

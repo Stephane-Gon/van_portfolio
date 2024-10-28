@@ -1,11 +1,12 @@
 import { useProgress } from '@react-three/drei';
 import { useThreeStore } from '@/features/three/store/useThree';
 import { useAppStore } from '@/features/app/store';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { VanLoader } from '@/design-system/icons';
 import { ThemeToggler } from '@/design-system/molecules';
 
 const Loader = () => {
+  const loaderRef = useRef<HTMLDivElement>(null);
   const { progress } = useProgress();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [countdown, setCountdown] = useState<number | string>(1.5);
@@ -36,12 +37,18 @@ const Loader = () => {
   const handleStartScene = () => {
     if (progress === 100 && canClick) {
       setIsVisible(true);
-      setTimeout(() => setStartScene(true), 1000);
+      setTimeout(() => {
+        setStartScene(true);
+        if (loaderRef.current) {
+          loaderRef.current.style.display = 'none';
+        }
+      }, 1000);
     }
   };
 
   return (
     <div
+      ref={loaderRef}
       className={`bg-inherit fixed inset-0 z-10 flex flex-col items-center justify-between bg-accent p-2 transition-opacity duration-[1500ms] md:p-16 ${isVisible ? 'pointer-events-none opacity-0' : ''}`}>
       <div className='loader_title'>The van is being assembled, just wait a moment...</div>
 
