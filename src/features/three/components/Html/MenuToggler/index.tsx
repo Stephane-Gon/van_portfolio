@@ -5,9 +5,10 @@ import { MainBurgerIcon, MenuBurgerIcon } from '@/design-system/atoms';
 
 interface MenuTogglerProps extends React.HTMLAttributes<HTMLElement> {
   mainMenu?: boolean;
+  onAditionalClick?: () => void;
 }
 
-function MenuToggler({ mainMenu }: MenuTogglerProps) {
+function MenuToggler({ mainMenu, onAditionalClick }: MenuTogglerProps) {
   const setIsMenuOpen = useThreeStore(state => state.setIsMenuOpen);
   const isMenuOpen = useThreeStore(state => state.isMenuOpen);
 
@@ -22,9 +23,15 @@ function MenuToggler({ mainMenu }: MenuTogglerProps) {
     return mainMenu ? <MainBurgerIcon /> : <MenuBurgerIcon />;
   };
 
+  const handleClick = () => {
+    setIsMenuOpen(!isMenuOpen);
+
+    onAditionalClick && onAditionalClick();
+  };
+
   return (
     <div
-      onClick={() => setIsMenuOpen(!isMenuOpen)}
+      onClick={handleClick}
       className={`${AbsoluteClass} ${BlurBdClass} ${DisplayClass} group cursor-pointer items-center justify-center overflow-hidden p-[2px]`}>
       <div className='relative flex h-full w-full items-center justify-between gap-4 px-4'>
         <div className='flex items-center justify-between'>

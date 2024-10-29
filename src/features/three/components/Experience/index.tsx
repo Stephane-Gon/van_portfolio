@@ -1,12 +1,10 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import DirectionalLight from '../Environment/Lights/DirectionalLight';
 import Van from '../Models/Van';
 import Day from '../Environment/Day';
 import Night from '../Environment/Night';
-
-const Menu = dynamic(() => import('../Html/Menu'), { ssr: false });
+import Menu from '../Html/Menu';
 
 export default function Experience() {
   return (

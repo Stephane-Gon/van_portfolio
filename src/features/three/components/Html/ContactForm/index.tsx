@@ -41,7 +41,9 @@ function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='ml-36 flex h-full w-[400px] flex-col items-start gap-6'>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className='flex h-full w-[320px] flex-col items-start gap-8 2sm:w-[350px] lg:ml-36 lg:w-[400px] 2xl:w-[500px]'>
       <h1 className='text-3xl font-bold text-[#f5f5f5]'>Contact Me:</h1>
       <InputText
         id='name'

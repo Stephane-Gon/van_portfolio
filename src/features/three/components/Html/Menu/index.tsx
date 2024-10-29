@@ -6,12 +6,12 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useThreeStore } from '@/features/three/store/useThree';
 import MenuToggler from '../MenuToggler';
-import ContactForm from '../ContactForm';
 import { Github, Linkedin, Mail } from '@/design-system/icons';
 import { useZoom } from '@/features/three/hooks/useZoom';
 import { CopyToClipboard } from '@/design-system/molecules';
 
 const MenuLink = dynamic(() => import('@/design-system/molecules/MenuLink'), { ssr: false });
+const ContactForm = dynamic(() => import('../ContactForm'), { ssr: false });
 
 function Menu() {
   const [showLinks, setShowLinks] = useState<boolean>(false);
@@ -75,6 +75,7 @@ function Menu() {
             hoveredLink='projects'
             onClick={e => {
               setIsMenuOpen(false);
+              setShowLinks(false);
               ZoomProjects(e);
             }}
           />
@@ -84,6 +85,7 @@ function Menu() {
             hoveredLink='works'
             onClick={e => {
               setIsMenuOpen(false);
+              setShowLinks(false);
               ZoomWorks(e);
             }}
           />
@@ -93,6 +95,7 @@ function Menu() {
             hoveredLink='tools'
             onClick={e => {
               setIsMenuOpen(false);
+              setShowLinks(false);
               ZoomTools(e);
             }}
           />
@@ -112,13 +115,11 @@ function Menu() {
       className='transform-unset !relative !left-[unset] !top-[unset] hidden h-full w-full bg-[#131313] opacity-0'>
       <div className='flex h-full w-full flex-col p-4'>
         <div className='flex w-full items-center justify-end'>
-          <MenuToggler />
+          <MenuToggler onAditionalClick={() => setShowLinks(!showLinks)} />
         </div>
-        <div className='flex flex-grow items-center justify-start'>
-          <div className='flex-grow'>
-            <ContactForm />
-          </div>
-          <div className='flex h-full flex-col items-start justify-center gap-3 pl-4 pr-52'>{_renderLinks()}</div>
+        <div className='flex flex-grow flex-col-reverse items-center justify-start lg:flex-row'>
+          <div className='flex-grow'>{showLinks && <ContactForm />}</div>
+          <div className='flex h-full flex-col items-start justify-center gap-3 pl-4 lg:pr-52'>{_renderLinks()}</div>
         </div>
         <div className='flex-start flex w-full items-center'>
           <div className='flex-start flex items-center gap-5 p-6'>
