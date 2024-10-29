@@ -10,7 +10,7 @@ interface MenuLinkProps extends React.HTMLProps<HTMLDivElement> {
   hoveredLink: ZoomedFeaturesT;
 }
 
-const MenuLink = ({ text, hoveredLink, onClick, delay = 0.1, indexOffeset = 0 }: MenuLinkProps) => {
+const MenuLink = ({ text, hoveredLink, onClick, delay = 0.05, indexOffeset = 0 }: MenuLinkProps) => {
   const [completed, setCompleted] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const setMenuHoverLink = useThreeStore(state => state.setMenuHoverLink);

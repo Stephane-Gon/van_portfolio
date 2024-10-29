@@ -1,21 +1,23 @@
 'use client';
 import dynamic from 'next/dynamic';
+import * as THREE from 'three';
 import { Html } from '@react-three/drei';
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useThreeStore } from '@/features/three/store/useThree';
 import MenuToggler from '../MenuToggler';
+import ContactForm from '../ContactForm';
 import { Github, Linkedin, Mail } from '@/design-system/icons';
+import { useZoom } from '@/features/three/hooks/useZoom';
 import { CopyToClipboard } from '@/design-system/molecules';
 
 const MenuLink = dynamic(() => import('@/design-system/molecules/MenuLink'), { ssr: false });
-
-// TODO - Ao dar hover do menu dev dár a entender de alguma forma o que vai fazer;
 
 function Menu() {
   const [showLinks, setShowLinks] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const isMenuOpen = useThreeStore(state => state.isMenuOpen);
+  const setIsMenuOpen = useThreeStore(state => state.setIsMenuOpen);
 
   useEffect(() => {
     const menuElement = menuRef.current;
@@ -46,13 +48,54 @@ function Menu() {
     }
   }, [isMenuOpen]);
 
+  const { toggleCameraZoom: ZoomProjects } = useZoom({
+    newCameraPosition: new THREE.Vector3(-0.65, 1.27, 2.23),
+    newCameraRotation: new THREE.Euler(0.11, 0.47, -0.05),
+    toZoomFeature: 'projects',
+  });
+
+  const { toggleCameraZoom: ZoomTools } = useZoom({
+    newCameraPosition: new THREE.Vector3(0.7, 1.42, 1.8),
+    newCameraRotation: new THREE.Euler(0.08, 0.49, -0.04),
+    toZoomFeature: 'tools',
+  });
+
+  const { toggleCameraZoom: ZoomWorks } = useZoom({
+    newCameraPosition: new THREE.Vector3(-0.545, 1.12, 2.11),
+    newCameraRotation: new THREE.Euler(-0.19, -0.02, 0),
+    toZoomFeature: 'works',
+  });
+
   const _renderLinks = () => {
     return (
       showLinks && (
         <>
-          <MenuLink text='Projects' hoveredLink='projects' />
-          <MenuLink text='Works' indexOffeset={8} hoveredLink='works' />
-          <MenuLink text='Tools' indexOffeset={13} hoveredLink='tools' />
+          <MenuLink
+            text='Projects'
+            hoveredLink='projects'
+            onClick={e => {
+              setIsMenuOpen(false);
+              ZoomProjects(e);
+            }}
+          />
+          <MenuLink
+            text='Works'
+            indexOffeset={8}
+            hoveredLink='works'
+            onClick={e => {
+              setIsMenuOpen(false);
+              ZoomWorks(e);
+            }}
+          />
+          <MenuLink
+            text='Tools'
+            indexOffeset={13}
+            hoveredLink='tools'
+            onClick={e => {
+              setIsMenuOpen(false);
+              ZoomTools(e);
+            }}
+          />
           <MenuLink text='About me' indexOffeset={18} hoveredLink='about' />
         </>
       )
@@ -72,7 +115,9 @@ function Menu() {
           <MenuToggler />
         </div>
         <div className='flex flex-grow items-center justify-start'>
-          <div className='flex-grow'></div>
+          <div className='flex-grow'>
+            <ContactForm />
+          </div>
           <div className='flex h-full flex-col items-start justify-center gap-3 pl-4 pr-52'>{_renderLinks()}</div>
         </div>
         <div className='flex-start flex w-full items-center'>
@@ -87,7 +132,6 @@ function Menu() {
               <Mail width={28} height={28} fill='#f5f5f5' />
             </CopyToClipboard>
           </div>
-          <div className='flex-grow'></div>
         </div>
       </div>
     </Html>
