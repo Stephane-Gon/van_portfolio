@@ -10,8 +10,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install eslint
-        run: yarn add eslint@8 --dev
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
 
       - name: Lint code
         run: yarn eslint src
