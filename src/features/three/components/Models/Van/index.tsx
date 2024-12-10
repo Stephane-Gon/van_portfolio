@@ -26,7 +26,7 @@ export default function Van() {
     positionY = 0.7;
   } else if (width < 650) {
     scale = 0.4;
-  } else if (width < 800) {
+  } else if (width < 1000) {
     scale = 0.5;
   }
 

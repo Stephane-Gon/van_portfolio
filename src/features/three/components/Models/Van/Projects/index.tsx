@@ -7,12 +7,10 @@ import { useRef } from 'react';
 import { useZoom } from '@/features/three/hooks/useZoom';
 import { useThreeStore } from '@/features/three/store/useThree';
 import useViewportSize from '@/hooks/useViewport';
+import { projectsZoomData } from '@/features/three/data/zoom';
 import List from '@/features/projects/publicComponents/list';
-
+import { SpaceValues } from '@/features/three/types';
 const Point = dynamic(() => import('@/features/three/components/Html/Point'), { ssr: false });
-
-// TODO - Fazer a list dos projects e o responsive
-// TODO - Arranjar forma de importar dinamicamente a lista de projects??
 
 export default function Projects() {
   const projectPointRef = useRef<THREE.Group>(null);
@@ -22,31 +20,45 @@ export default function Projects() {
   const isZoomed = zoomedFeature === 'projects';
   const { width } = useViewportSize();
 
+  let selector: keyof typeof projectsZoomData = 'default';
+
+  if (width < 600) {
+    selector = 600;
+  } else if (width < 1000) {
+    selector = 1000;
+  } else if (width < 2500) {
+    selector = 2500;
+  }
+
+  const position = projectsZoomData[selector].position;
+  const rotation = projectsZoomData[selector].rotation;
+  const html = projectsZoomData[selector].html as SpaceValues;
+
   const { toggleCameraZoom } = useZoom({
-    newCameraPosition: new THREE.Vector3(-0.65, 1.27, 2.23),
-    newCameraRotation: new THREE.Euler(0.11, 0.47, -0.05),
+    newCameraPosition: new THREE.Vector3(position.x, position.y, position.z),
+    newCameraRotation: new THREE.Euler(rotation.x, rotation.y, rotation.z),
     toZoomFeature: 'projects',
   });
 
-  return (
-    <>
-      <Html position={[-4.74, 3.03, 0.4]} className={`projects_wrapper ${isZoomed ? 'visible' : ''}`}>
+  const _renderHtml = () => {
+    return width >= 1000 ? (
+      <Html position={[html.x, html.y, html.z]} className={`projects_wrapper ${isZoomed ? 'visible' : ''}`}>
         <div className='projects_container'>
           <List />
         </div>
       </Html>
+    ) : null;
+  };
+
+  return (
+    <>
+      {_renderHtml()}
       {width > 800 && (
         <Point
           position={pointPosition}
           label='2'
           description='Check the projects I worked on here!'
-          onZoom={e => {
-            toggleCameraZoom(e, {
-              ref: projectPointRef,
-              newPosition: new THREE.Vector3(-0.63, 1.41, 1.91),
-              oldPosition: pointPosition,
-            });
-          }}
+          onZoom={e => toggleCameraZoom(e)}
           sizes='small'
           innerRef={projectPointRef}
           isZoomed={isZoomed}

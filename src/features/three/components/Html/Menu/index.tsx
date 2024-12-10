@@ -9,6 +9,8 @@ import MenuToggler from '../MenuToggler';
 import { Github, Linkedin, Mail } from '@/design-system/icons';
 import { useZoom } from '@/features/three/hooks/useZoom';
 import { CopyToClipboard } from '@/design-system/molecules';
+import { projectsZoomData } from '@/features/three/data/zoom';
+import useViewportSize from '@/hooks/useViewport';
 
 const MenuLink = dynamic(() => import('@/design-system/molecules/MenuLink'), { ssr: false });
 const ContactForm = dynamic(() => import('../ContactForm'), { ssr: false });
@@ -18,6 +20,7 @@ function Menu() {
   const menuRef = useRef<HTMLDivElement>(null);
   const isMenuOpen = useThreeStore(state => state.isMenuOpen);
   const setIsMenuOpen = useThreeStore(state => state.setIsMenuOpen);
+  const { width } = useViewportSize();
 
   useEffect(() => {
     const menuElement = menuRef.current;
@@ -48,9 +51,21 @@ function Menu() {
     }
   }, [isMenuOpen]);
 
+  let selector: keyof typeof projectsZoomData = 'default';
+  if (width < 600) {
+    selector = 600;
+  } else if (width < 1000) {
+    selector = 1000;
+  } else if (width < 2500) {
+    selector = 2500;
+  }
+
+  const position = projectsZoomData[selector].position;
+  const rotation = projectsZoomData[selector].rotation;
+
   const { toggleCameraZoom: ZoomProjects } = useZoom({
-    newCameraPosition: new THREE.Vector3(-0.65, 1.27, 2.23),
-    newCameraRotation: new THREE.Euler(0.11, 0.47, -0.05),
+    newCameraPosition: new THREE.Vector3(position.x, position.y, position.z),
+    newCameraRotation: new THREE.Euler(rotation.x, rotation.y, rotation.z),
     toZoomFeature: 'projects',
   });
 
