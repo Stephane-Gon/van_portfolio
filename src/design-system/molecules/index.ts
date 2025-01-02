@@ -14,6 +14,7 @@ import DatePicker from './DatePicker';
 import InputCheckbox from './InputCheckbox';
 import CopyToClipboard from './CopyToClipboard';
 import MenuLink from './MenuLink';
+import WordSlider from './WordSlider';
 
 export {
   InputText,
@@ -34,4 +35,5 @@ export {
   Calendar,
   DatePicker,
   InputCheckbox,
+  WordSlider,
 };
