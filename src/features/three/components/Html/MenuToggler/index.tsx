@@ -11,13 +11,14 @@ interface MenuTogglerProps extends React.HTMLAttributes<HTMLElement> {
 function MenuToggler({ mainMenu, onAditionalClick }: MenuTogglerProps) {
   const setIsMenuOpen = useThreeStore(state => state.setIsMenuOpen);
   const isMenuOpen = useThreeStore(state => state.isMenuOpen);
+  const zoomedFeature = useThreeStore(state => state.zoomedFeature);
 
   const AbsoluteClass = mainMenu && 'absolute top-4 left-1/2 -translate-x-1/2';
   const BlurBdClass =
     mainMenu &&
     'bg-[rgba(145, 145, 145, 0.65)] shadow-md shadow-[rgba(31,31,31,0.2)] backdrop-blur-[4px] h-10 w-202 rounded-3xl';
   const TextColorClass = mainMenu ? 'text-[#f5f5f5] 1sm:text-[#131313]' : 'text-[#f5f5f5]';
-  const DisplayClass = mainMenu && isMenuOpen ? 'hidden' : 'flex';
+  const DisplayClass = (mainMenu && isMenuOpen) || zoomedFeature ? 'hidden' : 'flex';
 
   const _renderBurgerIcon = () => {
     return mainMenu ? <MainBurgerIcon /> : <MenuBurgerIcon />;

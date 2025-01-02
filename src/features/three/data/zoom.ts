@@ -12,11 +12,6 @@ export const projectsZoomData: ZoomData = {
       y: 0.47,
       z: -0.05,
     },
-    html: {
-      x: -4.07,
-      y: 2.83,
-      z: 0.4,
-    },
   },
   600: {
     position: {
@@ -28,11 +23,6 @@ export const projectsZoomData: ZoomData = {
       x: 0.11,
       y: 0.47,
       z: -1.62,
-    },
-    html: {
-      x: -4.06,
-      y: 2.83,
-      z: 0.4,
     },
   },
   1000: {
@@ -46,11 +36,6 @@ export const projectsZoomData: ZoomData = {
       y: 0.47,
       z: -1.62,
     },
-    html: {
-      x: -4.06,
-      y: 2.83,
-      z: 0.4,
-    },
   },
   2500: {
     position: {
@@ -62,11 +47,6 @@ export const projectsZoomData: ZoomData = {
       x: 0.11,
       y: 0.47,
       z: -0.05,
-    },
-    html: {
-      x: -4.06,
-      y: 2.83,
-      z: 0.4,
     },
   },
 };

@@ -2,14 +2,12 @@
 
 import * as THREE from 'three';
 import dynamic from 'next/dynamic';
-import { Html } from '@react-three/drei';
 import { useRef } from 'react';
 import { useZoom } from '@/features/three/hooks/useZoom';
 import { useThreeStore } from '@/features/three/store/useThree';
 import useViewportSize from '@/hooks/useViewport';
 import { projectsZoomData } from '@/features/three/data/zoom';
-import List from '@/features/projects/publicComponents/list';
-import { SpaceValues } from '@/features/three/types';
+
 const Point = dynamic(() => import('@/features/three/components/Html/Point'), { ssr: false });
 
 export default function Projects() {
@@ -32,7 +30,6 @@ export default function Projects() {
 
   const position = projectsZoomData[selector].position;
   const rotation = projectsZoomData[selector].rotation;
-  const html = projectsZoomData[selector].html as SpaceValues;
 
   const { toggleCameraZoom } = useZoom({
     newCameraPosition: new THREE.Vector3(position.x, position.y, position.z),
@@ -40,19 +37,8 @@ export default function Projects() {
     toZoomFeature: 'projects',
   });
 
-  const _renderHtml = () => {
-    return width >= 1000 ? (
-      <Html position={[html.x, html.y, html.z]} className={`projects_wrapper ${isZoomed ? 'visible' : ''}`}>
-        <div className='projects_container'>
-          <List />
-        </div>
-      </Html>
-    ) : null;
-  };
-
   return (
     <>
-      {_renderHtml()}
       {width > 800 && (
         <Point
           position={pointPosition}

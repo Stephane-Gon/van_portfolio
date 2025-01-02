@@ -31,3 +31,20 @@ export type PointT = {
   newPosition: THREE.Vector3;
   oldPosition: THREE.Vector3;
 };
+
+export type SpaceValues = {
+  x: number;
+  y: number;
+  z: number;
+};
+
+export type PointZoomData = {
+  position: SpaceValues;
+  rotation: SpaceValues;
+  html?: SpaceValues;
+};
+
+export type ZoomData = {
+  default: PointZoomData;
+  [key: number]: PointZoomData;
+};

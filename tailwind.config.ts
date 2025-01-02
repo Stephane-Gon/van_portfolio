@@ -17,6 +17,7 @@ const config: Config = {
       secondary: 'rgba(var(--secondary))',
       tertiary: 'rgba(var(--tertiary))',
       dangerRed: '#FF5A5F',
+      threeBg: 'rgba(var(--threeBg))',
       glassSidebar: 'rgba(var(--glassSidebar))',
       glassBorder: 'rgba(var(--glassBorder))',
       cardsBg: 'rgba(var(--cardsBg))',
@@ -34,6 +35,8 @@ const config: Config = {
       backgroundImage: {
         background: `var(--bgImage)`,
         neumorph: 'var(--neumorphismBg)',
+        glassMorph: 'var(--glassMorph)',
+        threeBgGradient: 'var(--threeBgGradient)',
       },
       transitionDelay: {
         '125': '125ms',
