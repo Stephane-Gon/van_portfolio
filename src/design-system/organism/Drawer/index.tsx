@@ -29,8 +29,8 @@ const Drawer = ({ isOpen, children }: Props) => {
           height: '3.5rem',
           duration: 1,
           ease: 'power2.inOut',
-          onComplete: () => {
-            // Hide element after animation completes
+          onStart: () => {
+            // Hide element before animation starts
             if (drawerRef.current) {
               drawerRef.current.style.display = 'none';
             }

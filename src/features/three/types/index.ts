@@ -8,6 +8,7 @@ type ThreeActions = {
   setZoomedFeature: (value: ZoomedFeaturesT | null) => void;
   setIsMenuOpen: (value: boolean) => void;
   setMenuHoverLink: (value: ZoomedFeaturesT | null) => void;
+  setZoomFunction: (value: () => void) => void;
 };
 
 export type ThreeState = {
@@ -20,6 +21,7 @@ export type ThreeState = {
   zoomedFeature: ZoomedFeaturesT | null;
   isMenuOpen: boolean;
   menuHoverLink: ZoomedFeaturesT | null;
+  zoomFunction: (() => void) | null;
 };
 
 export type ZoomedFeaturesT = 'projects' | 'tools' | 'works' | 'about';

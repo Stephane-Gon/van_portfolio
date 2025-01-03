@@ -2,6 +2,14 @@ export const AVAIALABLE_ENTENSIONS = ['.webp', 'image/svg+xml', '.svg', 'image/w
 export const FILE_DISPLAY_NAME_MAX_LENGTH = 20;
 export const FILE_SIZE_LIMIT = 1 * 1024 * 1024; // 1 MB in bytes
 
+export const SERVICES = {
+  frontend: 'Frontend',
+  backend: 'Backend',
+  design: 'UI / UX Design',
+  ci_cd: 'CI / CD',
+  testing: 'Testing',
+};
+
 export type TOGGLE_TABS = 'list' | 'detail';
 
 export type SkillTypes = 'frontend' | 'backend' | 'design' | 'ci_cd' | 'testing';

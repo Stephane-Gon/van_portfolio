@@ -14,13 +14,7 @@ import { SupabaseProject } from '../../types';
 
 export const revalidate = 0;
 
-type Props = {
-  toggleZoom?: (e: any) => void;
-};
-
-// TODO - Arranjar forma de passar o toggleZoom tbm na scene onde é usado
-
-const MainSection = ({ toggleZoom }: Props) => {
+const MainSection = () => {
   const listRef = useRef<HTMLDivElement>(null);
   const detailRef = useRef<HTMLDivElement>(null);
   const [projects, setProjects] = useState<SupabaseProject[]>([]);
@@ -61,7 +55,14 @@ const MainSection = ({ toggleZoom }: Props) => {
   }
 
   const animateProjectChange = (project: SupabaseProject | null) => {
-    const tl = gsap.timeline();
+    const tl = gsap.timeline({
+      onComplete: () => {
+        if (!project) setSelectedProject(project);
+      },
+      onStart: () => {
+        if (project) setSelectedProject(project);
+      },
+    });
 
     tl.to(listRef.current, {
       x: project ? '-100%' : '0%',
@@ -74,23 +75,21 @@ const MainSection = ({ toggleZoom }: Props) => {
         duration: 0.5,
         ease: 'power2.inOut',
       },
-      '-=0.3',
+      '-=0.5',
     );
-
-    setSelectedProject(project);
   };
 
   return (
     <Drawer isOpen={zoomedFeature === 'projects'}>
       <div className='flex h-full w-full flex-col rounded-md bg-threeBgGradient'>
-        <MainHeader toggleZoom={toggleZoom} />
+        <MainHeader />
         <MainTitle title={selectedProject?.title} setSelectedProject={animateProjectChange} />
         <div className='no-scrollbar relative mb-5 h-full w-full overflow-auto'>
           <div ref={listRef} className='h-full w-full'>
             <MainList items={projects} setSelectedProject={animateProjectChange} />
           </div>
           <div ref={detailRef} className='absolute left-full top-0 h-full w-full'>
-            <MainDetail project={selectedProject} setSelectedProject={animateProjectChange} />
+            <MainDetail project={selectedProject} />
           </div>
         </div>
       </div>
