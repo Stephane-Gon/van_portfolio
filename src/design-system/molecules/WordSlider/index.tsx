@@ -34,7 +34,7 @@ const WordSlider = ({ words }: WordSliderProps) => {
 
   return (
     <div className='flex h-[30px] overflow-hidden text-[20px]'>
-      <div ref={sliderRef} className='flex flex-col items-center justify-start'>
+      <div ref={sliderRef} className='flex flex-col items-start justify-start'>
         {words.map(word => {
           return (
             <div key={`slider_word_${word}`} className='text-text'>

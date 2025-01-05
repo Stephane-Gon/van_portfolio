@@ -9,8 +9,7 @@ import MenuToggler from '../MenuToggler';
 import { Github, Linkedin, Mail } from '@/design-system/icons';
 import { useZoom } from '@/features/three/hooks/useZoom';
 import { CopyToClipboard } from '@/design-system/molecules';
-import { projectsZoomData } from '@/features/three/data/zoom';
-import useViewportSize from '@/hooks/useViewport';
+import { useZoomValues } from '@/features/three/hooks/useZoomValues';
 
 const MenuLink = dynamic(() => import('@/design-system/molecules/MenuLink'), { ssr: false });
 const ContactForm = dynamic(() => import('../ContactForm'), { ssr: false });
@@ -20,7 +19,7 @@ function Menu() {
   const menuRef = useRef<HTMLDivElement>(null);
   const isMenuOpen = useThreeStore(state => state.isMenuOpen);
   const setIsMenuOpen = useThreeStore(state => state.setIsMenuOpen);
-  const { width } = useViewportSize();
+  const { positionProject, positionWork, rotationProject, rotationWork } = useZoomValues();
 
   useEffect(() => {
     const menuElement = menuRef.current;
@@ -51,21 +50,9 @@ function Menu() {
     }
   }, [isMenuOpen]);
 
-  let selector: keyof typeof projectsZoomData = 'default';
-  if (width < 600) {
-    selector = 600;
-  } else if (width < 1000) {
-    selector = 1000;
-  } else if (width < 2500) {
-    selector = 2500;
-  }
-
-  const position = projectsZoomData[selector].position;
-  const rotation = projectsZoomData[selector].rotation;
-
   const { toggleCameraZoom: ZoomProjects } = useZoom({
-    newCameraPosition: new THREE.Vector3(position.x, position.y, position.z),
-    newCameraRotation: new THREE.Euler(rotation.x, rotation.y, rotation.z),
+    newCameraPosition: new THREE.Vector3(positionProject.x, positionProject.y, positionProject.z),
+    newCameraRotation: new THREE.Euler(rotationProject.x, rotationProject.y, rotationProject.z),
     toZoomFeature: 'projects',
   });
 
@@ -76,8 +63,8 @@ function Menu() {
   });
 
   const { toggleCameraZoom: ZoomWorks } = useZoom({
-    newCameraPosition: new THREE.Vector3(-0.545, 1.12, 2.11),
-    newCameraRotation: new THREE.Euler(-0.19, -0.02, 0),
+    newCameraPosition: new THREE.Vector3(positionWork.x, positionWork.y, positionWork.z),
+    newCameraRotation: new THREE.Euler(rotationWork.x, rotationWork.y, rotationWork.z),
     toZoomFeature: 'works',
   });
 

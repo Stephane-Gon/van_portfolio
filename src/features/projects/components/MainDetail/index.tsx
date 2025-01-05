@@ -12,7 +12,7 @@ const MainDetail = ({ project }: Props) => {
   const _renderText = (title: string, text?: string | null) => {
     return text ? (
       <div className='flex gap-6'>
-        <h4 className='text-base font-bold text-text opacity-50'>{title}</h4>
+        <h4 className='text-md font-bold text-text opacity-50'>{title}</h4>
         <p className='text-text'>{text}</p>
       </div>
     ) : null;
@@ -21,7 +21,7 @@ const MainDetail = ({ project }: Props) => {
   const _renderSideLink = (title: string, link?: string | null) => {
     return link ? (
       <div className='flex flex-col gap-1'>
-        <p className='text-text opacity-50'>{title}</p>
+        <p className='text-md text-text opacity-50'>{title}</p>
         <a className='text-text' href={link} target='_blank' rel='noreferrer'>
           {link}
         </a>
@@ -32,7 +32,7 @@ const MainDetail = ({ project }: Props) => {
   const _renderSideDetail = (title: string, detail?: string | null) => {
     return detail ? (
       <div className='flex flex-col gap-1'>
-        <p className='text-text opacity-50'>{title}</p>
+        <p className='text-md text-text opacity-50'>{title}</p>
         <p className='text-text'>{detail}</p>
       </div>
     ) : null;
@@ -41,7 +41,7 @@ const MainDetail = ({ project }: Props) => {
   const _renderServicesUsed = () => {
     return project?.skills ? (
       <div className='flex flex-col gap-1'>
-        <p className='text-text opacity-50'>SERVICES DONE</p>
+        <p className='text-md text-text opacity-50'>SERVICES DONE</p>
         <div className='flex flex-col'>
           {project?.skills.map(skill => (
             <p className='text-text' key={`project-skill-${skill}`}>
@@ -56,12 +56,14 @@ const MainDetail = ({ project }: Props) => {
   const _renderToolsUsed = () => {
     return project?.tools ? (
       <div className='flex flex-col gap-1'>
-        <p className='text-text opacity-50'>TOOLS USED</p>
-        <div className='flex flex-col'>
+        <p className='text-md text-text opacity-50'>TOOLS USED</p>
+        <div className='flex flex-wrap items-center gap-2'>
           {project?.tools.map(tool => (
-            <p className='text-text' key={`project-skill-${tool.id}`}>
+            <span
+              key={`project-skill-${tool.id}`}
+              className={`rounded-md border border-l-[5px] border-primary bg-accent/90 p-2 text-sm font-semibold text-text shadow-md`}>
               {tool.tools.name}
-            </p>
+            </span>
           ))}
         </div>
       </div>
@@ -97,10 +99,10 @@ const MainDetail = ({ project }: Props) => {
   const images3 = project?.images ? project.images.slice(2 * chunkSize) : [];
 
   return (
-    <div className='no-scrollbar mb-5 flex h-full w-full flex-col overflow-y-auto lg:p-5'>
+    <div className='no-scrollbar mb-5 flex h-full w-full flex-col overflow-y-auto p-2 lg:p-5'>
       {_renderMainImage()}
-      <div className='relative flex w-full items-start gap-5 pt-6'>
-        <div className='no-scrollbar flex w-2/3 flex-col gap-8 overflow-y-auto'>
+      <div className='relative flex w-full flex-col items-start gap-5 pt-6 lg:flex-row'>
+        <div className='no-scrollbar flex w-full flex-col gap-8 overflow-y-auto lg:w-2/3'>
           {_renderText('DESCRIPTION', project?.description)}
           {_renderImages(images1)}
           {_renderText('CHALLENGES', project?.challenges)}
@@ -108,7 +110,7 @@ const MainDetail = ({ project }: Props) => {
           {_renderText('LEARNED', project?.learned)}
           {_renderImages(images3)}
         </div>
-        <div className='sticky top-6 flex w-1/3 flex-col gap-6'>
+        <div className='sticky top-6 flex w-full flex-col gap-6 lg:w-1/3'>
           {_renderSideLink('URL', project?.live_link)}
           {_renderSideLink('REPOSITORY', project?.repository)}
           {_renderSideDetail('FINISHED DATE', project?.finished_at)}

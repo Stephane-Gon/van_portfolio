@@ -222,51 +222,6 @@ p, h1, h2, h3, h4, h5, h6 {
     }
   }
 
-  .projects_wrapper {
-    display: none;
-    opacity: 0;
-
-    &.visible {
-      display: flex;
-      animation: showElement 1s forwards;
-    }
-  }
-  
-  .projects_container {
-    width: 1085px;
-    height: 630px;
-
-    @media (min-width: 1300px) {
-      width: 1160px;
-      height: 670px;
-    }
-
-    @media (min-width: 1400px) {
-      width: 1360px;
-      height: 800px;
-    }
-
-    @media (min-width: 1500px) {
-      width: 1305px;
-      height: 760px;
-    }
-
-    @media (min-width: 1600px) {
-      width: 1360px;
-      height: 790px;
-    }
-
-    @media (min-width: 1900px) {
-      width: 1630px;
-      height: 940px;
-    }
-
-    @media (min-width: 2500px) {
-      width: 2180px;
-      height: 1290px;
-    }
-  }
-
   .ripple {
     position: absolute;
     z-index: 10;

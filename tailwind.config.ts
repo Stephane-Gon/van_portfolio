@@ -67,6 +67,9 @@ const config: Config = {
         strongerInner: 'inset 3px 3px 10px 3px rgba(0, 0, 0, 0.5)',
         levelbar: '1px 3px 4px rgba(0, 0, 0, 0.2)',
       },
+      fontSize: {
+        md: '0.9rem',
+      },
     },
   },
   plugins: [containerPlugin],

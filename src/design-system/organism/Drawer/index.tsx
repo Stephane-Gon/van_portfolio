@@ -41,7 +41,7 @@ const Drawer = ({ isOpen, children }: Props) => {
   }, [isOpen]);
 
   return (
-    <div ref={drawerRef} className={`fixed inset-0 m-auto hidden h-14 w-14 bg-accent p-4`}>
+    <div ref={drawerRef} className={`fixed inset-0 m-auto hidden h-14 w-14 bg-accent p-2 lg:p-4`}>
       {children}
     </div>
   );

@@ -3,14 +3,14 @@
 import gsap from 'gsap';
 import { useEffect, useRef } from 'react';
 import { ChevronLeft } from '@/design-system/icons';
-import { SupabaseProject } from '../../types';
 
-type Props = {
+type Props<T> = {
+  defaultTile: string;
   title?: string;
-  setSelectedProject: (project: SupabaseProject | null) => void;
+  setSelectedItem: (project: T | null) => void;
 };
 
-const MainTitle = ({ title, setSelectedProject }: Props) => {
+const MainTitle = <T extends Record<string, any>>({ title, defaultTile, setSelectedItem }: Props<T>) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -31,14 +31,14 @@ const MainTitle = ({ title, setSelectedProject }: Props) => {
   return (
     <div className='flex h-[72px] overflow-hidden'>
       <div ref={ref} className='w-full p-5'>
-        <h1 className='text-2xl text-text'>PROJECTS:</h1>
+        <h1 className='text-2xl text-text'>{defaultTile}</h1>
         <div className='mt-[15px] flex items-center justify-start'>
           <ChevronLeft
             cursor='pointer'
             width={34}
             height={34}
             className='ml-[-8px] fill-text pb-[4px]'
-            onClick={() => setSelectedProject(null)}
+            onClick={() => setSelectedItem(null)}
           />
           <h1 className='text-2xl text-text'>{title ?? 'DETAIL'}</h1>
         </div>

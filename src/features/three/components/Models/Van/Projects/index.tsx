@@ -6,7 +6,7 @@ import { useRef } from 'react';
 import { useZoom } from '@/features/three/hooks/useZoom';
 import { useThreeStore } from '@/features/three/store/useThree';
 import useViewportSize from '@/hooks/useViewport';
-import { projectsZoomData } from '@/features/three/data/zoom';
+import { useZoomValues } from '@/features/three/hooks/useZoomValues';
 
 const Point = dynamic(() => import('@/features/three/components/Html/Point'), { ssr: false });
 
@@ -17,23 +17,11 @@ export default function Projects() {
   const menuHoverLink = useThreeStore(state => state.menuHoverLink);
   const isZoomed = zoomedFeature === 'projects';
   const { width } = useViewportSize();
-
-  let selector: keyof typeof projectsZoomData = 'default';
-
-  if (width < 600) {
-    selector = 600;
-  } else if (width < 1000) {
-    selector = 1000;
-  } else if (width < 2500) {
-    selector = 2500;
-  }
-
-  const position = projectsZoomData[selector].position;
-  const rotation = projectsZoomData[selector].rotation;
+  const { positionProject, rotationProject } = useZoomValues();
 
   const { toggleCameraZoom } = useZoom({
-    newCameraPosition: new THREE.Vector3(position.x, position.y, position.z),
-    newCameraRotation: new THREE.Euler(rotation.x, rotation.y, rotation.z),
+    newCameraPosition: new THREE.Vector3(positionProject.x, positionProject.y, positionProject.z),
+    newCameraRotation: new THREE.Euler(rotationProject.x, rotationProject.y, rotationProject.z),
     toZoomFeature: 'projects',
   });
 

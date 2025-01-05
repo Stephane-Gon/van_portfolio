@@ -6,7 +6,7 @@ import Drawer from '@/design-system/organism/Drawer';
 import MainHeader from '@/design-system/organism/MainHeader';
 import MainDetail from '../MainDetail';
 import MainList from '../MainList';
-import MainTitle from '../MainTitle';
+import MainTitle from '@/design-system/molecules/MainTitle';
 import { ListError } from '@/design-system/atoms';
 import { useThreeStore } from '@/features/three/store/useThree';
 import { getProjectsList } from '@/features/projects/actions/getProjectsList';
@@ -40,17 +40,21 @@ const MainSection = () => {
 
   if (error) {
     return (
-      <div className='flex h-full w-full flex-col rounded-md bg-threeBg'>
-        <ListError title='Error while fetching the projects!' text={error} />
-      </div>
+      <Drawer isOpen={zoomedFeature === 'projects'}>
+        <div className='flex h-full w-full flex-col rounded-md bg-threeBg'>
+          <ListError title='Error while fetching the projects!' text={error} />
+        </div>
+      </Drawer>
     );
   }
 
   if (projects.length === 0) {
     return (
-      <div className='flex h-full w-full flex-col rounded-md bg-threeBg'>
-        <ListError title='No projects available!' text='Add a new project by pressing the button.' />
-      </div>
+      <Drawer isOpen={zoomedFeature === 'projects'}>
+        <div className='flex h-full w-full flex-col rounded-md bg-threeBg'>
+          <ListError title='No projects available!' text='Add a new project by pressing the button.' />
+        </div>
+      </Drawer>
     );
   }
 
@@ -83,7 +87,11 @@ const MainSection = () => {
     <Drawer isOpen={zoomedFeature === 'projects'}>
       <div className='flex h-full w-full flex-col rounded-md bg-threeBgGradient'>
         <MainHeader />
-        <MainTitle title={selectedProject?.title} setSelectedProject={animateProjectChange} />
+        <MainTitle<SupabaseProject>
+          title={selectedProject?.title}
+          defaultTile='PROJECTS:'
+          setSelectedItem={animateProjectChange}
+        />
         <div className='no-scrollbar relative mb-5 h-full w-full overflow-auto'>
           <div ref={listRef} className='h-full w-full'>
             <MainList items={projects} setSelectedProject={animateProjectChange} />
