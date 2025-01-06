@@ -19,13 +19,13 @@ const Scene = () => {
   const debugMode = useThreeStore(state => state.debugMode);
 
   // Const { px, py, pz, rx, ry, rz } = useControls('camera', {
-  //   Px: { value: -0.12, min: -10, max: 10, step: 0.1 },
-  //   Py: { value: 1.26, min: -10, max: 10, step: 0.1 },
-  //   Pz: { value: 2.2, min: -10, max: 10, step: 0.1 },
+  //   Px: { value: 1.04, min: -10, max: 10, step: 0.1 },
+  //   Py: { value: 1.4, min: -10, max: 10, step: 0.1 },
+  //   Pz: { value: 2.07, min: -10, max: 10, step: 0.1 },
 
-  //   Rx: { value: -0.2, min: -10, max: 10, step: 0.1 },
-  //   Ry: { value: -0.02, min: -10, max: 10, step: 0.1 },
-  //   Rz: { value: -1.58, min: -10, max: 10, step: 0.1 },
+  //   Rx: { value: 0.08, min: -10, max: 10, step: 0.1 },
+  //   Ry: { value: 0.49, min: -10, max: 10, step: 0.1 },
+  //   Rz: { value: -0.04, min: -10, max: 10, step: 0.1 },
   // })
 
   // Const cameraPosition = new THREE.Vector3(px, py, pz);

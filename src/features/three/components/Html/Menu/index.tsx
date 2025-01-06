@@ -19,7 +19,7 @@ function Menu() {
   const menuRef = useRef<HTMLDivElement>(null);
   const isMenuOpen = useThreeStore(state => state.isMenuOpen);
   const setIsMenuOpen = useThreeStore(state => state.setIsMenuOpen);
-  const { positionProject, positionWork, rotationProject, rotationWork } = useZoomValues();
+  const { positionProject, positionWork, rotationProject, rotationWork, positionTool, rotationTool } = useZoomValues();
 
   useEffect(() => {
     const menuElement = menuRef.current;
@@ -57,8 +57,8 @@ function Menu() {
   });
 
   const { toggleCameraZoom: ZoomTools } = useZoom({
-    newCameraPosition: new THREE.Vector3(0.7, 1.42, 1.8),
-    newCameraRotation: new THREE.Euler(0.08, 0.49, -0.04),
+    newCameraPosition: new THREE.Vector3(positionTool.x, positionTool.y, positionTool.z),
+    newCameraRotation: new THREE.Euler(rotationTool.x, rotationTool.y, rotationTool.z),
     toZoomFeature: 'tools',
   });
 

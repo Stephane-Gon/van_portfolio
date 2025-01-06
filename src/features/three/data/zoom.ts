@@ -125,3 +125,66 @@ export const worksZoomData: ZoomData = {
     },
   },
 };
+
+export const toolsZoomData: ZoomData = {
+  default: {
+    position: {
+      x: 0.7,
+      y: 1.42,
+      z: 1.8,
+    },
+    rotation: {
+      x: 0.08,
+      y: 0.49,
+      z: -0.04,
+    },
+  },
+  440: {
+    position: {
+      x: 1.04,
+      y: 1.4,
+      z: 2.07,
+    },
+    rotation: {
+      x: 0.08,
+      y: 0.49,
+      z: -0.04,
+    },
+  },
+  500: {
+    position: {
+      x: 0.73,
+      y: 1.4,
+      z: 2.07,
+    },
+    rotation: {
+      x: 0.08,
+      y: 0.49,
+      z: -0.04,
+    },
+  },
+  650: {
+    position: {
+      x: 0.7,
+      y: 1.02,
+      z: 1.95,
+    },
+    rotation: {
+      x: 0.08,
+      y: 0.49,
+      z: -0.04,
+    },
+  },
+  1000: {
+    position: {
+      x: 0.7,
+      y: 1.22,
+      z: 1.85,
+    },
+    rotation: {
+      x: 0.08,
+      y: 0.49,
+      z: -0.04,
+    },
+  },
+};

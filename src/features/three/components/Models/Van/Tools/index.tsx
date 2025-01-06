@@ -6,6 +6,7 @@ import { useZoom } from '@/features/three/hooks/useZoom';
 import { useRef } from 'react';
 import { useThreeStore } from '@/features/three/store/useThree';
 import useViewportSize from '@/hooks/useViewport';
+import { useZoomValues } from '@/features/three/hooks/useZoomValues';
 
 const Point = dynamic(() => import('@/features/three/components/Html/Point'), { ssr: false });
 
@@ -16,10 +17,11 @@ export default function Tools() {
   const menuHoverLink = useThreeStore(state => state.menuHoverLink);
   const isZoomed = zoomedFeature === 'projects';
   const { width } = useViewportSize();
+  const { positionTool, rotationTool } = useZoomValues();
 
   const { toggleCameraZoom } = useZoom({
-    newCameraPosition: new THREE.Vector3(0.7, 1.42, 1.8),
-    newCameraRotation: new THREE.Euler(0.08, 0.49, -0.04),
+    newCameraPosition: new THREE.Vector3(positionTool.x, positionTool.y, positionTool.z),
+    newCameraRotation: new THREE.Euler(rotationTool.x, rotationTool.y, rotationTool.z),
     toZoomFeature: 'tools',
   });
 

@@ -23,8 +23,6 @@ const MainSection = () => {
   const [selectedWork, setSelectedWork] = useState<SupabaseWork | null>(null);
   const zoomedFeature = useThreeStore(state => state.zoomedFeature);
 
-  console.log('🚀 ~ MainSection ~ works:', works);
-
   useEffect(() => {
     const fetchWorks = async () => {
       const result = await getWorksList();
