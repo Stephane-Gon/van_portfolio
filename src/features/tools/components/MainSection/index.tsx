@@ -76,7 +76,7 @@ const MainSection = () => {
       <div className='flex h-full w-full flex-col rounded-md bg-threeBgGradient'>
         <MainHeader />
         <MainTitle<ToolT> defaultTile='TOOLS:' setSelectedItem={() => {}} />
-        <div className='no-scrollbar grid h-full w-full grid-cols-5 items-center gap-4 overflow-auto p-5'>
+        <div className='no-scrollbar grid h-full w-full grid-cols-1 items-center gap-4 overflow-auto p-5 1sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5'>
           {_renderTools()}
         </div>
       </div>
