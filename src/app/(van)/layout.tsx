@@ -6,8 +6,8 @@ export const metadata = {
     title: 'Stéphane Ribeiro - Portfolio | Van Experience',
     description:
       'Portfolio of Stéphane Ribeiro, showcasing projects in web development. Expertise in react, next, three.js, css and more.',
-    Images: [{ url: 'https://van-portfolio-flqui9wnh-stephanegons-projects.vercel.app/og_van.png' }],
-    Url: 'https://van-portfolio-flqui9wnh-stephanegons-projects.vercel.app/',
+    Images: [{ url: 'https://van-portfolio-pearl.vercel.app/.vercel.app/og_van.png' }],
+    Url: 'https://van-portfolio-pearl.vercel.app/.vercel.app/',
     type: 'website',
   },
   twitter: {
@@ -15,7 +15,7 @@ export const metadata = {
     title: 'Stéphane Ribeiro - Portfolio | Van Experience',
     description:
       'Portfolio of Stéphane Ribeiro, showcasing projects in web development. Expertise in react, next, three.js, css and more.',
-    Images: ['https://van-portfolio-flqui9wnh-stephanegons-projects.vercel.app/og_van.png'],
+    Images: ['https://van-portfolio-pearl.vercel.app/.vercel.app/og_van.png'],
   },
   robots: 'index, follow',
   keywords: ['portfolio', 'three.js', 'web development'],
