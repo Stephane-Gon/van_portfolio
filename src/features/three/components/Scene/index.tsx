@@ -13,6 +13,7 @@ import { useThreeStore } from '../../store/useThree';
 
 const ProjectsMainSection = dynamic(() => import('@/features/projects/components/MainSection'), { ssr: false });
 const WorksMainSection = dynamic(() => import('@/features/works/components/MainSection'), { ssr: false });
+const ToolsMainSection = dynamic(() => import('@/features/tools/components/MainSection'), { ssr: false });
 
 const Scene = () => {
   const setInitialCamera = useThreeStore(state => state.setInitialCamera);
@@ -56,6 +57,7 @@ const Scene = () => {
       <MenuToggler mainMenu className='text-text' />
       <ProjectsMainSection />
       <WorksMainSection />
+      <ToolsMainSection />
     </StrictMode>
   );
 };
