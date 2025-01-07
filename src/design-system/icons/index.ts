@@ -20,6 +20,7 @@ import Callendar from './Callendar';
 import VanLoader from './VanLoader';
 import ArrowRight from './ArrowRight';
 import Mail from './Mail';
+import Resume from './Resume';
 
 export {
   // Exports
@@ -44,4 +45,5 @@ export {
   ChevronDown,
   ArrowRight,
   VanLoader,
+  Resume,
 };

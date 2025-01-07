@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useThreeStore } from '@/features/three/store/useThree';
 import MenuToggler from '../MenuToggler';
-import { Github, Linkedin, Mail } from '@/design-system/icons';
+import { Github, Linkedin, Mail, Resume } from '@/design-system/icons';
 import { useZoom } from '@/features/three/hooks/useZoom';
 import { CopyToClipboard } from '@/design-system/molecules';
 import { useZoomValues } from '@/features/three/hooks/useZoomValues';
@@ -134,6 +134,9 @@ function Menu() {
             <CopyToClipboard text='stephane_work@outlook.com'>
               <Mail width={28} height={28} fill='#f5f5f5' />
             </CopyToClipboard>
+            <a href='resume.pdf' download='MyExampleDoc' target='_blank'>
+              <Resume fill='#f5f5f5' cursor='pointer' width={22} height={22} />
+            </a>
           </div>
         </div>
       </div>

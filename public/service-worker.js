@@ -2,7 +2,6 @@
  * DOCS: https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers
  */
 
-// TODO - Add more resources to cache
 const cacheName = 'v1';
 const cacheAssets = ['models/the_sun.glb', 'models/the_moon.glb', 'models/van.glb'];
 
