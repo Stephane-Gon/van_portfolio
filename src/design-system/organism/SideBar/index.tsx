@@ -3,13 +3,14 @@
 import { useState } from 'react';
 import Link from 'next/link';
 // Hooks
-import { useAppStore } from '@/store/useApp';
+import { useAppStore } from '@/features/app/store';
 // Components
 import RouteLink from '@/design-system/molecules/RouteLink';
 // Icons
 import { ChevronRight, Dashboard, Linkedin, Github } from '@/design-system/icons';
 // Utils
-import { Links, LinkT } from '@/utils/app';
+import { LinkT } from '@/features/app/types';
+import { Links } from '@/features/app/utils';
 
 const Sidebar = () => {
   const activeLink = useAppStore(state => state.activeLink);
@@ -25,10 +26,10 @@ const Sidebar = () => {
   return (
     <aside
       className={` 
-        relative hidden h-[calc(100vh-70px)] @container/sidebar ${isLockedNarrow && isNarrow ? 'w-20' : 'w-72'} 
-        border border-glassBorder/30 bg-glassSidebar/20  shadow-glass duration-300 xl:block
+        sticky left-0 top-[70px] hidden h-[calc(100vh-70px)] @container/sidebar ${isLockedNarrow && isNarrow ? 'w-20' : 'w-72'} 
+        z-20 border border-glassBorder/30  bg-glassSidebar/20 shadow-glass duration-300 xl:block
       `}>
-      <span className='absolute -right-3.5 -top-3.5 cursor-pointer rounded-full bg-tertiary transition-transform duration-100 ease-linear hover:scale-105  '>
+      <span className='absolute -right-3.5 -top-3.5 cursor-pointer rounded-full bg-tertiary transition-transform duration-100 ease-linear hover:scale-105'>
         <ChevronRight
           className={`${!isLockedNarrow && 'rotate-180'}`}
           onClick={() => setIsLockedNarrow(!isLockedNarrow)}

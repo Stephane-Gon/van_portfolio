@@ -1,14 +1,15 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import { gsap, Power1 } from 'gsap';
-import { Themes } from '@/utils/app';
+import gsap, { Power1 } from 'gsap';
+import { Themes } from '@/features/app/types';
 
 type ThemeTogglerProps = {
   toggleTheme: (theme: Themes) => void;
+  className?: string;
 };
 
-const ThemeToggler = ({ toggleTheme }: ThemeTogglerProps) => {
+const ThemeToggler = ({ toggleTheme, className }: ThemeTogglerProps) => {
   const day = useRef<HTMLDivElement>(null);
   const night = useRef<HTMLDivElement>(null);
 
@@ -56,7 +57,7 @@ const ThemeToggler = ({ toggleTheme }: ThemeTogglerProps) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className=' m-0 flex items-center justify-center overflow-hidden'>
+    <div className={`m-0 flex items-center justify-center overflow-hidden ${className}`}>
       <div
         id='day'
         ref={day}

@@ -9,11 +9,23 @@ import Jobs from './Jobs';
 import Texts from './Texts';
 import Github from './Github';
 import Linkedin from './Linkedin';
-import Menu  from './Menu';
+import Menu from './Menu';
+import Add from './Add';
+import Upload from './Upload';
+import Close from './Close';
+import Check from './Check';
+import ChevronUp from './ChevronUp';
+import ChevronDown from './ChevronDown';
+import Callendar from './Callendar';
+import VanLoader from './VanLoader';
+import ArrowRight from './ArrowRight';
+import Mail from './Mail';
 
 export {
   // Exports
   ChevronLeft,
+  Mail,
+  Callendar,
   ChevronRight,
   Van,
   Tools,
@@ -23,5 +35,13 @@ export {
   Texts,
   Github,
   Linkedin,
-  Menu
+  Menu,
+  Add,
+  Upload,
+  Close,
+  Check,
+  ChevronUp,
+  ChevronDown,
+  ArrowRight,
+  VanLoader,
 };

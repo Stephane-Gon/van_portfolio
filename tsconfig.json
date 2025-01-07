@@ -11,6 +11,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "noUnusedLocals": false,
     "jsx": "preserve",
     "incremental": true,
     "plugins": [
@@ -27,9 +28,10 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "next.config.mjs",
+    "next.config.js",
     "lint-staged.config.mjs",
-    "commitlint.config.mjs"
+    "commitlint.config.mjs",
+    "public/service-worker.js"
   ],
   "exclude": ["node_modules"]
 }

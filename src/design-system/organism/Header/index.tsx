@@ -1,12 +1,14 @@
 'use client';
 
-import { useSession, signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import dynamic from 'next/dynamic';
 // Icons & Components
 import { Menu } from '@/design-system/icons';
 import { VanLogo, ThemeToggler } from '@/design-system/molecules';
-import { Button } from '@/design-system/atoms';
-// Hokks
-import { useAppStore } from '@/store/useApp';
+// Hooks
+import { useAppStore } from '@/features/app/store';
+
+const Button = dynamic(() => import('@/design-system/atoms/Button'));
 
 const Header = () => {
   const { status } = useSession();
@@ -15,12 +17,18 @@ const Header = () => {
 
   const _renderLogOutBtn = () => {
     if (status === 'authenticated') {
-      return <Button id='logout-btn' onClick={() => signOut()} label='Log Out' />;
+      return (
+        <Button
+          id='sidebar-logout-btn'
+          onClick={async () => await import('next-auth/react').then(({ signOut }) => signOut())}
+          label='Log Out'
+        />
+      );
     }
   };
 
   return (
-    <header className='h-[70px] w-full border-b-4 border-secondary'>
+    <header className='sticky top-0 z-10 h-[70px] w-full border-b-4 border-secondary'>
       <div className='flex h-full items-center justify-between px-5 py-3'>
         <span className='block xl:hidden'>
           <Menu width='1.5rem' height='1.5rem' fill='#EA9E8D' cursor='pointer' onClick={() => toggleMobileMenu()} />
