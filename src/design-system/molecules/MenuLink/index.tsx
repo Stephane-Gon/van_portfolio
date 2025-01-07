@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { motion, useAnimate } from 'framer-motion';
 import { useThreeStore } from '@/features/three/store/useThree';
