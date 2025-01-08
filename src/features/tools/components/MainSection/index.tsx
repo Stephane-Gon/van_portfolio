@@ -19,8 +19,6 @@ const MainSection = () => {
   const zoomedFeature = useThreeStore(state => state.zoomedFeature);
   const theme = useAppStore(state => state.theme);
 
-  console.log('🚀 ~ MainSection ~ tools:', tools);
-
   useEffect(() => {
     const FetchTools = async () => {
       const result = await getToolsList();
