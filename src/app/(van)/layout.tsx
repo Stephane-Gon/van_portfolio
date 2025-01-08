@@ -1,5 +1,8 @@
 export const metadata = {
   title: 'Stéphane Ribeiro - Portfolio | Van Experience',
+  icons: {
+    icon: '/van_100.png',
+  },
   description:
     'Portfolio of Stéphane Ribeiro, showcasing projects in web development. Expertise in react, next, three.js, css and more.',
   openGraph: {
