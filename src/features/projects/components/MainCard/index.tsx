@@ -11,8 +11,6 @@ type Props = {
   setSelectedProject: (project: SupabaseProject) => void;
 };
 
-// TODO - Bug no word slider, quando abro um detail e depois volto para lista
-
 const MainCard = ({ project, setSelectedProject }: Props) => {
   const theme = useAppStore(state => state.theme);
 

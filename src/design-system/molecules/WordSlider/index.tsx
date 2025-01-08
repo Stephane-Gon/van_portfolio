@@ -13,6 +13,9 @@ const WordSlider = ({ words }: WordSliderProps) => {
   useEffect(() => {
     if (!sliderRef.current) return;
 
+    // Reset to initial position
+    gsap.set(sliderRef.current, { y: 0 });
+
     const wordHeight = 30; // Height of each word in pixels
     const tl = gsap.timeline({ repeat: -1 });
 
