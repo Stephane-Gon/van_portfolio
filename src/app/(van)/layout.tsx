@@ -27,3 +27,6 @@ export const metadata = {
 export default function VanLayout({ children }: { children: React.ReactNode }) {
   return <div className='h-screen'>{children}</div>;
 }
+
+// TODO - Performance improv
+// TODO - Rever

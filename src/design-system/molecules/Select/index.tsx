@@ -15,7 +15,6 @@ interface SelectInputProps {
   value: SelectOption | SelectOption[] | undefined;
 }
 
-// TODO - Fazer isto só com html e css
 const SelectInput = ({
   label = '',
   valid = true,

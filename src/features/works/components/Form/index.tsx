@@ -94,7 +94,7 @@ const WorkForm = ({ isEdit, tools, projects }: WorkFormProps) => {
           <form
             action={formAction}
             onSubmit={evt => formSubmitAction(evt)}
-            className='no-scrollbar mt-5 flex h-[62vh] w-full flex-col items-end gap-10 overflow-y-auto px-2 pt-2 lg:mt-0 lg:w-[70%]'>
+            className='no-scrollbar pt- mt-5 flex h-[62vh] w-full flex-col items-end gap-10 overflow-y-auto px-2 pb-8 lg:mt-0 lg:w-[70%]'>
             <InputText
               label='Company Name'
               placeholder='Type the company name'
