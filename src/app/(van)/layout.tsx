@@ -35,6 +35,3 @@ export const metadata: Metadata = {
 export default function VanLayout({ children }: { children: React.ReactNode }) {
   return <div className='h-screen'>{children}</div>;
 }
-
-// TODO - Tratar da imagem do open graph
-// TODO - Rever
