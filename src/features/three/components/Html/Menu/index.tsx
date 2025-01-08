@@ -101,7 +101,6 @@ function Menu() {
               ZoomTools(e);
             }}
           />
-          <MenuLink text='About me' indexOffeset={18} hoveredLink='about' />
         </>
       )
     );
