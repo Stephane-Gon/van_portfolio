@@ -15,6 +15,7 @@ export const metadata: Metadata = {
       {
         url: 'https://van-portfolio-pearl.vercel.app/.vercel.app/og_van.png',
         secureUrl: 'https://van-portfolio-pearl.vercel.app/.vercel.app/og_van.png',
+        type: 'image/png',
       },
     ],
     url: 'https://van-portfolio-pearl.vercel.app/.vercel.app/',
