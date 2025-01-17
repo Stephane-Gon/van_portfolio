@@ -40,7 +40,11 @@ const MainTitle = <T extends Record<string, any>>({ title, defaultTile, setSelec
             className='ml-[-8px] fill-text pb-[4px]'
             onClick={() => setSelectedItem(null)}
           />
-          <h1 className='text-2xl text-text'>{title ?? 'DETAIL'}</h1>
+          <h1
+            className={`text-2xl text-text ${title ? 'cursor-pointer' : ''}`}
+            onClick={() => title && setSelectedItem(null)}>
+            {title ?? 'DETAIL'}
+          </h1>
         </div>
       </div>
     </div>

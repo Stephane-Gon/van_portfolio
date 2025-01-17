@@ -15,7 +15,9 @@ const MainCard = ({ project, setSelectedProject }: Props) => {
   const theme = useAppStore(state => state.theme);
 
   return (
-    <div className='z-10 h-96 cursor-pointer rounded-sm bg-text/20 duration-200 hover:scale-105 2xl:h-64'>
+    <div
+      className='z-10 h-96 cursor-pointer rounded-sm bg-text/20 duration-200 hover:scale-105 2xl:h-64'
+      onClick={() => setSelectedProject(project)}>
       <div className='flex h-full w-full flex-wrap items-center gap-2 p-2 2xl:flex-nowrap'>
         <div className='relative h-2/3 w-full 2xl:h-full  2xl:w-2/3'>
           <Image
